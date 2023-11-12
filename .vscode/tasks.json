@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "src.cosimlex", "-f"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "label": "convert",
+      "group": {
+        "kind": "none"
+      }
+    },
+    {
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "src.subtask1", "-f"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "label": "subtask1",
+      "group": {
+        "kind": "none"
+      }
+    }
+  ]
+}

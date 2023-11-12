@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+
+# Data
+data/cosimlex_dataset/*
+data/evaluation_kit_final/*
+data/practice_kit_final/*
+!data/cosimlex_dataset/*.csv
+!data/evaluation_kit_final/data
+!data/practice_kit_final/data
