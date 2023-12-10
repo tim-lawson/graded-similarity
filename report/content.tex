@@ -1,0 +1,30 @@
+\section{Introduction}
+
+In his \emph{Foundations of Arithmetic}, Frege promises ``never to ask for the meaning
+of a word in isolation, but only in the context of a proposition''
+\parencite[xvii]{Frege1980}.
+This `context principle' is intuitive: words are frequently polysemous, or assume
+different connotations and emphasis within different expressions.
+
+History of contextualising word representations: word-sense disambiguation,
+\textcite{Kintsch2001}, relationship to composition operations
+\parencite{Mitchell2008}.
+The same contextualisation operations can be applied to (static) word embeddings, as
+opposed to their count-based predecessors.
+But these efforts have largely been overtaken by models that naturally produce
+contextual representations, i.e., that are functions of the entire input sequence
+rather than only individual tokens.
+When did this start?
+Recurrent neural networks, sequence-to-sequence models, transformers, etc.
+
+Despite the popularity of these models, there are relatively few
+like-for-like comparisons of them with respect to simpler operations on static word
+embeddings.
+CoSimLex presents such an opportunity: the task is to produce estimates of the
+different similarities of the same pair of words in different contexts.
+Therefore the present paper seeks to quantify the performance benefit of using the
+contextual representations of a transformer model as opposed to the static
+representations of its input embeddings with simple contextualisation operations,
+inspired by e.g. Kintsch and Mitchell2008.
+
+Background of CoSimLex, what specifically the task is.

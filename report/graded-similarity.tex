@@ -1,0 +1,96 @@
+\documentclass[10pt,twocolumn]{extarticle}
+
+% Page layout
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  margin={0.75in},
+}
+\usepackage{setspace}
+% \linespread{1.25}
+
+% Typography
+% https://ctan.math.washington.edu/tex-archive/fonts/etbb/doc/ETbb-doc.pdf
+\usepackage[p]{ETbb}
+\usepackage[scaled=.95,type1]{cabin}
+\usepackage[varqu,varl]{zi4}
+\usepackage[T1]{fontenc}
+\usepackage[libertine,vvarbb]{newtxmath}
+\usepackage{microtype}
+\frenchspacing
+
+% Bibliography
+\usepackage[
+  % style=authoryear,
+  style=authoryear-ibid,
+  maxcitenames=2,
+  doi=false,
+  isbn=false,
+  % Omit URL except for @online
+  url=false,
+]{biblatex}
+
+\addbibresource{~/library.bib}
+
+% Map @misc to @online
+\DeclareSourcemap{
+  \maps[datatype=bibtex, overwrite=true]{
+    \map{
+      \step[typesource=misc, typetarget=online]
+    }
+  }
+}
+
+\AtEveryBibitem{%
+  \clearlist{language}%
+  \clearfield{month}%
+  \clearfield{note}%
+  \clearfield{eprint}%
+  % Omit "Visited on <date>"
+  \iffieldundef{urlyear}
+    {}
+    {\clearfield{urlyear}}
+}
+
+% Use given name in next cite command
+\newrobustcmd*{\nextcitefullname}{%
+  \AtNextCite{%
+    \DeclareNameAlias{labelname}{given-family}%
+    \togglefalse{abx@bool@giveninits}}}
+
+% Cite author's full name
+\newcommand\citeauthorfull{%
+  \nextcitefullname
+  \citeauthor}
+
+% Quotations
+\usepackage{csquotes}
+
+% Code snippets
+\usepackage{listings}
+
+% Hyperlinks
+\usepackage{hyperref}
+
+% Input/include relative paths
+\usepackage{import}
+
+% Lists
+\usepackage{enumitem}
+
+% Fix references
+\usepackage{bookmark}
+
+\begin{document}
+
+\title{Graded Similarity in Context}
+\author{Tim Lawson}
+\date{\today}
+
+\maketitle
+
+\import*{.}{content.tex}
+
+\printbibliography
+
+\end{document}
