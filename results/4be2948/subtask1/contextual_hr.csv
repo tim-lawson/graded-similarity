@@ -1,0 +1,5 @@
+score,time,similarity_measure_name,contextual_embedding_name,model_name
+0.4454510618665306,32.651120415997866,cosine,bert,bert-base-multilingual-cased
+0.2386935478351564,103.74868720799714,cosine,bert,bert-large-cased
+0.23776710318590466,99.35691949999455,cosine,bert,bert-large-cased-whole-word-masking
+0.19611680912076557,39.635266083001625,cosine,bert,bert-base-cased
