@@ -3,27 +3,19 @@
 import os
 from pprint import pprint
 from time import perf_counter
-from typing import Any, Callable, Sequence
+from typing import Any, Callable
 
 from pandas import DataFrame
 
 from .data import languages, load_x, load_y
 from .git import get_git_hash
-from .graded_similarity import (
-    BaseGradedSimilarity,
-    ContextualGradedSimilarity,
-    ContextualGradedSimilarityParams,
-    StaticGradedSimilarity,
-    StaticGradedSimilarityParams,
-)
-from .params import contextual_params, static_params
+from .models import ContextualBertModel, StaticBertModel
+from .params import model_params_list
 
 
 def run(
-    graded_similarity: Callable[[dict[str, Any]], BaseGradedSimilarity],
-    params_list: Sequence[
-        StaticGradedSimilarityParams | ContextualGradedSimilarityParams
-    ],
+    model: Callable[[dict[str, Any]], StaticBertModel],
+    params_list: list[dict[str, Any]],
     results_dir: str,
     results_name: str,
 ):
@@ -41,7 +33,7 @@ def run(
             pprint(params)
 
             start = perf_counter()
-            score = graded_similarity(dict(params)).score(x, y)
+            score = model(dict(params)).score(x, y)
             time = perf_counter() - start
 
             print(f"score: {score:.3f}")
@@ -69,15 +61,15 @@ if __name__ == "__main__":
     os.makedirs(results_hash_dir, exist_ok=True)
 
     run(
-        lambda params: StaticGradedSimilarity(**params),
-        static_params,
+        lambda params: StaticBertModel(**params),
+        model_params_list,
         results_hash_dir,
         "static",
     )
 
     run(
-        lambda params: ContextualGradedSimilarity(**params),
-        contextual_params,
+        lambda params: ContextualBertModel(**params),
+        model_params_list,
         results_hash_dir,
         "contextual",
     )
