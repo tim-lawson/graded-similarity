@@ -1,4 +1,6 @@
-from typing import Any
+"""Static- and contextual-embedding BERT models."""
+
+from typing import Any, Literal
 
 from numpy import apply_along_axis, array, dtype, float_, ndarray, str_
 from scipy.spatial.distance import correlation, cosine
@@ -23,10 +25,12 @@ class BaseModel(BaseEstimator):
 
     def __init__(
         self,
+        model_name: str,
         context_window_size: int,
         context_window_operation: str,
         similarity_measure: str,
     ):
+        self.model_name = model_name
         self.context_window_size = context_window_size
         self.context_window_operation = context_window_operation
         self.similarity_measure = similarity_measure
@@ -62,7 +66,7 @@ class BaseModel(BaseEstimator):
             f"Unknown context window operation: {self.context_window_operation}"
         )
 
-    def _embedding(self, word: str, context: str, word_context: str) -> ArrayFloat:
+    def _embedding(self, _word: str, _context: str, _word_context: str) -> ArrayFloat:
         raise NotImplementedError
 
     def _similarity(
@@ -106,22 +110,22 @@ class BaseModel(BaseEstimator):
 
 
 class StaticBertModel(BaseModel):
-    """BERT static model."""
+    """BERT static-embedding model."""
 
     def __init__(
         self,
+        model_name: str,
         context_window_size: int,
         context_window_operation: str,
         similarity_measure: str,
-        model_name: str,
     ):
         super().__init__(
+            model_name,
             context_window_size,
             context_window_operation,
             similarity_measure,
         )
 
-        self.model_name = model_name
         self.model: PreTrainedModel
         self.tokenizer: PreTrainedTokenizer
         self._set_model()
@@ -165,7 +169,7 @@ class StaticBertModel(BaseModel):
 
 
 class ContextualBertModel(StaticBertModel):
-    """BERT contextual model."""
+    """BERT contextual-embedding model."""
 
     def _embeddings(self, context: str) -> ArrayFloat:
         return (
@@ -180,3 +184,11 @@ class ContextualBertModel(StaticBertModel):
 
         start, end = self._context_window(word, context, word_context)
         return self._compose(self._embeddings(context)[start:end])
+
+
+Model = Literal["static", "contextual"]
+
+model_types: dict[Model, type[BaseModel]] = {
+    "static": StaticBertModel,
+    "contextual": ContextualBertModel,
+}

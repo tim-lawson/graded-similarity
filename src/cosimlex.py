@@ -4,7 +4,7 @@ import os
 
 from pandas import DataFrame, read_csv
 
-from .data import Language, languages
+from .data import Language, default_languages
 
 
 # pylint: disable=redefined-outer-name
@@ -27,5 +27,5 @@ def convert(language: Language):
 
 
 if __name__ == "__main__":
-    for language in languages:
+    for language in default_languages:
         convert(language)

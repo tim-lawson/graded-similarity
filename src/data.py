@@ -11,7 +11,7 @@ Language = Literal[
     "sl",
 ]
 
-languages: list[Language] = [
+default_languages: list[Language] = [
     "en",
     "fi",
     "hr",
