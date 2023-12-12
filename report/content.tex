@@ -1,3 +1,34 @@
+\pgfplotstableset{
+  col sep=comma,
+  columns={model_name,context_window_size,context_window_operation,score},
+  column type=l,
+  every head row/.style={before row=\hline,after row=\hline},
+  every last row/.style={after row=\hline},
+  skip rows between index={0}{1},
+  skip rows between index={6}{1000},
+  columns/model_name/.style={
+      column name=Model,
+      string type,
+      postproc cell content/.append style={
+          @cell content={\texttt{##1}}
+        }
+    },
+  columns/context_window_size/.style={
+      column name=Window size,
+      int detect
+    },
+  columns/context_window_operation/.style={
+      column name=Operation,
+      string type
+    },
+  columns/score/.style={
+      column name=Score,
+      fixed,
+      fixed zerofill,
+      precision=3,
+    },
+}
+
 \section{Introduction}
 
 In his \emph{Foundations of Arithmetic}, Frege promises ``never to ask for the meaning
@@ -54,36 +85,31 @@ contexts for each pair of words.
 
 \section{Results}
 
-\pgfplotstableset{
-  col sep=comma,
-  columns={model_name,context_window_size,context_window_operation,score},
-  column type=l,
-  every head row/.style={before row=\hline,after row=\hline},
-  every last row/.style={after row=\hline},
-  skip rows between index={0}{1},
-  skip rows between index={6}{1000},
-  columns/model_name/.style={
-      column name=Model,
-      string type,
-      postproc cell content/.append style={
-          @cell content={\texttt{##1}}
-        }
-    },
-  columns/context_window_size/.style={
-      column name=Window size,
-      int detect
-    },
-  columns/context_window_operation/.style={
-      column name=Operation,
-      string type
-    },
-  columns/score/.style={
-      column name=Score,
-      fixed,
-      fixed zerofill,
-      precision=3,
-    },
-}
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        title=Time vs. score,
+        xlabel={Score},
+        ylabel={Time (s)},
+      ]
+      \addplot+[only marks, mark size=1.0pt] table[
+          col sep=comma
+        ]{../results/543d797b/subtask1/static_en.csv};
+      \addplot+[only marks, mark size=1.0pt] table[
+          col sep=comma
+        ]{../results/543d797b/subtask1/static_fi.csv};
+      \addplot+[only marks, mark size=1.0pt] table[
+          col sep=comma
+        ]{../results/543d797b/subtask1/static_hr.csv};
+      \addplot+[only marks, mark size=1.0pt] table[
+          col sep=comma
+        ]{../results/543d797b/subtask1/static_sl.csv};
+    \end{axis}
+  \end{tikzpicture}
+
+  \caption{The elapsed time for each static-embedding model against its score.}
+\end{figure}
 
 \begin{figure}
   \centering
@@ -107,6 +133,28 @@ contexts for each pair of words.
   \centering
   \pgfplotstabletypeset{../results/543d797b/subtask1/static_sl.csv}
   \caption{The top five results in Slovakian with static embeddings.}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        title=Time vs. score,
+        xlabel={Score},
+        ylabel={Time (s)},
+      ]
+      \addplot+[only marks, mark size=1.0pt] table[
+          col sep=comma
+        ]{../results/543d797b/subtask1/contextual_fi.csv};
+      \addplot+[only marks, mark size=1.0pt] table[
+          col sep=comma
+        ]{../results/543d797b/subtask1/contextual_hr.csv};
+      \addplot+[only marks, mark size=1.0pt] table[
+          col sep=comma
+        ]{../results/543d797b/subtask1/contextual_sl.csv};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{The elapsed time for each contextual-embedding model against its score.}
 \end{figure}
 
 \section{Conclusion}
