@@ -3,7 +3,16 @@ from typing import Any
 from numpy import apply_along_axis, array, dtype, float_, ndarray, str_
 from scipy.spatial.distance import correlation, cosine
 from sklearn.base import BaseEstimator
-from transformers import BertModel, BertTokenizer
+from transformers import (
+    BertModel,
+    BertTokenizer,
+    ElectraModel,
+    ElectraTokenizer,
+    PreTrainedModel,
+    PreTrainedTokenizer,
+    RobertaModel,
+    RobertaTokenizer,
+)
 
 ArrayStr = ndarray[Any, dtype[str_]]
 ArrayFloat = ndarray[Any, dtype[float_]]
@@ -111,14 +120,29 @@ class StaticBertModel(BaseModel):
             context_window_operation,
             similarity_measure,
         )
+
         self.model_name = model_name
-        self.model: BertModel = BertModel.from_pretrained(self.model_name)  # type: ignore
-        self.tokenizer = BertTokenizer.from_pretrained(self.model_name)
+        self.model: PreTrainedModel
+        self.tokenizer: PreTrainedTokenizer
+        self._set_model()
 
     def set_params(self, **params) -> None:
         super().set_params(**params)
-        self.model: BertModel = BertModel.from_pretrained(self.model_name)  # type: ignore
-        self.tokenizer = BertTokenizer.from_pretrained(self.model_name)
+        self._set_model()
+
+    def _set_model(self):
+        if self.model_name in ["classla/bcms-bertic"]:
+            self.model = ElectraModel.from_pretrained(self.model_name)  # type: ignore
+            self.tokenizer = ElectraTokenizer.from_pretrained(self.model_name)
+
+        # TODO: fix `find` errors
+        elif self.model_name in ["gerulata/slovakbert"]:
+            self.model = RobertaModel.from_pretrained(self.model_name)  # type: ignore
+            self.tokenizer = RobertaTokenizer.from_pretrained(self.model_name)
+
+        else:
+            self.model = BertModel.from_pretrained(self.model_name)  # type: ignore
+            self.tokenizer = BertTokenizer.from_pretrained(self.model_name)
 
     def _encode(self, text: str | list[str]) -> list[int]:
         return self.tokenizer.encode(text, add_special_tokens=False)
