@@ -12,8 +12,8 @@ from .models import ContextualBertModel, StaticBertModel
 from .params import get_params
 
 models: dict[str, type[ContextualBertModel | StaticBertModel]] = {
-    "static": StaticBertModel,
-    # "contextual": ContextualBertModel,
+    # "static": StaticBertModel,
+    "contextual": ContextualBertModel,
 }
 
 
