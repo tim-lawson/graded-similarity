@@ -2,29 +2,63 @@
 
 In his \emph{Foundations of Arithmetic}, Frege promises ``never to ask for the meaning
 of a word in isolation, but only in the context of a proposition''
-\parencite[xvii]{Frege1980}.
+\parencite*[xvii]{Frege1980}.
 This `context principle' is intuitive: words are frequently polysemous, or assume
 different connotations and emphasis within different expressions.
+Historically, however, contextuality has been a problem for distributional meaning
+representations.
+Founded on the distributional hypothesis \parencites{Harris1954}{Firth1957}, both
+count-based and predictive models of word meaning\footnote{ This terminological
+  distinction is due to \textcite{Baroni2014a}.
+} originally
+produced a single representation for each word in the model's vocabulary.
+One of these \emph{static} representations must, therefore, encode all of a word's
+senses and connotations, which precludes its use in modelling context-dependent
+phenomena.
 
-History of contextualising word representations: word-sense disambiguation,
-\textcite{Kintsch2001}, relationship to composition operations
-\parencite{Mitchell2008}.
-The same contextualisation operations can be applied to (static) word embeddings, as
-opposed to their count-based predecessors.
-But these efforts have largely been overtaken by models that naturally produce
-contextual representations, i.e., that are functions of the entire input sequence
-rather than only individual tokens.
-When did this start?
-Recurrent neural networks, sequence-to-sequence models, transformers, etc.
+Prior to the widespread availability of pre-trained word embeddings
+\parencites[e.g.,][]{Mikolov2013}{Pennington2014}, this problem was generally addressed
+by one of two approaches: firstly, by producing a representation for each sense of a
+target word and disambiguating between them in the given context; or secondly, by
+composing the representation of the target word with the representations of the words
+in its context.
+These approaches have been largely overshadowed by the advent of model architectures
+that take sequences as inputs and naturally produce \emph{contextual} representations
+of the items in the sequence, such as transformers \parencite{Vaswani2017}.
 
-Despite the popularity of these models, there are relatively few
-like-for-like comparisons of them with respect to simpler operations on static word
-embeddings.
-CoSimLex presents such an opportunity: the task is to produce estimates of the
-different similarities of the same pair of words in different contexts.
-Therefore the present paper seeks to quantify the performance benefit of using the
-contextual representations of a transformer model as opposed to the static
-representations of its input embeddings with simple contextualisation operations,
-inspired by e.g. Kintsch and Mitchell2008.
+To my knowledge, however, there has been scant direct comparison of the performance of
+these contextual representations with the application of prior methods of
+contextualisation to static representations.
+SemEval-2020 Task 3, \emph{Graded Word Similarity in Context}
+\parencite{Armendariz2020a}, presents an opportunity to make such a comparison.
+Briefly, the task is to predict the change in the human judgment of similarity between
+the same pair of words in two different contexts.
+This objective is both context-dependent and continuous, i.e., not limited to discrete
+word-sense disambiguation.
+I elected to focus on the first subtask, which is to predict the \emph{change} in
+similarity, rather than the similarity in each context.
+Specifically, I compared the results of computing the similarity between both kinds of
+representation of the target words and their composition with the representations of
+the words in a fixed-size context window, inspired by \textcite{Kintsch2001} and
+\textcite{Mitchell2008}.
 
-Background of CoSimLex, what specifically the task is.
+\section{Task definition}
+
+The CoSimLex dataset \parencite{Armendariz2020}, which served to evaluate the task
+submissions, extends the SimLex-999 dataset \parencite{Hill2015} to include multiple
+contexts for each pair of words.
+
+\section{Background}
+
+\section{Methodology}
+
+\section{Results}
+
+\section{Conclusion}
+
+\begin{itemize}
+  \item Language-specific models perform better on their target language(s).
+  \item A small context window improves the outcomes for both static and contextualised embeddings.
+  \item The contextualised embeddings outperform the static embeddings.
+  \item However, the static embeddings are much quicker to compute.
+\end{itemize}
