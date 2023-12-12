@@ -120,7 +120,7 @@ class BaseModel(BaseEstimator):
 
     def score(self, x: ArrayStr, y: ArrayFloat):
         """Compute the Pearson correlation coefficient."""
-        return 1.0 - correlation(self.predict(x), y, centered=False)
+        return 1.0 - float(correlation(self.predict(x), y, centered=False))
 
 
 class StaticBertModel(BaseModel):
