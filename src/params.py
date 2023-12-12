@@ -4,9 +4,7 @@ from .data import Language
 
 context_window_operations = {
     "none": [0],
-    "mean": [1, 2, 5, 10, 20, 50],
-    "prod": [1, 2, 5],
-    "sum": [1, 2, 5, 10, 20, 50],
+    "sum": [1, 2, 5, 10, 20, 50, 100],
 }
 
 similarity_measures = [
@@ -53,7 +51,7 @@ def get_model_names(language: Language) -> list[str]:
     return []
 
 
-def get_params(language: Language):
+def get_params(language: Language) -> list[tuple[int, str, str, str]]:
     """Get language-specific model parameters."""
 
     params = []
@@ -66,12 +64,12 @@ def get_params(language: Language):
             ) in context_window_operations.items():
                 for context_window_size in context_window_sizes:
                     params.append(
-                        {
-                            "context_window_size": context_window_size,
-                            "context_window_operation": context_window_operation,
-                            "similarity_measure": similarity_measure,
-                            "model_name": model_name,
-                        }
+                        (
+                            context_window_size,
+                            context_window_operation,
+                            similarity_measure,
+                            model_name,
+                        )
                     )
 
     return params
