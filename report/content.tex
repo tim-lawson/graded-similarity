@@ -48,11 +48,66 @@ The CoSimLex dataset \parencite{Armendariz2020}, which served to evaluate the ta
 submissions, extends the SimLex-999 dataset \parencite{Hill2015} to include multiple
 contexts for each pair of words.
 
-\section{Background}
+\section{Related work}
 
 \section{Methodology}
 
 \section{Results}
+
+\pgfplotstableset{
+  col sep=comma,
+  columns={model_name,context_window_size,context_window_operation,score},
+  column type=l,
+  every head row/.style={before row=\hline,after row=\hline},
+  every last row/.style={after row=\hline},
+  skip rows between index={0}{1},
+  skip rows between index={6}{1000},
+  columns/model_name/.style={
+      column name=Model,
+      string type,
+      postproc cell content/.append style={
+          @cell content={\texttt{##1}}
+        }
+    },
+  columns/context_window_size/.style={
+      column name=Window size,
+      int detect
+    },
+  columns/context_window_operation/.style={
+      column name=Operation,
+      string type
+    },
+  columns/score/.style={
+      column name=Score,
+      fixed,
+      fixed zerofill,
+      precision=3,
+    },
+}
+
+\begin{figure}
+  \centering
+  \pgfplotstabletypeset{../results/5ae22ab/subtask1/static_en.csv}
+  \caption{The top five results in English with static embeddings.}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \pgfplotstabletypeset{../results/543d797b/subtask1/static_fi.csv}
+  \caption{The top five results in Finnish with static embeddings.}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \pgfplotstabletypeset{../results/543d797b/subtask1/static_hr.csv}
+  \caption{The top five results in Croatian with static embeddings.}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \pgfplotstabletypeset{../results/543d797b/subtask1/static_sl.csv}
+  \caption{The top five results in Slovakian with static embeddings.}
+\end{figure}
 
 \section{Conclusion}
 
