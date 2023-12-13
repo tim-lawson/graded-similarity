@@ -14,7 +14,7 @@
     {
       "type": "shell",
       "command": "${command:python.interpreterPath}",
-      "args": ["-m", "src.subtask1", "-f"],
+      "args": ["-m", "src.subtask1"],
       "options": { "cwd": "${workspaceFolder}" },
       "label": "subtask1",
       "group": {

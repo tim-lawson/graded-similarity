@@ -35,8 +35,10 @@ To run the experiments for subtask 1, either run the `subtask1` VS Code task in
 [tasks.json](./.vscode/tasks.json) or execute the following command:
 
 ```bash
-python -m src.subtask_1
+python -m src.subtask1 \
+> --model static contextual \
+> --language en fi hr sl \
+> --window 0 1 2 3 \
+> --operation sum \
+> --similarity cosine
 ```
-
-The script creates a `<HEAD>/subtask1` directory within `results` and saves the results
-of the experiments to it.
