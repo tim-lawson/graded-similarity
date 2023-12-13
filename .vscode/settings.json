@@ -19,20 +19,14 @@
     "-l=%WORKSPACE_FOLDER%/latexindent.yaml",
     "-m"
   ],
-  "latex-workshop.latex.tools": [
+  "latex-workshop.latex.recipe.default": "lastUsed",
+  "latex-workshop.latex.recipes": [
     {
-      "name": "latexmk",
-      "command": "latexmk",
-      "args": [
-        "-synctex=1",
-        "-interaction=nonstopmode",
-        "-file-line-error",
-        "-pdf",
-        "-outdir=%OUTDIR%",
-        "%DOC%"
-      ],
-      "env": {}
-    },
+      "name": "pdflatex",
+      "tools": ["pdflatex"]
+    }
+  ],
+  "latex-workshop.latex.tools": [
     {
       "name": "pdflatex",
       "command": "pdflatex",
@@ -43,12 +37,6 @@
         "-file-line-error",
         "%DOC%"
       ],
-      "env": {}
-    },
-    {
-      "name": "bibtex",
-      "command": "bibtex",
-      "args": ["%DOCFILE%"],
       "env": {}
     }
   ],

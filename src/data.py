@@ -2,7 +2,7 @@
 
 from typing import Literal
 
-from pandas import read_csv
+from pandas import read_csv  # type: ignore
 
 Language = Literal[
     "en",

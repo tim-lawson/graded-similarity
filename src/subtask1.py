@@ -70,7 +70,7 @@ def main():
             args.model,
             get_model_names(language),
             args.language,
-            args.window,
+            args.get_windows(),
             args.operation,
             args.similarity,
         ):

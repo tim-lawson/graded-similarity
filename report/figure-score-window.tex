@@ -1,0 +1,79 @@
+\newcommand{\plotscorewindow}[2]{
+  \foreach \modelname in #2
+    {
+      \addplot+[
+        sharp plot,
+        mark = none,
+        line width = 0.8pt,
+        discard if not = {model_name}{\modelname},
+      ] table [
+          col sep=comma,
+          x = window,
+          y = score,
+        ]{#1};
+      \addlegendentryexpanded{\expandafter\texttt\expandafter{\modelname}}
+    }
+}
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \begin{groupplot}[
+        group style = {
+            group size = 2 by 2,
+            ylabels at = edge left,
+            vertical sep = 2.5in,
+          },
+        width = 3in,
+        height = 3in,
+        xlabel = Window size,
+        ylabel = Score,
+        xtick = {0,10,...,50},
+        ytick = {-0.2,-0.1,...,1.0},
+        cycle list/Paired,
+        legend style = {
+            draw = none,
+            font = \small,
+            anchor = north,
+            at = {(0.5,-0.2)},
+          },
+        legend cell align={left},
+      ]
+      \nextgroupplot[title = English]
+      \plotscorewindow{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine.csv}{{
+            bert-base-cased,
+            bert-base-uncased,
+            bert-base-multilingual-cased,
+            bert-base-multilingual-uncased,
+            bert-large-cased,
+            bert-large-uncased,
+            bert-large-cased-whole-word-masking,
+            bert-large-uncased-whole-word-masking,
+            EMBEDDIA/crosloengual-bert,
+          }}
+      \nextgroupplot[title = Finnish]
+      \plotscorewindow{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine.csv}{{
+            bert-base-multilingual-cased,
+            bert-base-multilingual-uncased,
+            EMBEDDIA/crosloengual-bert,
+            TurkuNLP/bert-base-finnish-cased-v1,
+            TurkuNLP/bert-base-finnish-uncased-v1,
+            TurkuNLP/bert-large-finnish-cased-v1,
+          }}
+      \nextgroupplot[title = Croatian]
+      \plotscorewindow{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine.csv}{{
+            bert-base-multilingual-cased,
+            bert-base-multilingual-uncased,
+            EMBEDDIA/crosloengual-bert,
+            classla/bcms-bertic,
+          }}
+      \nextgroupplot[title = Slovakian]
+      \plotscorewindow{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine.csv}{{
+            bert-base-multilingual-cased,
+            bert-base-multilingual-uncased,
+            EMBEDDIA/crosloengual-bert,
+          }}
+    \end{groupplot}
+  \end{tikzpicture}
+  \caption{Score by window size for different static-embedding models.}
+\end{figure}

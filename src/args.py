@@ -12,15 +12,25 @@ class Args(NamedTuple):
 
     model: list[Model]
     language: list[Language]
-    window: list[int]
+    window: list[int] | None
+    min_window: int | None
+    max_window: int | None
     operation: list[str]
     similarity: list[str]
+
+    def get_windows(self) -> list[int]:
+        """Get the context window sizes."""
+        if self.window is not None:
+            return self.window
+        if self.min_window is not None and self.max_window is not None:
+            return list(range(self.min_window, self.max_window + 1))
+        return []
 
     def __str__(self) -> str:
         return (
             f"model = {','.join(self.model)}\n"
             f"language = {','.join(self.language)}\n"
-            f"window = {','.join(map(str, self.window))}\n"
+            f"window = {','.join(map(str, self.get_windows()))}\n"
             f"operation = {','.join(self.operation)}\n"
             f"similarity = {','.join(self.similarity)}"
         )
@@ -30,7 +40,7 @@ class Args(NamedTuple):
         return {
             "model": self.model,
             "language": self.language,
-            "window": list(map(str, self.window)),
+            "window": list(map(str, self.get_windows())),
             "operation": self.operation,
             "similarity": self.similarity,
         }
@@ -38,10 +48,15 @@ class Args(NamedTuple):
     @property
     def filename(self) -> str:
         """Filename."""
+        window = (
+            f"_window={self.min_window}-{self.max_window}"
+            if self.min_window is not None and self.max_window is not None
+            else f"_window={'+'.join(map(str, self.get_windows()))}"
+        )
         return (
             f"model={'+'.join(self.model)}"
             f"_language={'+'.join(self.language)}"
-            f"_window={'+'.join(map(str, self.window))}"
+            f"{window}"
             f"_operation={'+'.join(self.operation)}"
             f"_similarity={'+'.join(self.similarity)}"
             ".csv"
@@ -71,11 +86,24 @@ def parse_args() -> Args:
     )
 
     parser.add_argument(
+        "-min",
+        "--min-window",
+        type=int,
+        help="minimum context window size",
+    )
+
+    parser.add_argument(
+        "-max",
+        "--max-window",
+        type=int,
+        help="maximum context window size",
+    )
+
+    parser.add_argument(
         "-w",
         "--window",
         nargs="+",
         type=int,
-        default=[0, 1, 2, 5, 10, 20, 50, 100],
         help="context window sizes",
     )
 
@@ -103,6 +131,8 @@ def parse_args() -> Args:
         args.model,
         args.language,
         args.window,
+        args.min_window,
+        args.max_window,
         args.operation,
         args.similarity,
     )

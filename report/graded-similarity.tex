@@ -82,13 +82,48 @@
 \usepackage{bookmark}
 
 % Tables and charts
-\usepackage{pgfplots}
-\usepackage{pgfplotstable}
-\pgfplotsset{compat=1.17}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage[draft]{graphicx}
+
+\def\imagebox#1#2{\vtop to #1{\null\hbox{#2}\vfill}}
 
 \usepackage{tikz}
 \usetikzlibrary{external}
 \tikzexternalize[prefix=figures/]
+
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{colorbrewer}
+\usepgfplotslibrary{groupplots}
+
+\pgfplotsset{
+  discard if/.style 2 args={
+      x filter/.append code={
+          \readlist\mylist{#2}%
+          \foreachitem\z\in\mylist[]{%
+            \ifdim\thisrow{#1} pt=\z pt
+              \def\pgfmathresult{inf}
+            \fi
+          }
+        }
+    },
+}
+
+\pgfplotsset{
+  discard if not/.style 2 args={
+      x filter/.code={
+          \edef\tempa{\thisrow{#1}}
+          \edef\tempb{#2}
+          \ifx\tempa\tempb
+          \else
+            \def\pgfmathresult{inf}
+          \fi
+        }
+    }
+}
 
 \begin{document}
 
