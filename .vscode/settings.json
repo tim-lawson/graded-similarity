@@ -22,11 +22,29 @@
   "latex-workshop.latex.recipe.default": "lastUsed",
   "latex-workshop.latex.recipes": [
     {
-      "name": "pdflatex",
-      "tools": ["pdflatex"]
+      "name": "latexmk",
+      "tools": ["latexmk"]
+    },
+    {
+      "name": "pdflatex -> bibtex -> pdflatex * 2",
+      "tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"]
     }
   ],
   "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "--shell-escape",
+        "-file-line-error",
+        "-pdf",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ],
+      "env": {}
+    },
     {
       "name": "pdflatex",
       "command": "pdflatex",
@@ -37,6 +55,13 @@
         "-file-line-error",
         "%DOC%"
       ],
+      "env": {}
+    },
+
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": ["%DOCFILE%"],
       "env": {}
     }
   ],

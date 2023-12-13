@@ -17,6 +17,7 @@ from transformers import (
 )
 
 ArrayStr = ndarray[Any, dtype[str_]]
+
 ArrayFloat = ndarray[Any, dtype[float_]]
 
 
@@ -36,6 +37,9 @@ class BaseModel(BaseEstimator):
         self.similarity_measure = similarity_measure
 
     def _encode(self, text: str | list[str]) -> list[int]:
+        raise NotImplementedError
+
+    def _decode(self, tokens: list[int]) -> list[str]:
         raise NotImplementedError
 
     def _find(self, word: str, context: str) -> int:
@@ -102,7 +106,9 @@ class BaseModel(BaseEstimator):
                 self._embedding(*row[[1, 3, 7]]),
             )
 
-        return apply_along_axis(change, 1, array(x, dtype=str_))
+        predictions = apply_along_axis(change, 1, array(x, dtype=str_))
+        print(predictions)
+        return predictions
 
     def score(self, x: ArrayStr, y: ArrayFloat):
         """Compute the Pearson correlation coefficient."""
@@ -148,8 +154,11 @@ class StaticBertModel(BaseModel):
             self.model = BertModel.from_pretrained(self.model_name)  # type: ignore
             self.tokenizer = BertTokenizer.from_pretrained(self.model_name)
 
-    def _encode(self, text: str | list[str]) -> list[int]:
+    def _encode(self, text):
         return self.tokenizer.encode(text, add_special_tokens=False)
+
+    def _decode(self, tokens):
+        return self.tokenizer.decode(tokens)
 
     @property
     def _static_embeddings(self) -> ArrayFloat:

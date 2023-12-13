@@ -9,7 +9,7 @@ modifyLineBreaks:
     DBSStartsOnOwnLine: 1
     DBSFinishesWithLineBreak: 1
   oneSentencePerLine:
-    manipulateSentences: 1
+    # manipulateSentences: 1
     textWrapSentences: 1
     sentenceIndent: ""
   preserveBlankLines: 1

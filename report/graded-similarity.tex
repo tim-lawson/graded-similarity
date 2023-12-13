@@ -1,4 +1,4 @@
-\documentclass[10pt]{extarticle}
+\documentclass[11pt]{extarticle}
 
 % Page layout
 \usepackage{geometry}
@@ -81,13 +81,23 @@
 % Fix references
 \usepackage{bookmark}
 
+% Math
+\usepackage{mathtools}
+
 % Tables and charts
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{multirow}
 \usepackage{tabularx}
 \usepackage[draft]{graphicx}
 
 \def\imagebox#1#2{\vtop to #1{\null\hbox{#2}\vfill}}
+
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
 
 \usepackage{tikz}
 \usetikzlibrary{external}
@@ -136,5 +146,13 @@
 \import*{.}{content.tex}
 
 \printbibliography
+
+\section{Appendix}
+
+\subsection{Language-specificity of window-size effects}
+\label{appendix:window-size}
+
+\import{.}{figure-table-best-window-size}
+\import{.}{figure-chart-score-window}
 
 \end{document}

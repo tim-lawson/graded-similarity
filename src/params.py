@@ -39,7 +39,7 @@ def get_model_names(language: Language) -> list[str]:
 
     if language == "sl":
         return model_names_multilingual + [
-            "gerulata/slovakbert",
+            # "gerulata/slovakbert",
         ]
 
     return []

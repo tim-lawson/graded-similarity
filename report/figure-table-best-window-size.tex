@@ -1,0 +1,128 @@
+\pgfplotstableset{
+  col sep=comma,
+  column type={l},
+  columns={model,
+      model_name,
+      language,
+      window,
+      operation,
+      similarity,
+      score,
+      time
+    },
+  columns/model/.style={
+      column name=Model,
+      string type,
+    },
+  columns/model_name/.style={
+      column name=Model name,
+      column type={L{3in}},
+      string type,
+      postproc cell content/.append style={
+          @cell content={\texttt{##1}}
+        }
+    },
+  columns/language/.style={
+      column name=Language,
+      string type,
+      postproc cell content/.append style={
+          @cell content={\texttt{##1}}
+        }
+    },
+  columns/window/.style={
+      column name=Window size,
+      column type={R{0.9in}},
+      int detect,
+    },
+  columns/operation/.style={
+      column name=Operation,
+      string type,
+    },
+  columns/similarity/.style={
+      column name=Similarity measure,
+      string type,
+    },
+  columns/score/.style={
+      column name=Score,
+      column type={R{0.5in}},
+      fixed,
+      fixed zerofill,
+      precision=3,
+    },
+  columns/time/.style={
+      column name=Time (s),
+      fixed,
+      fixed zerofill,
+      precision=3,
+    },
+  every head row/.style={after row=\hline},
+  skip rows between index={0}{1},
+}
+
+\pgfplotstableset{
+  columns={
+      model_name,
+      window,
+      score
+    },
+}
+
+\begin{figure}
+  \label{table:best-window-size-static}
+  \centering
+  \captionsetup{justification=centering}
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine_top_1.csv}
+    \caption{English}
+  \end{subfigure}
+  \par\bigskip\par\bigskip
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine_top_1.csv}
+    \caption{Finnish}
+  \end{subfigure}
+  \par\bigskip\par\bigskip
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine_top_1.csv}
+    \caption{Croatian}
+  \end{subfigure}
+  \par\bigskip\par\bigskip
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine_top_1.csv}
+    \caption{Slovene}
+  \end{subfigure}
+  \caption{The window size that maximises the score for static-embedding models.}
+\end{figure}
+
+\begin{figure}
+  \label{table:best-window-size-contextual}
+  \centering
+  \captionsetup{justification=centering}
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+    \caption{English}
+  \end{subfigure}
+  \par\bigskip\par\bigskip
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+    \caption{Finnish}
+  \end{subfigure}
+  \par\bigskip\par\bigskip
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+    \caption{Croatian}
+  \end{subfigure}
+  \par\bigskip\par\bigskip
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+    \caption{Slovene}
+  \end{subfigure}
+  \caption{The window size that maximises the score for contextual-embedding models.}
+\end{figure}

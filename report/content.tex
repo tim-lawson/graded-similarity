@@ -1,53 +1,3 @@
-\pgfplotstableset{
-  col sep=comma,
-  columns={model,model_name,language,window,operation,similarity,score,time},
-  column type=l,
-  every head row/.style={before row=\hline,after row=\hline},
-  every last row/.style={after row=\hline},
-  skip rows between index={0}{1},
-  columns/model/.style={
-      column name=Model,
-      string type
-    },
-  columns/model_name/.style={
-      column name=Model name,
-      string type,
-      postproc cell content/.append style={
-          @cell content={\texttt{##1}}
-        }
-    },
-  columns/language/.style={
-      column name=Language,
-      string type,
-      postproc cell content/.append style={
-          @cell content={\texttt{##1}}
-        }
-    },
-  columns/window/.style={
-      column name=Window size,
-      int detect
-    },
-  columns/operation/.style={
-      column name=Operation,
-      string type
-    },
-  columns/similarity/.style={
-      column name=Similarity measure,
-      string type
-    },
-  columns/score/.style={
-      column name=Score,
-      fixed,
-      fixed zerofill,
-      precision=3,
-    },
-  columns/time/.style={
-      column name=Time (s),
-      fixed,
-      fixed zerofill,
-      precision=3,
-    },
-}
 
 \section{Introduction}
 
@@ -64,7 +14,7 @@ count-based and predictive models of word meaning\footnote{ This terminological
 } originally
 produced a single representation for each word in the model's vocabulary.
 One of these \emph{static} representations must, therefore, encode all of a word's
-senses and connotations, which precludes its use in modelling context-dependent
+senses and connotations, which is an obstacle to its use in modelling context-dependent
 phenomena.
 
 Prior to the widespread availability of pre-trained word embeddings
@@ -75,21 +25,20 @@ target word and disambiguating between them in the given context (\emph{word-sen
 the representations of the words in its context (\emph{contextualisation}).
 These approaches have been largely overshadowed by the advent of model architectures
 that take sequences as inputs and naturally produce \emph{contextual} representations
-of the items in the sequence, such as transformers \parencite{Vaswani2017}.
+of the items in the sequence, such as Transformers \parencite{Vaswani2017}.
 
 To my knowledge, however, there has been scant direct comparison of the performance of
 these contextual representations with the application of prior methods of
 contextualisation to static representations.
-SemEval-2020 Task 3, \emph{Graded Word Similarity in Context}
+SemEval-2020 Task 3, ``Graded Word Similarity in Context''
 \parencite{Armendariz2020a}, presents an opportunity to make such a comparison.
 Briefly, the task is to predict the continuously-valued human judgment of similarity of
 the same pair of words in two different contexts (Section~\ref{task-definition}).
 I elected to focus on the first subtask, which is to predict the \emph{change} in
-similarity, rather than the similarity in each context.
-Specifically, I compared the results of computing the similarity between both kinds of
-representation of the target words and their composition with the representations of
-the words in a fixed-size context window, inspired by \textcite{Kintsch2001} and
-\textcite{Mitchell2008}.
+similarity, rather than the absolute similarity in each context.
+Specifically, I evaluated the results obtained by computing the cosine similarity
+between static and contextual representations, and the additive composition of these
+representations within a fixed-size context window.
 
 \section{Task definition}
 \label{task-definition}
@@ -100,34 +49,106 @@ contexts for each pair of words.
 
 \section{Related work}
 
-\section{Methodology}
+Additive composition \parencites[e.g.][]{Kintsch2001}{Mitchell2008}{Mikolov2013a}.
+Analysis of the effect of window size on static embeddings.
+Analysis of contextual embeddings.
 
-\section{Results}
+\section{Methodology}
 
 \begin{figure}
   \centering
-  \pgfplotstabletypeset[
-    columns={model,model_name,score},
-    sort,
-    sort cmp=string <,
-    sort key=model_name,
-    sort key=model,
-    every row 10 column 2/.style={
-        postproc cell content/.style={
-            @cell content/.add={$}{^\dagger$}
-          }
-      },
-  ]{../results/model=static+contextual_language=fi_window=0_operation=none_similarity=cosine.csv}
-  \caption{The results in Finnish with a zero-size context window.}
+  \captionsetup{justification=centering}
+  \newcommand{\period}{.}
+  \newcommand*{\orawidest}{accept}
+  \newcommand*{\oratallest}{\#\#}
+  \newlength{\orawidth}
+  \settowidth{\orawidth}{\orawidest}
+  \newcommand*{\ora}[1]{\overrightarrow{#1\vphantom{\oratallest}}}
+  \begin{tikzpicture}[node distance=0.75in]
+    \node [label] (a) {\dots from the Isenj\period{} He \underline{accepts} their offer but knows that \dots};
+    \node [label, below of=a] (b) {\dots \#\#nj \period{} he \underline{accept} \#\#s their offer \dots};
+    \node [label, below of=b] (c) {\dots \#\#nj \period{} \underline{he accept \#\#s} their offer \dots};
+    \node [label, below of=c] (d) {$\big\{\,\ora{\text{he}}\,,\ \ora{\text{accept}}\,,\ \ora{\text{\#\#}}\,\big\}$};
+    \node [label, below of=d] (e) {$\ora{\textit{accept}}=\ora{\text{he}}+\ora{\text{accept}}+\ora{\text{\#\#}}$};
+    \draw [thick, ->] (a) -- (b) node[midway, right=1in] {1. Find first sub-word token};
+    \draw [thick, ->] (b) -- (c) node[midway, right=1in] {2. Find tokens in a fixed-size window};
+    \draw [thick, ->] (c) -- (d) node[midway, right=1in] {3. Obtain representations};
+    \draw [thick, ->] (d) -- (e) node[midway, right=1in] {4. Combine representations};
+  \end{tikzpicture}
+  \caption{A schematic of the procedure used to obtain a contextualised representation
+    of a target word from either static or contextual embeddings. In this example, the
+    target word is \emph{accept}, the window size is $3$, and the composition operation
+    is addition.}
 \end{figure}
 
-\import{.}{figure-score-window}
+The basic procedure of the methods that I evaluated was as follows.
+For each pair of target words and each of the two contexts in which they appear, I
+obtained a contextualised representation of a target word by:
+finding the index of the target word's first sub-word token within the tokens of the target word's context;
+finding the tokens within a fixed-size window around the target word's first token;
+obtaining the representations of the tokens in the window; and
+combining the the representations to produce a single representation of the target word.
+
+In all cases, the tokenization was performed by and the embeddings were obtained from
+models available via the HuggingFace \emph{Transformers} library \parencite{Wolf2020}.
+The models that I evaluated for each language are given in Table~\ref{table:language-models}.
+For the static-embedding variants of the procedure, I used the models' input embeddings;
+for the contextual-embedding variants, I used the models' outputs.
+Several of the submissions to SemEval-2020 Task 3 used a combination of the weights of a
+Transformer model's hidden states; a thorough comparison of the performance of variants
+of this approach is beyond the scope of this paper.
+
+The use of sub-word tokens means that a target word may be represented by a
+different number of tokens in each context.
+As a result, the representations of a pair of target words may be different in each
+context, even if they are static embeddings and the window size is zero.
+This explains the non-zero scores obtained by models of this kind
+(Section~\ref{appendix:window-size}), most notably for the Finnish language.
+
+\section{Results}
+
+\subsection{Cost-benefit analysis of contextual embeddings}
+
+\subsection{Language-specificity of window-size effects}
+
+Generally, the scores obtained by both static- and contextual-embedding models are
+maximised by a non-zero window size.
+I did not perform an exhaustive search for the optimal window size due to the
+computational expense.
+A naïve estimation of the average number of words per context (segmenting on whitespace)
+gave a result of 40-60 for the different languages, which motivated the choice of 50 as
+the maximum window size to evaluate for static-embedding models.
+The motivation to choose a smaller maximum window size for contextual-embedding models
+was likewise economical; however, as the window size approaches the length of the
+sequence, one would expect the sequence-level representation (e.g., BERT's \texttt{CLS}
+token) to be a preferable choice.
+These heuristics were largely confirmed by the results of the evaluation, which show
+that the scores decrease as the window size approaches the maximum.
+
+This is intuitive in the case of static embeddings, because the representations of a
+target word in different contexts only differ otherwise if the target word is
+represented by different sub-word tokens in each context.
+In the case of contextual embeddings, a small window size is also beneficial, because
+a target word may be represented by multiple sub-word tokens.
+The window size that maximises the score for each language and model is given in
+Table~\ref{table:best-window-size}.
 
 \section{Conclusion}
 
+In this paper, I have presented the results of a hypothetical submission to SemEval-2020
+Task 3, ``Graded Word Similarity in Context''.
+The purpose of this evaluation was to compare the performance of static and contextual
+embeddings and their additive composition within a fixed-size context window on the task
+of predicting the change in the human judgment of similarity of a pair of words in two
+different contexts.
+I found that contextual embeddings generally out-performed static embeddings, but at a
+significant cost in terms of computation and memory usage; and that a small window size
+improved the performance of both static and contextual embeddings, with strongly
+language-specific effects.
+
 \begin{itemize}
-  \item Language-specific models perform better on their target language(s).
-  \item A small context window improves the outcomes for both static and contextualised embeddings.
-  \item The contextualised embeddings outperform the static embeddings.
-  \item However, the static embeddings are much quicker to compute.
+  \item The static embeddings of \texttt{TurkuNLP/bert-base-finnish-uncased-v1}
+        outperform several of the Finnish submissions with a window size of zero.
+  \item The contextual embeddings of \texttt{TurkuNLP/bert-base-finnish-uncased-v1}
+        would have placed fourth and slightly improves on the baseline.
 \end{itemize}
