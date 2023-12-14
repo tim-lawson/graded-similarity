@@ -7,7 +7,6 @@
   margin={1in,1in},
 }
 \usepackage{setspace}
-% \linespread{1.25}
 
 % Typography
 % https://ctan.math.washington.edu/tex-archive/fonts/etbb/doc/ETbb-doc.pdf
@@ -21,7 +20,6 @@
 
 % Bibliography
 \usepackage[
-  % style=authoryear,
   style=authoryear-ibid,
   maxcitenames=2,
   doi=false,
@@ -52,22 +50,8 @@
     {\clearfield{urlyear}}
 }
 
-% Use given name in next cite command
-\newrobustcmd*{\nextcitefullname}{%
-  \AtNextCite{%
-    \DeclareNameAlias{labelname}{given-family}%
-    \togglefalse{abx@bool@giveninits}}}
-
-% Cite author's full name
-\newcommand\citeauthorfull{%
-  \nextcitefullname
-  \citeauthor}
-
 % Quotations
 \usepackage{csquotes}
-
-% Code snippets
-\usepackage{listings}
 
 % Hyperlinks
 \usepackage{hyperref}
@@ -75,16 +59,12 @@
 % Input/include relative paths
 \usepackage{import}
 
-% Lists
-\usepackage{enumitem}
-
 % Fix references
 \usepackage{bookmark}
 
 % Math
 \usepackage{amsmath}
 \usepackage{mathtools}
-
 \newcommand{\norm}[1]{\lVert #1 \rVert}
 
 % Tables and charts
@@ -93,12 +73,9 @@
 \usepackage{array}
 \usepackage{makecell}
 \usepackage{multirow}
-\usepackage{tabularx}
 \usepackage[draft]{graphicx}
-\usepackage{tablefootnote}
 
 \def\imagebox#1#2{\vtop to #1{\null\hbox{#2}\vfill}}
-
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
@@ -113,6 +90,7 @@
 \usepgfplotslibrary{colorbrewer}
 \usepgfplotslibrary{groupplots}
 
+% Exclusive filter
 \pgfplotsset{
   discard if/.style 2 args={
       x filter/.append code={
@@ -126,6 +104,7 @@
     },
 }
 
+% Inclusive filter
 \pgfplotsset{
   discard if not/.style 2 args={
       x filter/.code={
@@ -139,6 +118,17 @@
     }
 }
 
+% Comments
+\setlength{\marginparwidth}{1in}
+\usepackage{todonotes}
+\newcounter{todocounter}
+\newcommand{\todonum}[1]{%
+  \stepcounter{todocounter}%
+  \todo[color={red!100!green!33},inline,size=\small]{
+    \thetodocounter: #1
+  }%
+}
+
 \begin{document}
 
 \title{Graded word similarity in context by composing static and contextual embeddings}
@@ -150,17 +140,5 @@
 \import*{.}{content.tex}
 
 \printbibliography
-
-\section{Appendix}
-
-\subsection{Cost-benefit analysis of contextual embeddings}
-
-\import{.}{figure-chart-score-time}
-
-\subsection{Language-specificity of window-size effects}
-\label{appendix:window-size}
-
-\import{.}{figure-table-best-window-size}
-\import{.}{figure-chart-score-window}
 
 \end{document}
