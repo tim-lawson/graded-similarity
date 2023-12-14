@@ -1,0 +1,42 @@
+\section{Introduction}
+\label{sec:introduction}
+
+In his \emph{Foundations of Arithmetic}, Frege promises ``never to ask for the meaning
+of a word in isolation, but only in the context of a proposition''
+\parencite*[xvii]{Frege1980}.
+This `context principle' is intuitive: words are frequently polysemous, or assume
+different connotations and emphasis within different expressions.
+Historically, however, contextuality has been a problem for distributional meaning
+representations.
+Founded on the distributional hypothesis \parencites{Harris1954}{Firth1957}, both
+count-based and predictive models of word meaning\footnote{ This terminological
+  distinction is due to \textcite{Baroni2014a}.
+} originally
+produced a single representation for each word in the model's vocabulary.
+One of these \emph{static} representations must, therefore, encode all of a word's
+senses and connotations, which may obstruct its use in modelling context-dependent
+phenomena.
+
+Prior to the widespread availability of pre-trained word embeddings
+\parencites[e.g.,][]{Mikolov2013}{Pennington2014} and their successors, this problem was
+generally addressed by one of two approaches: firstly, by producing a representation
+for each sense of a target word and disambiguating between them in the given context
+(\emph{word-sense disambiguation}); or secondly, by composing the representation of the
+target word with the representations of the words in its context
+(\emph{contextualisation}).
+These approaches have been largely overshadowed by the advent of model architectures
+that take sequences as inputs and naturally produce \emph{contextual} representations
+of the items in the sequence, such as Transformers \parencite{Vaswani2017}.
+
+To my knowledge, however, there has been scant direct comparison of the performance of
+these contextual representations with the application of prior methods of
+contextualisation to static representations.
+SemEval-2020 Task 3, ``Graded Word Similarity in Context''
+\parencite{Armendariz2020a}, presents an opportunity to make such a comparison.
+Briefly, the task is to predict the human judgment of similarity of the same pair of
+words in two different contexts (Section~\ref{task-definition}).
+I elected to focus on the first subtask, which is to predict the \emph{change} in
+similarity, rather than the absolute similarity in each context.
+Specifically, I evaluated the results obtained by computing the cosine similarity
+between static and contextual embeddings and the composition of these embeddings within
+a fixed-size context window.
