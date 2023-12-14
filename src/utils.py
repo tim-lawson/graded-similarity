@@ -5,7 +5,7 @@
 from numpy import average
 from pandas import read_csv
 
-from .data import default_languages, load_x
+from .data import Language, default_languages, load_x
 from .models import StaticBertModel
 
 columns = [
@@ -30,18 +30,28 @@ def _top_1_model_name(filename: str):
     )
 
 
+ns: dict[Language, int] = {
+    "en": 340,
+    "fi": 24,
+    "hr": 112,
+    "sl": 111,
+}
+
+
+def _time(filename: str, n: int):
+    dataframe = read_csv(filename, header=0, names=columns)
+    dataframe["time"] = dataframe["time"] / n
+    dataframe.to_csv(filename.replace(".csv", "_time.csv"), index=False)
+
+
 def _results():
-    for filename in [
-        "results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine.csv",
-        "results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine.csv",
-        "results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine.csv",
-        "results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine.csv",
-        "results/model=static_language=en_window=0-50_operation=sum_similarity=cosine.csv",
-        "results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine.csv",
-        "results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine.csv",
-        "results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine.csv",
-    ]:
-        _top_1_model_name(filename)
+    for language in default_languages:
+        for filename in [
+            f"results/model=contextual_language={language}_window=0-10_operation=sum_similarity=cosine.csv",
+            f"results/model=static_language={language}_window=0-50_operation=sum_similarity=cosine.csv",
+        ]:
+            _top_1_model_name(filename)
+            _time(filename, ns[language])
 
 
 def _examples():

@@ -29,7 +29,7 @@
         width = 3in,
         height = 3in,
         xlabel = Score,
-        ylabel = Time (s),
+        ylabel = Time per instance (s),
         cycle list/Paired,
         legend style = {
             draw = none,
@@ -40,7 +40,7 @@
         legend cell align={left},
       ]
       \nextgroupplot[title = English ($n\,{=}\,340$)]
-      \plotscoretime{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine.csv}{{
+      \plotscoretime{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine_time.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
@@ -52,7 +52,7 @@
             bert-large-uncased-whole-word-masking,
           }}
       \nextgroupplot[title = Finnish ($n\,{=}\,24$)]
-      \plotscoretime{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine.csv}{{
+      \plotscoretime{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine_time.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
@@ -61,22 +61,22 @@
             TurkuNLP/bert-large-finnish-cased-v1,
           }}
       \nextgroupplot[title = Croatian ($n\,{=}\,112$)]
-      \plotscoretime{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine.csv}{{
+      \plotscoretime{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine_time.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
             classla/bcms-bertic,
           }}
       \nextgroupplot[title = Slovene ($n\,{=}\,111$)]
-      \plotscoretime{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine.csv}{{
+      \plotscoretime{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine_time.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
           }}
     \end{groupplot}
   \end{tikzpicture}
-  \caption{The time against score for static-embedding models with the additive
-    composition operation.}
+  \caption{The time per target word pair against score for static-embedding models
+    with the additive composition operation.}
 \end{figure}
 
 \begin{figure}
@@ -94,7 +94,7 @@
         width = 3in,
         height = 3in,
         xlabel = Score,
-        ylabel = Time,
+        ylabel = Time,,
         cycle list/Paired,
         legend style = {
             draw = none,
@@ -105,7 +105,7 @@
         legend cell align={left},
       ]
       \nextgroupplot[title = English ($n\,{=}\,340$)]
-      \plotscoretime{../results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscoretime{../results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine_time.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
@@ -117,7 +117,7 @@
             bert-large-uncased-whole-word-masking,
           }}
       \nextgroupplot[title = Finnish ($n\,{=}\,24$)]
-      \plotscoretime{../results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscoretime{../results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine_time.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
@@ -126,20 +126,20 @@
             TurkuNLP/bert-large-finnish-cased-v1,
           }}
       \nextgroupplot[title = Croatian ($n\,{=}\,112$)]
-      \plotscoretime{../results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscoretime{../results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine_time.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
             classla/bcms-bertic,
           }}
       \nextgroupplot[title = Slovene ($n\,{=}\,111$)]
-      \plotscoretime{../results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscoretime{../results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine_time.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
           }}
     \end{groupplot}
   \end{tikzpicture}
-  \caption{The time against score for contextual-embedding models with the additive
-    composition operation.}
+  \caption{The time per target word pair against score for contextual-embedding models
+    with the additive composition operation.}
 \end{figure}
