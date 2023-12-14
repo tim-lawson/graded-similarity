@@ -18,7 +18,7 @@ def line():
     print("-" * 80)
 
 
-def run(
+def run_experiment(
     x: ndarray,
     y: ndarray,
     params: Params,
@@ -47,7 +47,7 @@ def run(
     return score, time
 
 
-def main():
+def run_experiments():
     """Run the experiments."""
 
     args = parse_args()
@@ -77,7 +77,7 @@ def main():
             params = Params(*params)
             print(params)
 
-            score, time = run(x, y, params)
+            score, time = run_experiment(x, y, params)
 
             results.append({**params.to_dict(), "score": score, "time": time})
 
@@ -89,4 +89,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    run_experiments()

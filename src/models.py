@@ -2,7 +2,7 @@
 
 from typing import Any, Literal
 
-from numpy import apply_along_axis, array, dtype, float_, ndarray, str_
+from numpy import apply_along_axis, array, dtype, float_, ndarray, pad, str_
 from scipy.spatial.distance import correlation, cosine
 from sklearn.base import BaseEstimator
 from transformers import (
@@ -19,6 +19,12 @@ from transformers import (
 ArrayStr = ndarray[Any, dtype[str_]]
 
 ArrayFloat = ndarray[Any, dtype[float_]]
+
+
+def padflat(embeddings: ndarray, window: int, dim: int) -> ndarray:
+    """Flatten (n, d) embeddings and pad to (n * d,) where n = 2 * window + 1."""
+    flat = embeddings.flatten()
+    return pad(flat, (0, dim * (2 * window + 1) - len(flat)), constant_values=0)
 
 
 class BaseModel(BaseEstimator):
@@ -64,6 +70,8 @@ class BaseModel(BaseEstimator):
             return embeddings.prod(axis=0)
         if self.context_window_operation == "sum":
             return embeddings.sum(axis=0)
+        if self.context_window_operation == "concat":
+            return padflat(embeddings, self.context_window_size, embeddings.shape[1])
         if self.context_window_operation == "none":
             return embeddings.flatten()
         raise ValueError(

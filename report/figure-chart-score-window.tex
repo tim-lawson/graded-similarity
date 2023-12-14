@@ -18,12 +18,14 @@
 \begin{figure}
   \label{fig:score-window}
   \centering
+  \captionsetup{justification=centering}
   \begin{tikzpicture}
     \begin{groupplot}[
         group style = {
             group size = 2 by 2,
             ylabels at = edge left,
             vertical sep = 2.5in,
+            horizontal sep = 0.7in,
           },
         width = 3in,
         height = 3in,
@@ -76,17 +78,20 @@
           }}
     \end{groupplot}
   \end{tikzpicture}
-  \caption{Score by window size for different static-embedding models.}
+  \caption{The score against window size for static-embedding models with the additive
+    composition operation.}
 \end{figure}
 
 \begin{figure}
   \centering
+  \captionsetup{justification=centering}
   \begin{tikzpicture}
     \begin{groupplot}[
         group style = {
             group size = 2 by 2,
             ylabels at = edge left,
             vertical sep = 2.5in,
+            horizontal sep = 0.7in,
           },
         width = 3in,
         height = 3in,
@@ -139,5 +144,6 @@
           }}
     \end{groupplot}
   \end{tikzpicture}
-  \caption{Score by window size for different contextual-embedding models.}
+  \caption{The score against window size for contextual-embedding models with the
+    additive composition operation.}
 \end{figure}
