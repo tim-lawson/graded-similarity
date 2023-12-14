@@ -1,0 +1,5 @@
+model,model_name,language,window,operation,similarity,score,time
+static,EMBEDDIA/crosloengual-bert,sl,11,sum,cosine,0.3827981942304912,1.4295042920002743
+static,bert-base-multilingual-cased,sl,8,sum,cosine,0.3164447597507593,2.526971250000315
+static,bert-base-multilingual-uncased,sl,10,sum,cosine,0.2907930216597504,1.8000580420002734
+static,gerulata/slovakbert,sl,32,sum,cosine,0.0,0.0

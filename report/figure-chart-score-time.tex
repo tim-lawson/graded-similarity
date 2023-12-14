@@ -1,0 +1,57 @@
+\newcommand{\plotscoretime}[2]{
+  \addplot+[
+    only marks,
+    mark size = 0.8pt,
+  ] table [
+      col sep=comma,
+      x = score,
+      y = time,
+    ]{#1};
+  \addlegendentryexpanded{\expandafter\texttt\expandafter{#2}}
+}
+
+\begin{figure}
+  \label{fig:score-time}
+  \centering
+  \captionsetup{justification=centering}
+  \begin{tikzpicture}
+    \begin{groupplot}[
+        group style = {
+            group size = 2 by 1,
+            horizontal sep = 0.75in,
+            ylabels at = edge left,
+            xlabels at = edge bottom,
+          },
+        width = 3in,
+        height = 3in,
+        xlabel = Score,
+        ylabel = Time per instance (s),
+        cycle list/Paired,
+        legend style = {
+            draw = none,
+            font = \small,
+          },
+        legend cell align={left},
+        y tick label style={
+            /pgf/number format/.cd,
+            fixed,
+            fixed zerofill,
+            precision=2,
+            /tikz/.cd
+          }
+      ]
+      \nextgroupplot[title = Static embeddings]
+      \plotscoretime{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine_time.csv}{en}
+      \plotscoretime{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine_time.csv}{fi}
+      \plotscoretime{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine_time.csv}{hr}
+      \plotscoretime{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine_time.csv}{sl}
+      \nextgroupplot[title = Contextual embeddings]
+      \plotscoretime{../results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine_time.csv}{en}
+      \plotscoretime{../results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine_time.csv}{fi}
+      \plotscoretime{../results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine_time.csv}{hr}
+      \plotscoretime{../results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine_time.csv}{sl}
+    \end{groupplot}
+  \end{tikzpicture}
+  \caption{The time per instance against the score obtained by different models and
+    languages with the additive composition operation.}
+\end{figure}

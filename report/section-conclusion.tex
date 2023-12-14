@@ -1,0 +1,34 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+In this paper, I have presented the results of a hypothetical submission to SemEval-2020
+Task 3, ``Graded Word Similarity in Context''.
+The purpose of this evaluation was to compare the performance of static and contextual
+embeddings and their composition within a fixed-size context window on the task of
+predicting the change in the human judgment of similarity of a pair of words in two
+different contexts.
+I found that contextual embeddings generally outperformed static embeddings, but at a
+significant computational cost, and that composition benefited both static and
+contextual embeddings of sub-word tokens, with highly language-specific dependence
+on the window size.
+
+The results that I have given must be interpreted in context: the original submission
+authors did not have access to the evaluation dataset prior to submitting their results,
+only the `practice kit' of very few instances, and were therefore unable to optimise a
+parameter such as the window size prior to submission.
+Additionally, the models that I used were not necessarily available to the authors.
+With these caveats, I achieved several notable results:
+\begin{itemize}
+  \item The contextual embeddings of \texttt{EMBEDDIA/crosloengual-bert} with a window
+        size of three would have placed second among the Croatian submissions
+        ($0.708$).
+  \item The contextual embeddings of \texttt{TurkuNLP/bert-base-finnish-uncased-v1} with
+        a window size of zero would have placed fourth among the Finnish submissions
+        ($0.679$).
+  \item The \emph{static} embeddings of \texttt{TurkuNLP/bert-base-finnish-uncased-v1}
+        with a window size of zero outperform several of the Finnish submissions,
+        including the baseline ($0.564$).
+\end{itemize}
+Given the significant expense of applying contextual-embedding models, these results
+highlight the importance of analysing the complexity of the task at hand and considering
+the possibility that a simpler model produces adequate results.

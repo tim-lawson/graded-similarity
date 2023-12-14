@@ -1,17 +1,9 @@
 """Model parameters."""
 
+from typing import NamedTuple
+
 from .data import Language
-
-context_window_operations = {
-    "none": [0],
-    "mean": [1, 2, 5, 10, 20, 50],
-    "prod": [1, 2, 5],
-    "sum": [1, 2, 5, 10, 20, 50],
-}
-
-similarity_measures = [
-    "cosine",
-]
+from .models import Model
 
 model_names_multilingual = [
     "bert-base-multilingual-cased",
@@ -46,32 +38,38 @@ def get_model_names(language: Language) -> list[str]:
         ]
 
     if language == "sl":
-        return model_names_multilingual + [
-            "gerulata/slovakbert",
-        ]
+        return model_names_multilingual
 
     return []
 
 
-def get_params(language: Language):
-    """Get language-specific model parameters."""
+class Params(NamedTuple):
+    """Model parameters."""
 
-    params = []
+    model: Model
+    model_name: str
+    language: Language
+    window: int
+    operation: str
+    similarity: str
 
-    for model_name in get_model_names(language):
-        for similarity_measure in similarity_measures:
-            for (
-                context_window_operation,
-                context_window_sizes,
-            ) in context_window_operations.items():
-                for context_window_size in context_window_sizes:
-                    params.append(
-                        {
-                            "context_window_size": context_window_size,
-                            "context_window_operation": context_window_operation,
-                            "similarity_measure": similarity_measure,
-                            "model_name": model_name,
-                        }
-                    )
+    def __str__(self) -> str:
+        return (
+            f"model = {self.model}\n"
+            f"model_name = {self.model_name}\n"
+            f"language = {self.language}\n"
+            f"window = {self.window}\n"
+            f"operation = {self.operation}\n"
+            f"similarity = {self.similarity}"
+        )
 
-    return params
+    def to_dict(self) -> dict[str, str]:
+        """Convert to a dictionary."""
+        return {
+            "model": self.model,
+            "model_name": self.model_name,
+            "language": self.language,
+            "window": str(self.window),
+            "operation": self.operation,
+            "similarity": self.similarity,
+        }

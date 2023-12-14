@@ -2,7 +2,7 @@
 
 from typing import Literal
 
-from pandas import read_csv
+from pandas import read_csv  # type: ignore
 
 Language = Literal[
     "en",
@@ -11,7 +11,7 @@ Language = Literal[
     "sl",
 ]
 
-languages: list[Language] = [
+default_languages: list[Language] = [
     "en",
     "fi",
     "hr",

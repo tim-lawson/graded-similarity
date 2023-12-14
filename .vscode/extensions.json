@@ -1,5 +1,7 @@
 {
   "recommendations": [
+    "geoffkaile.latex-count",
+    "james-yu.latex-workshop",
     "ms-python.black-formatter",
     "ms-python.isort",
     "ms-python.pylint",

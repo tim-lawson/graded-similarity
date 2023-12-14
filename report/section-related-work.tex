@@ -1,0 +1,28 @@
+\section{Related work}
+\label{sec:related-work}
+
+Many context-based approaches to word-sense disambiguation have been proposed since the
+advent of count-based models of word meaning.
+In \textcite{Landauer1997}'s introduction of Latent Semantic Analysis (LSA), the authors
+argued that taking the average of the high-dimensional representation of a word with
+those of its immediate context may be sufficient to determine the word's contextual
+meaning \parencite*[229-230]{Landauer1997}.
+The contextualisation of representations of word meanings is intimately related to their
+composition to form representations of phrase and sentence meanings.
+This connection is evident in \textcite{Kintsch2001}, who proposed a procedure to
+modify the vector of a predicate according to the argument in its context, and
+the adaptation by \textcite{Mitchell2008} of \citeauthor{Kintsch2001}'s evaluation
+methodology to alternative composition operations.
+Vector addition and averaging continue to be `surprisingly effective' means to
+compose word embeddings \parencite[10]{Boleda2020}, and addition produces plausible
+results for the word-analogy task \parencite[e.g.][]{Mikolov2013a}.
+
+Nevertheless, models that produce contextual embeddings have achieved widespread
+success on benchmarks that involve language understanding.
+As \textcite{Arora2020} point out, this comes at a significant computational cost, and
+static embeddings may be sufficient for many tasks.
+Furthermore, \textcite{Gupta2019} and \textcite{Bommasani2020} have shown that
+static embeddings can be obtained from contextual-embedding models, which outperform
+the embeddings of static models while retaining their computational advantages.
+
+\todonum{Finish this section.}

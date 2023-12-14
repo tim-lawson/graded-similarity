@@ -1,74 +1,92 @@
-"""A script to run the subtask 1 experiments."""
+"""A script to run subtask 1 experiments."""
 
-import os
+from itertools import product
 from math import isnan
-from pprint import pprint
 from time import perf_counter
 
+from numpy import ndarray
 from pandas import DataFrame
 
-from .data import languages, load_x, load_y
-from .git import get_git_hash
-from .models import ContextualBertModel, StaticBertModel
-from .params import get_params
-
-models = {
-    "static": lambda params: StaticBertModel(**params),
-    "contextual": lambda params: ContextualBertModel(**params),
-}
+from .args import parse_args
+from .data import load_x, load_y
+from .models import model_types
+from .params import Params, get_model_names
 
 
-def main():
-    """Run the subtask 1 experiments."""
+def line():
+    """Print a line."""
+    print("-" * 80)
 
-    results_dir = f"results/{get_git_hash()}/subtask1"
 
-    os.makedirs(results_dir, exist_ok=True)
+def run_experiment(
+    x: ndarray,
+    y: ndarray,
+    params: Params,
+):
+    """Run an experiment."""
+    score = 0.0
+    time = 0.0
 
-    for name, model in models.items():
-        for language in languages:
-            print(f"{language}")
-            print("-" * 80)
+    try:
+        start = perf_counter()
+        score = model_types[params.model](
+            params.model_name,
+            params.window,
+            params.operation,
+            params.similarity,
+        ).score(x, y)
+        time = perf_counter() - start
 
-            x = load_x(language).to_numpy()
-            y = load_y(language).to_numpy()[:, 2]
+    # pylint: disable=broad-exception-caught
+    except Exception as exception:
+        print(exception)
 
-            results = []
+    if isnan(score):
+        score = 0.0
 
-            for params in get_params(language):
-                pprint(params)
+    return score, time
 
-                score = 0.0
-                time = 0.0
 
-                try:
-                    start = perf_counter()
-                    score = model(dict(params)).score(x, y)
-                    time = perf_counter() - start
+def run_experiments():
+    """Run the experiments."""
 
-                # pylint: disable=broad-exception-caught
-                except Exception as exception:
-                    print(exception)
+    args = parse_args()
 
-                if isnan(score):
-                    score = 0.0
+    line()
+    print(args)
+    line()
 
-                print(f"score: {score:.3f}")
-                print(f"time: {time:.3f}")
-                print("-" * 80)
+    results = []
 
-                results.append({"score": score, "time": time, **params})
+    for language in args.language:
+        x = load_x(language).to_numpy()
+        y = load_y(language).to_numpy()[:, 2]
+        n = len(x)
 
-            results = sorted(
-                results,
-                key=lambda result: result["score"],
-                reverse=True,
-            )
+        print(f"language = {language}, n = {n}")
+        line()
 
-            DataFrame(results).to_csv(
-                f"{results_dir}/{name}_{language}.csv", index=False
-            )
+        for params in product(
+            args.model,
+            get_model_names(language),
+            args.language,
+            args.get_windows(),
+            args.operation,
+            args.similarity,
+        ):
+            params = Params(*params)
+            print(params)
+
+            score, time = run_experiment(x, y, params)
+
+            results.append({**params.to_dict(), "score": score, "time": time})
+
+            print(f"score = {score:.3f}")
+            print(f"time = {n} x {(time / n):.6f} = {time:.3f} s")
+            line()
+
+        DataFrame(results).to_csv(f"results/{args.filename}", index=False)
 
 
 if __name__ == "__main__":
-    main()
+    run_experiments()

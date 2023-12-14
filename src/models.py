@@ -1,6 +1,8 @@
-from typing import Any
+"""Static- and contextual-embedding BERT models."""
 
-from numpy import apply_along_axis, array, dtype, float_, ndarray, str_
+from typing import Any, Literal
+
+from numpy import apply_along_axis, array, dtype, float_, ndarray, pad, str_
 from scipy.spatial.distance import correlation, cosine
 from sklearn.base import BaseEstimator
 from transformers import (
@@ -15,7 +17,14 @@ from transformers import (
 )
 
 ArrayStr = ndarray[Any, dtype[str_]]
+
 ArrayFloat = ndarray[Any, dtype[float_]]
+
+
+def padflat(embeddings: ndarray, window: int, dim: int) -> ndarray:
+    """Flatten (n, d) embeddings and pad to (n * d,) where n = 2 * window + 1."""
+    flat = embeddings.flatten()
+    return pad(flat, (0, dim * (2 * window + 1) - len(flat)), constant_values=0)
 
 
 class BaseModel(BaseEstimator):
@@ -23,15 +32,20 @@ class BaseModel(BaseEstimator):
 
     def __init__(
         self,
+        model_name: str,
         context_window_size: int,
         context_window_operation: str,
         similarity_measure: str,
     ):
+        self.model_name = model_name
         self.context_window_size = context_window_size
         self.context_window_operation = context_window_operation
         self.similarity_measure = similarity_measure
 
     def _encode(self, text: str | list[str]) -> list[int]:
+        raise NotImplementedError
+
+    def _decode(self, tokens: list[int]) -> list[str]:
         raise NotImplementedError
 
     def _find(self, word: str, context: str) -> int:
@@ -56,13 +70,15 @@ class BaseModel(BaseEstimator):
             return embeddings.prod(axis=0)
         if self.context_window_operation == "sum":
             return embeddings.sum(axis=0)
+        if self.context_window_operation == "concat":
+            return padflat(embeddings, self.context_window_size, embeddings.shape[1])
         if self.context_window_operation == "none":
             return embeddings.flatten()
         raise ValueError(
             f"Unknown context window operation: {self.context_window_operation}"
         )
 
-    def _embedding(self, word: str, context: str, word_context: str) -> ArrayFloat:
+    def _embedding(self, _word: str, _context: str, _word_context: str) -> ArrayFloat:
         raise NotImplementedError
 
     def _similarity(
@@ -98,7 +114,9 @@ class BaseModel(BaseEstimator):
                 self._embedding(*row[[1, 3, 7]]),
             )
 
-        return apply_along_axis(change, 1, array(x, dtype=str_))
+        predictions = apply_along_axis(change, 1, array(x, dtype=str_))
+        print(predictions)
+        return predictions
 
     def score(self, x: ArrayStr, y: ArrayFloat):
         """Compute the Pearson correlation coefficient."""
@@ -106,22 +124,22 @@ class BaseModel(BaseEstimator):
 
 
 class StaticBertModel(BaseModel):
-    """BERT static model."""
+    """BERT static-embedding model."""
 
     def __init__(
         self,
+        model_name: str,
         context_window_size: int,
         context_window_operation: str,
         similarity_measure: str,
-        model_name: str,
     ):
         super().__init__(
+            model_name,
             context_window_size,
             context_window_operation,
             similarity_measure,
         )
 
-        self.model_name = model_name
         self.model: PreTrainedModel
         self.tokenizer: PreTrainedTokenizer
         self._set_model()
@@ -144,8 +162,11 @@ class StaticBertModel(BaseModel):
             self.model = BertModel.from_pretrained(self.model_name)  # type: ignore
             self.tokenizer = BertTokenizer.from_pretrained(self.model_name)
 
-    def _encode(self, text: str | list[str]) -> list[int]:
+    def _encode(self, text):
         return self.tokenizer.encode(text, add_special_tokens=False)
+
+    def _decode(self, tokens):
+        return self.tokenizer.decode(tokens)
 
     @property
     def _static_embeddings(self) -> ArrayFloat:
@@ -165,7 +186,7 @@ class StaticBertModel(BaseModel):
 
 
 class ContextualBertModel(StaticBertModel):
-    """BERT contextual model."""
+    """BERT contextual-embedding model."""
 
     def _embeddings(self, context: str) -> ArrayFloat:
         return (
@@ -180,3 +201,11 @@ class ContextualBertModel(StaticBertModel):
 
         start, end = self._context_window(word, context, word_context)
         return self._compose(self._embeddings(context)[start:end])
+
+
+Model = Literal["static", "contextual"]
+
+model_types: dict[Model, type[BaseModel]] = {
+    "static": StaticBertModel,
+    "contextual": ContextualBertModel,
+}
