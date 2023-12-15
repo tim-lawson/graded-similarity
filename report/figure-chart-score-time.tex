@@ -1,32 +1,31 @@
 \newcommand{\plotscoretime}[2]{
-  \addplot+[
+  \addplot[
     only marks,
     mark size = 0.8pt,
+    color = #2,
   ] table [
       col sep=comma,
       x = score,
       y = time,
     ]{#1};
-  \addlegendentryexpanded{\expandafter\texttt\expandafter{#2}}
 }
 
 \begin{figure}
   \label{fig:score-time}
   \centering
-  \captionsetup{justification=centering}
   \begin{tikzpicture}
     \begin{groupplot}[
         group style = {
-            group size = 2 by 1,
-            horizontal sep = 0.75in,
+            group size = 1 by 1,
             ylabels at = edge left,
             xlabels at = edge bottom,
           },
-        width = 3in,
-        height = 3in,
+        width = 4in,
+        height = 4in,
         xlabel = Score,
         ylabel = Time per instance (s),
         cycle list/Paired,
+        legend pos = north west,
         legend style = {
             draw = none,
             font = \small,
@@ -40,18 +39,21 @@
             /tikz/.cd
           }
       ]
-      \nextgroupplot[title = Static embeddings]
-      \plotscoretime{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine_time.csv}{en}
-      \plotscoretime{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine_time.csv}{fi}
-      \plotscoretime{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine_time.csv}{hr}
-      \plotscoretime{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine_time.csv}{sl}
-      \nextgroupplot[title = Contextual embeddings]
-      \plotscoretime{../results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine_time.csv}{en}
-      \plotscoretime{../results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine_time.csv}{fi}
-      \plotscoretime{../results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine_time.csv}{hr}
-      \plotscoretime{../results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine_time.csv}{sl}
+      \nextgroupplot
+      \plotscoretime{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
+      \addlegendentry{Static}
+      \plotscoretime{../results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
+      \addlegendentry{Contextual}
+      \plotscoretime{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
+      \plotscoretime{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
+      \plotscoretime{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
+      \plotscoretime{../results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
+      \plotscoretime{../results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
+      \plotscoretime{../results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
     \end{groupplot}
   \end{tikzpicture}
   \caption{The time per instance against the score obtained by different models and
-    languages with the additive composition operation.}
+    languages with the additive composition operation.
+    The static-embedding models take less time per instance and show less variability.
+    The \texttt{large} variants of the contextual-embedding models take the most time.}
 \end{figure}

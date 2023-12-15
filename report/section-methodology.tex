@@ -69,17 +69,26 @@
     Model name & English    & Finnish    & Croatian   & Slovene
     \\
     \hline
+    \texttt{EMBEDDIA/crosloengual-bert}\textsuperscript{1}
+               & \checkmark & \checkmark & \checkmark & \checkmark
+    \\
+    \texttt{TurkuNLP/bert-base-finnish-cased-v1}\textsuperscript{2}
+               &            & \checkmark &            &
+    \\
+    \texttt{TurkuNLP/bert-base-finnish-uncased-v1}\textsuperscript{2}
+               &            & \checkmark &            &
+    \\
+    \texttt{TurkuNLP/bert-large-finnish-cased-v1}\textsuperscript{2}
+               &            & \checkmark &            &
+    \\
+    \texttt{bert-base-cased}
+               & \checkmark &            &            &
+    \\
     \texttt{bert-base-multilingual-cased}
                & \checkmark & \checkmark & \checkmark & \checkmark
     \\
     \texttt{bert-base-multilingual-uncased}
                & \checkmark & \checkmark & \checkmark & \checkmark
-    \\
-    \texttt{EMBEDDIA/crosloengual-bert}\textsuperscript{1}
-               & \checkmark & \checkmark & \checkmark & \checkmark
-    \\
-    \texttt{bert-base-cased}
-               & \checkmark &            &            &
     \\
     \texttt{bert-base-uncased}
                & \checkmark &            &            &
@@ -87,34 +96,24 @@
     \texttt{bert-large-cased}
                & \checkmark &            &            &
     \\
-    \texttt{bert-large-uncased}
+    \texttt{bert-large-cased-whole-word-masking}
                & \checkmark &            &            &
     \\
-    \texttt{bert-large-cased-whole-word-masking}
+    \texttt{bert-large-uncased}
                & \checkmark &            &            &
     \\
     \texttt{bert-large-uncased-whole-word-masking}
                & \checkmark &            &            &
     \\
-    \texttt{classla-bcms-bertic}\textsuperscript{2}
+    \texttt{classla-bcms-bertic}\textsuperscript{3}
                &            &            & \checkmark &
-    \\
-    \texttt{TurkuNLP/bert-base-finnish-cased-v1}\textsuperscript{3}
-               &            & \checkmark &            &
-    \\
-    \texttt{TurkuNLP/bert-base-finnish-uncased-v1}\textsuperscript{3}
-               &            & \checkmark &            &
-    \\
-    \texttt{TurkuNLP/bert-large-finnish-cased-v1}\textsuperscript{3}
-               &            & \checkmark &            &
-    \\
   \end{tabular}
   \caption{The pre-trained models available via the HuggingFace \emph{Transformers}
     library \parencite{Wolf2020} that I chose to evaluate for each language. The
     corresponding references are
     \textsuperscript{1}\textcite{Ulcar2020},
-    \textsuperscript{2}\textcite{Ljubesic2021},
-    \textsuperscript{3}\textcite{Virtanen2019}, and
+    \textsuperscript{2}\textcite{Virtanen2019},
+    \textsuperscript{3}\textcite{Ljubesic2021}, and
     \textcite{Devlin2019} otherwise.}
 \end{figure}
 

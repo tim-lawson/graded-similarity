@@ -1,8 +1,8 @@
 """Static- and contextual-embedding BERT models."""
 
-from typing import Any, Literal
+from typing import Any, Literal, Sequence
 
-from numpy import apply_along_axis, array, dtype, float_, ndarray, pad, str_
+from numpy import apply_along_axis, array, average, dtype, float_, ndarray, pad, str_
 from scipy.spatial.distance import correlation, cosine
 from sklearn.base import BaseEstimator
 from transformers import (
@@ -115,7 +115,6 @@ class BaseModel(BaseEstimator):
             )
 
         predictions = apply_along_axis(change, 1, array(x, dtype=str_))
-        print(predictions)
         return predictions
 
     def score(self, x: ArrayStr, y: ArrayFloat):
@@ -201,6 +200,35 @@ class ContextualBertModel(StaticBertModel):
 
         start, end = self._context_window(word, context, word_context)
         return self._compose(self._embeddings(context)[start:end])
+
+
+class EnsembleModel(BaseEstimator):
+    """Ensemble model."""
+
+    def __init__(
+        self,
+        models: Sequence[BaseModel],
+        weights: bool = False,
+    ):
+        self.models = models
+        self.weights = weights
+
+    def fit(self, _x, _y):
+        """No-op."""
+        return self
+
+    def predict(self, x: ArrayStr, y: ArrayFloat) -> ArrayFloat:
+        """Predict the change in similarity."""
+        if self.weights:
+            weights = array([model.score(x, y) for model in self.models])
+        else:
+            weights = None
+        predictions = array([model.predict(x) for model in self.models])
+        return average(predictions, axis=0, weights=weights)
+
+    def score(self, x: ArrayStr, y: ArrayFloat):
+        """Compute the Pearson correlation coefficient."""
+        return 1.0 - float(correlation(self.predict(x, y), y, centered=False))
 
 
 Model = Literal["static", "contextual"]

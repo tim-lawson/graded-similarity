@@ -3,13 +3,15 @@
 from itertools import product
 from math import isnan
 from time import perf_counter
+from typing import Callable, Sequence
 
 from numpy import ndarray
 from pandas import DataFrame
 
 from .args import parse_args
-from .data import load_x, load_y
-from .models import model_types
+from .data import Language, default_languages, load_x, load_y
+from .ensembles import get_contextual_ensemble, get_static_ensemble
+from .models import BaseModel, EnsembleModel, model_types
 from .params import Params, get_model_names
 
 
@@ -49,7 +51,6 @@ def run_experiment(
 
 def run_experiments():
     """Run the experiments."""
-
     args = parse_args()
 
     line()
@@ -88,5 +89,42 @@ def run_experiments():
         DataFrame(results).to_csv(f"results/{args.filename}", index=False)
 
 
+def run_ensemble(
+    filename: str,
+    get_ensemble: Callable[[Language], Sequence[BaseModel]],
+    weights: bool = False,
+):
+    """Run an ensemble experiment."""
+    results = []
+
+    for language in default_languages:
+        x = load_x(language).to_numpy()
+        y = load_y(language).to_numpy()[:, 2]
+        n = len(x)
+
+        print(f"language = {language}, n = {n}")
+
+        start = perf_counter()
+        score = EnsembleModel(get_ensemble(language), weights).score(x, y)
+        time = perf_counter() - start
+
+        results.append({"language": language, "score": score, "time": time})
+
+        print(f"score = {score:.3f}")
+        print(f"time = {n} x {(time / n):.6f} = {time:.3f} s")
+        line()
+
+    DataFrame(results).to_csv(f"results/{filename}.csv", index=False)
+
+
+def run_ensembles():
+    """Run the ensemble experiments."""
+    run_ensemble("ensemble_static", get_static_ensemble)
+    run_ensemble("ensemble_contextual", get_contextual_ensemble)
+    run_ensemble("ensemble_static_weighted", get_static_ensemble, True)
+    run_ensemble("ensemble_contextual_weighted", get_contextual_ensemble, True)
+
+
 if __name__ == "__main__":
     run_experiments()
+    run_ensembles()

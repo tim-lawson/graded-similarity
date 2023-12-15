@@ -17,7 +17,7 @@ I applied a heuristic to constrain the search space.
 A naïve estimation of the average number of words in each context, i.e., segmenting on
 whitespace, gave a result of between $40$ and $60$ for the different languages.
 Therefore, for the static-embedding models, I chose $50$ as an upper bound on the
-window size.
+window size on either side of the target word.
 The motivation to choose a smaller maximum window size for contextual-embedding models
 was similarly economical (Section~\ref{sec:cost-benefit}); however, as the window size
 approaches the length of the sequence, one would expect a combination of token
