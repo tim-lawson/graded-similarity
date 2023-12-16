@@ -9,13 +9,16 @@ those of its immediate context may be sufficient to determine the word's context
 meaning \parencite*[229-230]{Landauer1997}.
 The contextualisation of representations of word meanings is intimately related to their
 composition to form representations of phrase and sentence meanings.
-This connection is evident in \textcite{Kintsch2001}, who proposed a procedure to
-modify the vector of a predicate according to the argument in its context, and
-the adaptation by \textcite{Mitchell2008} of \citeauthor{Kintsch2001}'s evaluation
-methodology to alternative composition operations.
+This connection is evident in \textcite{Kintsch2001}'s proposal of a procedure to
+modify the vector of a predicate according to its argument in a given context.
+\textcite{Mitchell2008} also adapted \citeauthor{Kintsch2001}'s demonstration to
+evaluate alternative composition operations.
+
 Vector addition and averaging continue to be `surprisingly effective' means to
 compose word embeddings \parencite[10]{Boleda2020}, and addition produces plausible
-results for the word-analogy task \parencite[e.g.][]{Mikolov2013a}.
+results for the word-analogy task\footnote{
+  Also known as the parallelogram model of analogy \parencite{Rumelhart1973}.
+} \parencites[e.g.,][9]{Mikolov2013}[7]{Mikolov2013a}.
 
 Nevertheless, models that produce contextual embeddings have achieved widespread
 success on benchmarks that involve language understanding.
