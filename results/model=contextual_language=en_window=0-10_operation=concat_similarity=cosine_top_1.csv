@@ -1,0 +1,10 @@
+model,model_name,language,window,operation,similarity,score,time
+contextual,EMBEDDIA/crosloengual-bert,en,1,concat,cosine,0.5622908543450791,82.08913691699854
+contextual,bert-base-cased,en,1,concat,cosine,0.5298743948983078,78.52689883300627
+contextual,bert-base-multilingual-cased,en,1,concat,cosine,0.5729400953507151,75.65277933298785
+contextual,bert-base-multilingual-uncased,en,1,concat,cosine,0.5570930008968854,77.69360612500168
+contextual,bert-base-uncased,en,1,concat,cosine,0.617100532337395,92.87525104099768
+contextual,bert-large-cased,en,1,concat,cosine,0.5489894070667611,216.40261854199343
+contextual,bert-large-cased-whole-word-masking,en,1,concat,cosine,0.4954913221363008,207.5284905419976
+contextual,bert-large-uncased,en,1,concat,cosine,0.497751217626144,215.74944837500516
+contextual,bert-large-uncased-whole-word-masking,en,1,concat,cosine,0.5631826169779168,213.37681899999737

@@ -1,0 +1,4 @@
+model,model_name,language,window,operation,similarity,score,time
+static,EMBEDDIA/crosloengual-bert,sl,1,concat,cosine,0.3649555898308692,1.4434265829913784
+static,bert-base-multilingual-cased,sl,0,concat,cosine,0.2181514144556083,2.4275637500104494
+static,bert-base-multilingual-uncased,sl,4,concat,cosine,0.2671987568150802,1.8999967919953633

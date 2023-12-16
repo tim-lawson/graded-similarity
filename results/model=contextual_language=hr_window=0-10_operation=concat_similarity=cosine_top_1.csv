@@ -1,0 +1,5 @@
+model,model_name,language,window,operation,similarity,score,time
+contextual,EMBEDDIA/crosloengual-bert,hr,1,concat,cosine,0.6124260268571291,35.237220207985956
+contextual,bert-base-multilingual-cased,hr,2,concat,cosine,0.5063189845549305,30.528594834002433
+contextual,bert-base-multilingual-uncased,hr,1,concat,cosine,0.446784180963117,30.770798040990485
+contextual,classla/bcms-bertic,hr,1,concat,cosine,0.282460050433008,42.54410137500963
