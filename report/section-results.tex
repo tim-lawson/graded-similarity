@@ -19,7 +19,7 @@ whitespace, gave a result of between $40$ and $60$ for the different languages.
 Therefore, for the static-embedding models, I chose $50$ as an upper bound on the
 window size on either side of the target word.
 The motivation to choose a smaller maximum window size for contextual-embedding models
-was similarly economical (Section~\ref{sec:cost-benefit}); however, as the window size
+was similarly economical (\cref{sec:cost-benefit}); however, as the window size
 approaches the length of the sequence, one would expect a combination of token
 representations to be superseded by the sequence-level representation of the model,
 e.g., the special \texttt{CLS} token of BERT variants \parencite[4174]{Devlin2019}.
@@ -33,7 +33,7 @@ expressions.
 A similar argument applies to contextual embeddings, in that a target word may be
 represented by multiple sub-word tokens.
 The window sizes that maximise the score for each language and model are given in
-Table~\ref{table:best-window-size}.
+\cref{table:best-window-size-static,table:best-window-size-contextual}.
 
 \import{.}{figure-table-best-window-size}
 \import{.}{figure-chart-score-window}

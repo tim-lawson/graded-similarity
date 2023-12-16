@@ -6,15 +6,16 @@ from numpy import apply_along_axis, array, average, dtype, float_, ndarray, pad,
 from scipy.spatial.distance import correlation, cosine
 from sklearn.base import BaseEstimator
 from transformers import (
+    BertConfig,
     BertModel,
     BertTokenizer,
+    ElectraConfig,
     ElectraModel,
     ElectraTokenizer,
     PreTrainedModel,
     PreTrainedTokenizer,
-    RobertaModel,
-    RobertaTokenizer,
 )
+from transformers.modeling_outputs import BaseModelOutputWithPoolingAndCrossAttentions
 
 ArrayStr = ndarray[Any, dtype[str_]]
 
@@ -149,16 +150,21 @@ class StaticBertModel(BaseModel):
 
     def _set_model(self):
         if self.model_name in ["classla/bcms-bertic"]:
-            self.model = ElectraModel.from_pretrained(self.model_name)  # type: ignore
+            self.model = ElectraModel.from_pretrained(
+                self.model_name,
+                config=ElectraConfig.from_pretrained(
+                    self.model_name, output_hidden_states=True
+                ),
+            )  # type: ignore
             self.tokenizer = ElectraTokenizer.from_pretrained(self.model_name)
 
-        # TODO: fix `find` errors
-        elif self.model_name in ["gerulata/slovakbert"]:
-            self.model = RobertaModel.from_pretrained(self.model_name)  # type: ignore
-            self.tokenizer = RobertaTokenizer.from_pretrained(self.model_name)
-
         else:
-            self.model = BertModel.from_pretrained(self.model_name)  # type: ignore
+            self.model = BertModel.from_pretrained(
+                self.model_name,
+                config=BertConfig.from_pretrained(
+                    self.model_name, output_hidden_states=True
+                ),
+            )  # type: ignore
             self.tokenizer = BertTokenizer.from_pretrained(self.model_name)
 
     def _encode(self, text):
@@ -184,8 +190,8 @@ class StaticBertModel(BaseModel):
         return self._compose(self._embeddings(context)[tokens[start:end]])
 
 
-class ContextualBertModel(StaticBertModel):
-    """BERT contextual-embedding model."""
+class SimpleContextualBertModel(StaticBertModel):
+    """BERT contextual-embedding model (last hidden-state)."""
 
     def _embeddings(self, context: str) -> ArrayFloat:
         return (
@@ -193,6 +199,37 @@ class ContextualBertModel(StaticBertModel):
             .detach()
             .numpy()
         )
+
+    def _embedding(self, word: str, context: str, word_context: str) -> ArrayFloat:
+        if self.context_window_operation == "none" or self.context_window_size == 0:
+            return self._embeddings(context)[self._find(word_context, context)]
+
+        start, end = self._context_window(word, context, word_context)
+        return self._compose(self._embeddings(context)[start:end])
+
+
+class PooledContextualBertModel(StaticBertModel):
+    """BERT contextual-embedding model (last four hidden-states)."""
+
+    def _embeddings(self, context: str) -> ArrayFloat:
+        outputs: BaseModelOutputWithPoolingAndCrossAttentions = self.model(
+            **self.tokenizer(context, return_tensors="pt")
+        )
+
+        assert outputs.hidden_states is not None
+
+        # Get the last four hidden-states
+        hidden_states0 = outputs.hidden_states[-1][0].detach().numpy()
+        hidden_states1 = outputs.hidden_states[-2][0].detach().numpy()  # type: ignore
+        hidden_states2 = outputs.hidden_states[-3][0].detach().numpy()  # type: ignore
+        hidden_states3 = outputs.hidden_states[-4][0].detach().numpy()  # type: ignore
+
+        # Get the average of the hidden-states
+        hidden_states = (
+            hidden_states0 + hidden_states1 + hidden_states2 + hidden_states3
+        )
+
+        return hidden_states
 
     def _embedding(self, word: str, context: str, word_context: str) -> ArrayFloat:
         if self.context_window_operation == "none" or self.context_window_size == 0:
@@ -231,9 +268,10 @@ class EnsembleModel(BaseEstimator):
         return 1.0 - float(correlation(self.predict(x, y), y, centered=False))
 
 
-Model = Literal["static", "contextual"]
+Model = Literal["static", "contextual", "pooled"]
 
 model_types: dict[Model, type[BaseModel]] = {
     "static": StaticBertModel,
-    "contextual": ContextualBertModel,
+    "contextual": SimpleContextualBertModel,
+    "pooled": PooledContextualBertModel,
 }

@@ -47,8 +47,11 @@ def _time(filename: str, n: int):
 def _results():
     for language in default_languages:
         for filename in [
-            f"results/model=contextual_language={language}_window=0-10_operation=sum_similarity=cosine.csv",
             f"results/model=static_language={language}_window=0-50_operation=sum_similarity=cosine.csv",
+            f"results/model=static_language={language}_window=0-50_operation=concat_similarity=cosine.csv",
+            f"results/model=contextual_language={language}_window=0-10_operation=sum_similarity=cosine.csv",
+            f"results/model=contextual_language={language}_window=0-10_operation=concat_similarity=cosine.csv",
+            f"results/model=pooled_language={language}_window=0-10_operation=sum_similarity=cosine.csv",
         ]:
             _top_1_model_name(filename)
             _time(filename, ns[language])

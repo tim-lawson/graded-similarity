@@ -1,7 +1,7 @@
 """Model ensembles."""
 
 from .data import Language
-from .models import ContextualBertModel, StaticBertModel
+from .models import SimpleContextualBertModel, StaticBertModel
 
 
 def get_static_ensemble(language: Language):
@@ -52,47 +52,65 @@ def get_contextual_ensemble(language: Language):
     """Get an ensemble of contextual models."""
     if language == "en":
         return [
-            ContextualBertModel("EMBEDDIA/crosloengual-bert", 3, "sum", "cosine"),
-            ContextualBertModel("bert-base-cased", 1, "sum", "cosine"),
-            ContextualBertModel("bert-base-multilingual-cased", 1, "sum", "cosine"),
-            ContextualBertModel("bert-base-multilingual-uncased", 1, "sum", "cosine"),
-            ContextualBertModel("bert-base-uncased", 3, "sum", "cosine"),
-            ContextualBertModel("bert-large-cased", 3, "sum", "cosine"),
-            ContextualBertModel(
+            SimpleContextualBertModel("EMBEDDIA/crosloengual-bert", 3, "sum", "cosine"),
+            SimpleContextualBertModel("bert-base-cased", 1, "sum", "cosine"),
+            SimpleContextualBertModel(
+                "bert-base-multilingual-cased", 1, "sum", "cosine"
+            ),
+            SimpleContextualBertModel(
+                "bert-base-multilingual-uncased", 1, "sum", "cosine"
+            ),
+            SimpleContextualBertModel("bert-base-uncased", 3, "sum", "cosine"),
+            SimpleContextualBertModel("bert-large-cased", 3, "sum", "cosine"),
+            SimpleContextualBertModel(
                 "bert-large-cased-whole-word-masking", 2, "sum", "cosine"
             ),
-            ContextualBertModel("bert-large-uncased", 1, "sum", "cosine"),
-            ContextualBertModel(
+            SimpleContextualBertModel("bert-large-uncased", 1, "sum", "cosine"),
+            SimpleContextualBertModel(
                 "bert-large-uncased-whole-word-masking", 1, "sum", "cosine"
             ),
         ]
     if language == "fi":
         return [
-            ContextualBertModel("EMBEDDIA/crosloengual-bert", 10, "sum", "cosine"),
-            ContextualBertModel("bert-base-multilingual-cased", 3, "sum", "cosine"),
-            ContextualBertModel("bert-base-multilingual-uncased", 2, "sum", "cosine"),
-            ContextualBertModel(
+            SimpleContextualBertModel(
+                "EMBEDDIA/crosloengual-bert", 10, "sum", "cosine"
+            ),
+            SimpleContextualBertModel(
+                "bert-base-multilingual-cased", 3, "sum", "cosine"
+            ),
+            SimpleContextualBertModel(
+                "bert-base-multilingual-uncased", 2, "sum", "cosine"
+            ),
+            SimpleContextualBertModel(
                 "TurkuNLP/bert-base-finnish-cased-v1", 1, "sum", "cosine"
             ),
-            ContextualBertModel(
+            SimpleContextualBertModel(
                 "TurkuNLP/bert-base-finnish-uncased-v1", 1, "sum", "cosine"
             ),
-            ContextualBertModel(
+            SimpleContextualBertModel(
                 "TurkuNLP/bert-large-finnish-cased-v1", 1, "sum", "cosine"
             ),
         ]
     if language == "hr":
         return [
-            ContextualBertModel("EMBEDDIA/crosloengual-bert", 3, "sum", "cosine"),
-            ContextualBertModel("bert-base-multilingual-cased", 5, "sum", "cosine"),
-            ContextualBertModel("bert-base-multilingual-uncased", 6, "sum", "cosine"),
-            ContextualBertModel("classla/bcms-bertic", 10, "sum", "cosine"),
+            SimpleContextualBertModel("EMBEDDIA/crosloengual-bert", 3, "sum", "cosine"),
+            SimpleContextualBertModel(
+                "bert-base-multilingual-cased", 5, "sum", "cosine"
+            ),
+            SimpleContextualBertModel(
+                "bert-base-multilingual-uncased", 6, "sum", "cosine"
+            ),
+            SimpleContextualBertModel("classla/bcms-bertic", 10, "sum", "cosine"),
         ]
     if language == "sl":
         return [
-            ContextualBertModel("EMBEDDIA/crosloengual-bert", 3, "sum", "cosine"),
-            ContextualBertModel("bert-base-multilingual-cased", 3, "sum", "cosine"),
-            ContextualBertModel("bert-base-multilingual-uncased", 9, "sum", "cosine"),
+            SimpleContextualBertModel("EMBEDDIA/crosloengual-bert", 3, "sum", "cosine"),
+            SimpleContextualBertModel(
+                "bert-base-multilingual-cased", 3, "sum", "cosine"
+            ),
+            SimpleContextualBertModel(
+                "bert-base-multilingual-uncased", 9, "sum", "cosine"
+            ),
         ]
 
     raise ValueError(f"Unknown language: {language}")

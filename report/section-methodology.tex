@@ -2,7 +2,6 @@
 \label{sec:methodology}
 
 \begin{figure}
-  \label{fig:schematic-procedure}
   \centering
   \newcommand{\period}{\text{.}}
   \newcommand*{\orawidest}{accept}
@@ -60,10 +59,10 @@
     of a target word from pre-trained static or contextual embeddings. In this example,
     the target word is ``accept'', the window size is one (either side of the target
     word), and the composition operation is addition.}
+  \label{fig:schematic-procedure}
 \end{figure}
 
 \begin{figure}
-  \label{fig:language-models}
   \centering
   \begin{tabular}{lcccc}
     Model name & English    & Finnish    & Croatian   & Slovene
@@ -115,6 +114,7 @@
     \textsuperscript{2}\textcite{Virtanen2019},
     \textsuperscript{3}\textcite{Ljubesic2021}, and
     \textcite{Devlin2019} otherwise.}
+  \label{fig:language-models}
 \end{figure}
 
 Originally, it would not have been possible to optimise a parameterised model for the
@@ -128,23 +128,32 @@ finding the tokens within a fixed-size window around the target word's first tok
 obtaining the embeddings of the tokens in the window; and
 combining the the embeddings to produce a single representation of the target word.
 
+My primary motivation in undertaking this task was to compare static and contextual
+embeddings.
+However, several of the submissions to SemEval-2020 Task 3 used a combination of the
+weights of a Transformer model's hidden states
+\parencites[e.g.,][276]{Gamallo2020}[3]{Pessutto2020}[4]{Hettiarachchi2021}.
+Therefore, I chose to also evaluate an example of this approach.
+A thorough comparison of the performance of its variants is beyond the
+scope of this paper.
 In all cases, the tokenization was performed by and the embeddings were obtained from
 pre-trained models available via the HuggingFace \emph{Transformers} library
 \parencite{Wolf2020}.
-The models that I evaluated for each language are given in Table~\ref{fig:language-models}.
-For the static-embedding variants of the procedure, I used the models' input embeddings;
-for the contextual-embedding variants, I used the models' outputs.
-Several of the submissions to SemEval-2020 Task 3 used a combination of the weights of a
-Transformer model's hidden states \parencites[e.g.,][276]{Gamallo2020}[3]{Pessutto2020}[4]{Hettiarachchi2021}; a thorough comparison of the performance of variants
-of this approach is beyond the scope of this paper.
+The models that I evaluated for each language are given in \cref{fig:language-models}.
+For each of these, I investigated the following variants:
+\begin{itemize}
+  \item \texttt{static}: the model's input embeddings
+  \item \texttt{contextual}: the model's output embeddings
+  \item \texttt{pooled}: the sum of the model's last four hidden-states
+\end{itemize}
 
 Notably, the use of a sub-word vocabulary by these models
 \parencite[e.g.,][4174]{Devlin2019} dictates that a target word may be represented by a
 different number of tokens in each context.
 As a result, the representations of a pair of target words may be different in each
 context, even if they are static and the window size is zero.
-This is the cause of the non-zero scores obtained by models of this kind
-(Section~\ref{appendix:window-size}), particularly for the Finnish language.
+This is the cause of the non-zero scores obtained by models of this kind, particularly
+for the Finnish language.
 
 Inspired by \textcite{Landauer1997}, \textcite{Kintsch2001}, and
 \textcite{Mitchell2008}, I predominantly investigated the application of element-wise
