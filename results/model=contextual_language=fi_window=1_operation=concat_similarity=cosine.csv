@@ -1,7 +1,0 @@
-model,model_name,language,window,operation,similarity,score,time
-contextual,bert-base-multilingual-cased,fi,1,concat,cosine,0.3689002175325107,26.842528000008315
-contextual,bert-base-multilingual-uncased,fi,1,concat,cosine,0.2333624723373421,17.28694508400804
-contextual,EMBEDDIA/crosloengual-bert,fi,1,concat,cosine,0.15708050595858447,11.122520749995601
-contextual,TurkuNLP/bert-base-finnish-cased-v1,fi,1,concat,cosine,0.49674144479883076,7.66666183299094
-contextual,TurkuNLP/bert-base-finnish-uncased-v1,fi,1,concat,cosine,0.327745528222566,7.882863999999245
-contextual,TurkuNLP/bert-large-finnish-cased-v1,fi,1,concat,cosine,0.6629902401606163,21.96994787499716

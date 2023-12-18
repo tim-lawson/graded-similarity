@@ -1,7 +1,11 @@
 """Model ensembles."""
 
 from .data import Language
-from .models import SimpleContextualBertModel, StaticBertModel
+from .models import (
+    PooledContextualBertModel,
+    SimpleContextualBertModel,
+    StaticBertModel,
+)
 
 
 def get_static_ensemble(language: Language):
@@ -110,6 +114,74 @@ def get_contextual_ensemble(language: Language):
             ),
             SimpleContextualBertModel(
                 "bert-base-multilingual-uncased", 9, "sum", "cosine"
+            ),
+        ]
+
+    raise ValueError(f"Unknown language: {language}")
+
+
+def get_pooled_ensemble(language: Language):
+    """Get an ensemble of pooled models."""
+    if language == "en":
+        return [
+            PooledContextualBertModel("EMBEDDIA/crosloengual-bert", 1, "sum", "cosine"),
+            PooledContextualBertModel("bert-base-cased", 1, "sum", "cosine"),
+            PooledContextualBertModel(
+                "bert-base-multilingual-cased", 1, "sum", "cosine"
+            ),
+            PooledContextualBertModel(
+                "bert-base-multilingual-uncased", 1, "sum", "cosine"
+            ),
+            PooledContextualBertModel("bert-base-uncased", 1, "sum", "cosine"),
+            PooledContextualBertModel("bert-large-cased", 1, "sum", "cosine"),
+            PooledContextualBertModel(
+                "bert-large-cased-whole-word-masking", 3, "sum", "cosine"
+            ),
+            PooledContextualBertModel("bert-large-uncased", 3, "sum", "cosine"),
+            PooledContextualBertModel(
+                "bert-large-uncased-whole-word-masking", 1, "sum", "cosine"
+            ),
+        ]
+    if language == "fi":
+        return [
+            PooledContextualBertModel(
+                "EMBEDDIA/crosloengual-bert", 10, "sum", "cosine"
+            ),
+            PooledContextualBertModel(
+                "bert-base-multilingual-cased", 1, "sum", "cosine"
+            ),
+            PooledContextualBertModel(
+                "bert-base-multilingual-uncased", 1, "sum", "cosine"
+            ),
+            PooledContextualBertModel(
+                "TurkuNLP/bert-base-finnish-cased-v1", 1, "sum", "cosine"
+            ),
+            PooledContextualBertModel(
+                "TurkuNLP/bert-base-finnish-uncased-v1", 2, "sum", "cosine"
+            ),
+            PooledContextualBertModel(
+                "TurkuNLP/bert-large-finnish-cased-v1", 2, "sum", "cosine"
+            ),
+        ]
+    if language == "hr":
+        return [
+            PooledContextualBertModel("EMBEDDIA/crosloengual-bert", 3, "sum", "cosine"),
+            PooledContextualBertModel(
+                "bert-base-multilingual-cased", 6, "sum", "cosine"
+            ),
+            PooledContextualBertModel(
+                "bert-base-multilingual-uncased", 1, "sum", "cosine"
+            ),
+            PooledContextualBertModel("classla/bcms-bertic", 2, "sum", "cosine"),
+        ]
+    if language == "sl":
+        return [
+            PooledContextualBertModel("EMBEDDIA/crosloengual-bert", 2, "sum", "cosine"),
+            PooledContextualBertModel(
+                "bert-base-multilingual-cased", 3, "sum", "cosine"
+            ),
+            PooledContextualBertModel(
+                "bert-base-multilingual-uncased", 2, "sum", "cosine"
             ),
         ]
 

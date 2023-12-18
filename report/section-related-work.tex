@@ -3,29 +3,48 @@
 
 Many context-based approaches to word-sense disambiguation have been proposed since the
 advent of count-based models of word meaning.
-In \textcite{Landauer1997}'s introduction of Latent Semantic Analysis (LSA), the authors
+In the paper that introduced Latent Semantic Analysis (LSA), for example, the authors
 argued that taking the average of the high-dimensional representation of a word with
 those of its immediate context may be sufficient to determine the word's contextual
-meaning \parencite*[229-230]{Landauer1997}.
-The contextualisation of representations of word meanings is intimately related to their
-composition to form representations of phrase and sentence meanings.
-This connection is evident in \textcite{Kintsch2001}'s proposal of a procedure to
-modify the vector of a predicate according to its argument in a given context.
-\textcite{Mitchell2008} also adapted \citeauthor{Kintsch2001}'s demonstration to
+meaning \parencite[229-230]{Landauer1997}.
+Thus, the contextualisation of representations of word meanings is intimately related
+to their composition to form representations of more complex expressions.
+This relationship is evident, for example, in the work of \textcite{Kintsch2001}, who
+proposed a a procedure to contextualise the representation of a predicate according to
+its argument, and in the adaptation of this demonstration by \textcite{Mitchell2008} to
 evaluate alternative composition operations.
-
-Vector addition and averaging continue to be `surprisingly effective' means to
-compose word embeddings \parencite[10]{Boleda2020}, and addition produces plausible
-results for the word-analogy task\footnote{
-  Also known as the parallelogram model of analogy \parencite{Rumelhart1973}.
-} \parencites[e.g.,][9]{Mikolov2013}[7]{Mikolov2013a}.
+Vector addition and averaging continue to be `surprisingly effective' means to compose
+word embeddings \parencite[10]{Boleda2020}, and addition produces plausible results for
+the word-analogy task \parencites[e.g.,][9]{Mikolov2013}[7]{Mikolov2013a}.
+A review of distributional semantic models is given by \textcite{Lenci2018}.
 
 Nevertheless, models that produce contextual embeddings have achieved widespread
-success on benchmarks that involve language understanding.
-As \textcite{Arora2020} point out, this comes at a significant computational cost, and
-static embeddings may be sufficient for many tasks.
-Furthermore, \textcite{Gupta2019} and \textcite{Bommasani2020} have shown that
-static embeddings can be obtained from contextual-embedding models, which outperform
-the embeddings of static models while retaining their computational advantages.
+success on benchmark tasks that involve language understanding
+\parencite[22-27]{Bommasani2022}.
+There is, however, cause to criticise the suitability of typical benchmarks for
+characterising the capabilities of language models \parencite[5-6]{Srivastava2023}.
+The computational cost of inference with contextual embeddings may also be prohibitive
+or unjustified (\cref{sec:cost-benefit}).
+For instance, \textcite{Arora2020} demonstrated that static and even \emph{random}
+embeddings can achieve similar performance given sufficient data and linguistically
+simple tasks.
+Furthermore, \textcites[5244-5246]{Gupta2019}[4760-4762]{Bommasani2020} compared the
+performance of different embedding methods on a variety of word-similarity tasks, and
+demonstrated that static embeddings can be obtained from contextual models that
+outperform their contextual counterparts while reducing the computational cost of
+inference.
+Surveys of contextual and static embeddings are given by
+\textcites{Liu2020}{Torregrossa2021}; further analyses of their nature are provided by
+\textcites{Hewitt2019}{Liu2019}{Reif2019}{Brunner2020}.
 
-\todonum{Finish this section.}
+\textcite{Batchkarov2016} critically analyse word similarity as an evaluation
+methodology for distributional semantic models.
+In particular, the notion of `similarity' manifested by these models encompasses a
+broad range of semantic relations \parencite[e.g.,][2]{Pado2003}, with the consequence
+that performance on an intrinsic word-similarity task does not necessarily translate to
+extrinsic downstream tasks \parencite[7-8]{Batchkarov2016}.
+Moreover, inter-annotator agreement is generally poor for word-similarity tasks in
+comparison to more specific downstream tasks \parencite[8-9]{Batchkarov2016}.
+In this case, \textcites[8]{Armendariz2020}[42]{Armendariz2020a} reported similar
+correlation scores between the different languages and in comparison to SimLex-999
+\parencite[678-680]{Hill2015}.

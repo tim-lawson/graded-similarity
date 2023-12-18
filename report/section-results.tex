@@ -1,6 +1,8 @@
 \section{Results}
 \label{sec:results}
 
+\import{.}{figure-table-best-score}
+
 \subsection{Cost-benefit analysis of contextual embeddings}
 \label{sec:cost-benefit}
 
@@ -12,28 +14,15 @@
 
 Generally, I found that the scores obtained by both static- and contextual-embedding
 models were maximised by a non-zero context-window size.
-Due to the computational expense of exhaustively searching the possible window sizes,
-I applied a heuristic to constrain the search space.
-A naïve estimation of the average number of words in each context, i.e., segmenting on
-whitespace, gave a result of between $40$ and $60$ for the different languages.
-Therefore, for the static-embedding models, I chose $50$ as an upper bound on the
-window size on either side of the target word.
-The motivation to choose a smaller maximum window size for contextual-embedding models
-was similarly economical (\cref{sec:cost-benefit}); however, as the window size
-approaches the length of the sequence, one would expect a combination of token
-representations to be superseded by the sequence-level representation of the model,
-e.g., the special \texttt{CLS} token of BERT variants \parencite[4174]{Devlin2019}.
-These heuristics were largely vindicated by the results of the evaluation, which
-demonstrated that the scores decrease as the window size approaches the maximum.
-
 The influence of the window size is intuitive in the case of static embeddings.
 Without a context window, the representations of a target word only differ between
 expressions if the word is represented by different sub-word tokens in the different
 expressions.
 A similar argument applies to contextual embeddings, in that a target word may be
 represented by multiple sub-word tokens.
-The window sizes that maximise the score for each language and model are given in
-\cref{table:best-window-size-static,table:best-window-size-contextual}.
+For the additive composition operation, the scores against window size for each
+language and model are given in
+\cref{chart:score-window-static,chart:score-window-contextual,chart:score-window-pooled}.
 
-\import{.}{figure-table-best-window-size}
+% \import{.}{figure-table-best-window-size}
 \import{.}{figure-chart-score-window}

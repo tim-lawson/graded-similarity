@@ -5,8 +5,9 @@ In his \emph{Foundations of Arithmetic}, Frege promises ``never to ask for the m
 of a word in isolation, but only in the context of a proposition''
 \parencite*[xvii]{Frege1980}.
 This `context principle' is intuitive: words are frequently polysemous, or assume
-different connotations and emphasis within different expressions.
-Historically, however, contextuality has been a problem for distributional meaning
+different connotations and emphasis within different expressions
+\parencite[2-3]{Armendariz2020}.
+Historically, however, context-dependence has been a problem for distributional meaning
 representations.
 Founded on the distributional hypothesis \parencites{Harris1954}{Firth1957}, both
 count-based and predictive models of word meaning\footnote{ This terminological
@@ -17,8 +18,7 @@ One of these \emph{static} representations must, therefore, encode all of a word
 senses and connotations, which may obstruct its use in modelling context-dependent
 phenomena.
 
-Prior to the widespread availability of pre-trained word embeddings
-\parencites[e.g.,][]{Mikolov2013}{Pennington2014} and their successors, this problem was
+Prior to the widespread availability of pre-trained language models, this problem was
 generally addressed by one of two approaches: firstly, by producing a representation
 for each sense of a target word and disambiguating between them in the given context
 (\emph{word-sense disambiguation}); or secondly, by composing the representation of the
@@ -30,9 +30,9 @@ of the items in the sequence, such as Transformers \parencite{Vaswani2017}.
 
 To my knowledge, however, there has been scant direct comparison of the performance of
 these contextual representations with the application of prior methods of
-contextualisation to static representations.
-SemEval-2020 Task 3, ``Graded Word Similarity in Context''
-\parencite{Armendariz2020a}, presents an opportunity to make such a comparison.
+contextualisation to static representations (\cref{sec:related-work}).
+SemEval-2020 Task 3, ``Graded Word Similarity in Context'' \parencite{Armendariz2020a},
+presents an opportunity to make such a comparison.
 Briefly, the task is to predict the human judgment of similarity of the same pair of
 words in two different contexts (\cref{task-definition}).
 I elected to focus on the first sub-task, which is to predict the \emph{change} in

@@ -10,7 +10,7 @@ from pandas import DataFrame
 
 from .args import parse_args
 from .data import Language, default_languages, load_x, load_y
-from .ensembles import get_contextual_ensemble, get_static_ensemble
+from .ensembles import get_contextual_ensemble, get_pooled_ensemble, get_static_ensemble
 from .models import BaseModel, EnsembleModel, model_types
 from .params import Params, get_model_names
 
@@ -114,17 +114,19 @@ def run_ensemble(
         print(f"time = {n} x {(time / n):.6f} = {time:.3f} s")
         line()
 
-    DataFrame(results).to_csv(f"results/{filename}.csv", index=False)
+    DataFrame(results).to_csv(f"results/ensembles/{filename}.csv", index=False)
 
 
 def run_ensembles():
     """Run the ensemble experiments."""
-    run_ensemble("ensemble_static", get_static_ensemble)
-    run_ensemble("ensemble_contextual", get_contextual_ensemble)
-    run_ensemble("ensemble_static_weighted", get_static_ensemble, True)
-    run_ensemble("ensemble_contextual_weighted", get_contextual_ensemble, True)
+    # run_ensemble("ensemble_static", get_static_ensemble)
+    # run_ensemble("ensemble_static_weighted", get_static_ensemble, True)
+    # run_ensemble("ensemble_contextual", get_contextual_ensemble)
+    # run_ensemble("ensemble_contextual_weighted", get_contextual_ensemble, True)
+    run_ensemble("ensemble_pooled", get_pooled_ensemble)
+    run_ensemble("ensemble_pooled_weighted", get_pooled_ensemble, True)
 
 
 if __name__ == "__main__":
-    run_experiments()
-    # run_ensembles()
+    # run_experiments()
+    run_ensembles()

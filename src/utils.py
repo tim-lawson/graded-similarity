@@ -2,11 +2,13 @@
 
 # pylint: disable=protected-access
 
+import os
+
 from numpy import average
-from pandas import read_csv
+from pandas import DataFrame, concat, read_csv
 
 from .data import Language, default_languages, load_x
-from .models import StaticBertModel
+from .models import Model, StaticBertModel
 
 columns = [
     "model",
@@ -42,6 +44,28 @@ def _time(filename: str, n: int):
     dataframe = read_csv(filename, header=0, names=columns)
     dataframe["time"] = dataframe["time"] / n
     dataframe.to_csv(filename.replace(".csv", "_time.csv"), index=False)
+
+
+def _best():
+    dataframes: list[DataFrame] = []
+    for filename in os.listdir("results"):
+        if filename.endswith(".csv"):
+            dataframes.append(read_csv(f"results/{filename}", header=0, names=columns))
+
+    dataframe = concat(dataframes).sort_values(by=["score"], ascending=False)
+    dataframe.groupby(["language"]).head(1).reset_index(drop=True).sort_values(
+        by=["language"]
+    ).to_csv("results/best/best_overall.csv", index=False)
+
+    for model in ["static", "contextual", "pooled"]:
+        (
+            dataframe[dataframe["model"] == model]
+            .groupby(["language"])
+            .head(1)
+            .reset_index(drop=True)
+            .sort_values(by=["language"])
+            .to_csv(f"results/best/best_{model}.csv", index=False)
+        )
 
 
 def _results():
@@ -86,6 +110,7 @@ def _context_lengths():
 
 
 if __name__ == "__main__":
+    _best()
     _results()
     # _examples()
     # _context_lengths()
