@@ -11,7 +11,7 @@ The baseline models for the task were the multilingual BERT model
 Croatian, and Slovene datasets \parencite{Ulcar2020a}; and the vast majority of the
 task submissions used Transformers \parencite[36,42-45]{Armendariz2020a}.
 The models that I evaluated were accessed via the HuggingFace \emph{Transformers}
-library \parencite{Wolf2020} and are listed in \cref{table:language-models}.
+library \parencite{Wolf2020a} and are listed in \cref{table:language-models}.
 
 \begin{figure}
   \centering
@@ -49,7 +49,7 @@ library \parencite{Wolf2020} and are listed in \cref{table:language-models}.
     \texttt{classla-bcms-bertic}\textsuperscript{3}                   &            &            & \checkmark &
   \end{tabular}
   \caption{The pre-trained models from the HuggingFace \emph{Transformers} library
-    \parencite{Wolf2020} that I evaluated for each language.
+    \parencite{Wolf2020a} that I evaluated for each language.
     The corresponding references are \textsuperscript{1}\textcite{Ulcar2020},
     \textsuperscript{2}\textcite{Virtanen2019}, \textsuperscript{3}\textcite{Ljubesic2021},
     and \textcite{Devlin2019} otherwise.
@@ -60,7 +60,7 @@ library \parencite{Wolf2020} and are listed in \cref{table:language-models}.
 The primary comparison that I made was between these models' static input and
 contextual output representations.
 Several of the submissions used a combination of a Transformer's hidden-states
-\parencites[e.g.,][276]{Gamallo2020}[3]{Pessutto2020}[4]{Hettiarachchi2021}.
+\parencites[e.g.,][276]{Gamallo2020}[61]{CostellaPessutto2020}[145]{Hettiarachchi2020}.
 This choice is supported by the analysis of \textcite{Ethayarajh2019}, who found that
 the upper layers of Transformer models produce more context-dependent representations.
 Hence, I also evaluated an example of this approach—a thorough comparison of the
@@ -73,8 +73,8 @@ Hereafter, I refer to the three types of embeddings that I evaluated as:
 \end{itemize}
 
 I note that I did not directly reproduce the baseline model because it requires the
-\texttt{bert-embedding} Python package, which is incompatible with Apple's ARM-based
-processors and has been deprecated since 2020 \parencite{Lai2023}.
+\texttt{bert-embedding} Python package, which has been deprecated since 2020 and is
+incompatible with Apple's ARM-based processors \parencite{Lai2023}.
 However, the baseline is notionally equivalent to the \texttt{contextual} embeddings of
 the \texttt{bert-base-multilingual-cased} model with a window size of zero.
 
@@ -104,7 +104,7 @@ for the Finnish language (\cref{chart:score-window-static}).
   \settowidth{\orawidth}{\orawidest}
   \newcommand*{\ora}[1]{\overrightarrow{#1\vphantom{\oratallest}}}
   \begin{tikzpicture}[
-      node distance = 0.75in,
+      node distance = 0.7in,
       every node/.style = {
           inner sep = 0,
           outer sep = 0.1in
@@ -119,11 +119,11 @@ for the Finnish language (\cref{chart:score-window-static}).
           \text{\#\#s} \, \right]$}; \node [label, below of=c] (d) {$\left[ \ \ora{\text{he}}\,,\
           \ora{\text{accept}}\,,\ \ora{\text{\#\#s}} \ \right]$}; \node [label, below of=d] (e)
     {$ \ora{\textit{accept}} = \ora{\text{he}} + \ora{\text{accept}} + \ora{\text{\#\#s}}
-      $}; \draw [thick, ->] (a) -- (b) node[midway, right=0.25in] {1.
-      Find first sub-word token}; \draw [thick, ->] (b) -- (c) node[midway, right=0.25in] {2.
+      $}; \draw [thick, ->] (a) -- (b) node[midway, right=0.2in] {1.
+      Find first sub-word token}; \draw [thick, ->] (b) -- (c) node[midway, right=0.2in] {2.
       Find tokens in a fixed-size window}; \draw [thick, ->] (c) -- (d) node[midway,
-      right=0.25in] {3.
-      Obtain representations}; \draw [thick, ->] (d) -- (e) node[midway, right=0.25in] {4.
+      right=0.2in] {3.
+      Obtain representations}; \draw [thick, ->] (d) -- (e) node[midway, right=0.2in] {4.
       Combine representations};
   \end{tikzpicture}
   \caption{A schematic of the procedure used
