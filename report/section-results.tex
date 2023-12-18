@@ -12,8 +12,8 @@
 
 \subsection{Language-specificity of window-size effects}
 
-Generally, I found that the scores obtained by both static- and contextual-embedding
-models were maximised by a non-zero context-window size.
+Generally, I found that the scores obtained by all three types of embeddings were
+maximised by a non-zero context-window size.
 The influence of the window size is intuitive in the case of static embeddings.
 Without a context window, the representations of a target word only differ between
 expressions if the word is represented by different sub-word tokens in the different
@@ -23,6 +23,14 @@ represented by multiple sub-word tokens.
 For the additive composition operation, the scores against window size for each
 language and model are given in
 \cref{chart:score-window-static,chart:score-window-contextual,chart:score-window-pooled}.
+
+\textcite[3]{Virtanen2019} noted that, for a random sample of 1\% of the relevant
+Wikipedia dataset, the number of sub-word tokens used to represent a word by a
+multilingual BERT model is greater for Finnish ($1.97$) than for English ($1.16$).
+This is attributed to the morphological complexity of Finnish and its comparatively
+small fraction of the multilingual model's vocabulary.
+My results are broadly consistent with those of \citeauthor{Virtanen2019}, i.e., the
+Finnish-specific models generally outperform the multilingual ones.
 
 % \import{.}{figure-table-best-window-size}
 \import{.}{figure-chart-score-window}

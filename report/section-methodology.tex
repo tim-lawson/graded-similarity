@@ -66,8 +66,17 @@ the upper layers of Transformer models produce more context-dependent representa
 Hence, I also evaluated an example of this approach—a thorough comparison of the
 performance of its variants is, however, beyond the scope of this paper.
 Hereafter, I refer to the three types of embeddings that I evaluated as:
-\texttt{static}, the model's input embeddings; \texttt{contextual}, the model's output
-embeddings; and \texttt{pooled}, the sum of the model's last four hidden-states.
+\begin{itemize}
+  \item \texttt{static}, the model's input embeddings;
+  \item \texttt{contextual}, the model's output embeddings; and
+  \item \texttt{pooled}, the sum of the model's last four hidden-states.
+\end{itemize}
+
+I note that I did not directly reproduce the baseline model because it requires the
+\texttt{bert-embedding} Python package, which is incompatible with Apple's ARM-based
+processors and has been deprecated since 2020 \parencite{Lai2023}.
+However, the baseline is notionally equivalent to the \texttt{contextual} embeddings of
+the \texttt{bert-base-multilingual-cased} model with a window size of zero.
 
 \subsection{Composition operations}
 
@@ -78,7 +87,7 @@ target word's first sub-word token within the tokens of the target word's contex
 finding the tokens within a fixed-size window around the target word's first token;
 obtaining the embeddings of the tokens in the window; and combining the the embeddings
 to produce a single representation of the target word.
-Notably, the use of a sub-word vocabulary by these models
+Notably, the use of a sub-word vocabulary by the models in question
 \parencite[e.g.,][4174]{Devlin2019} dictates that a target word may be represented by a
 different number of tokens in each context.
 As a result, the representations of a pair of target words may be different in each
@@ -136,7 +145,8 @@ In the case that the number of embeddings was fewer than that expected for the w
 size, i.e., the target word was close to the beginning or the end of its context, I
 right-padded the concatenated embedding with zeros to obtain contextual embeddings of
 equal length.
-This approach was also outperformed by addition in virtually all cases.
+This approach was also inferior to addition for practically all combinations of
+parameters.
 
 \subsection{Window size}
 

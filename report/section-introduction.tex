@@ -21,9 +21,8 @@ phenomena.
 Prior to the widespread availability of pre-trained language models, this problem was
 generally addressed by one of two approaches: firstly, by producing a representation
 for each sense of a target word and disambiguating between them in the given context
-(\emph{word-sense disambiguation}); or secondly, by composing the representation of the
-target word with the representations of the words in its context
-(\emph{contextualisation}).
+(word-sense disambiguation); or secondly, by composing the representation of the target
+word with the representations of the words in its context (contextualisation).
 These approaches have been largely overshadowed by the advent of model architectures
 that take sequences as inputs and naturally produce \emph{contextual} representations
 of the items in the sequence, such as Transformers \parencite{Vaswani2017}.
@@ -34,9 +33,10 @@ contextualisation to static representations (\cref{sec:related-work}).
 SemEval-2020 Task 3, ``Graded Word Similarity in Context'' \parencite{Armendariz2020a},
 presents an opportunity to make such a comparison.
 Briefly, the task is to predict the human judgment of similarity of the same pair of
-words in two different contexts (\cref{task-definition}).
+words in two different contexts.
 I elected to focus on the first sub-task, which is to predict the \emph{change} in
-similarity, rather than the absolute similarity in each context.
+similarity, rather than the absolute similarity in each context
+(\cref{task-definition}).
 Specifically, I evaluated the results obtained by computing the cosine similarity
 between static and contextual embeddings and the composition of these embeddings within
-a fixed-size context window.
+a fixed-size context window (\cref{sec:methodology}).
