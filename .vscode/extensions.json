@@ -6,6 +6,7 @@
     "ms-python.isort",
     "ms-python.pylint",
     "ms-python.python",
-    "ms-python.vscode-pylance"
+    "ms-python.vscode-pylance",
+    "valentjn.vscode-ltex"
   ]
 }

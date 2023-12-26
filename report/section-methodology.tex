@@ -82,11 +82,11 @@ the \texttt{bert-base-multilingual-cased} model with a window size of zero.
 
 The basic procedure that I employed is described in \cref{chart:schematic-procedure}.
 For each pair of target words and each of the two contexts in which they appear, I
-obtained a contextualised representation of a target word by: finding the index of the
+obtained a contextualized representation of a target word by: finding the index of the
 target word's first sub-word token within the tokens of the target word's context;
 finding the tokens within a fixed-size window around the target word's first token;
-obtaining the embeddings of the tokens in the window; and combining the the embeddings
-to produce a single representation of the target word.
+obtaining the embeddings of the tokens in the window; and combining the embeddings to
+produce a single representation of the target word.
 Notably, the use of a sub-word vocabulary by the models in question
 \parencite[e.g.,][4174]{Devlin2019} dictates that a target word may be represented by a
 different number of tokens in each context.
@@ -127,7 +127,7 @@ for the Finnish language (\cref{chart:score-window-static}).
       Combine representations};
   \end{tikzpicture}
   \caption{A schematic of the procedure used
-    to obtain a contextualised representation of a target word from pre-trained embeddings.
+    to obtain a contextualized representation of a target word from pre-trained embeddings.
     In this example, the target word is ``accept'', the window size is one (either side of
     the target word), and the composition operation is addition.
   }

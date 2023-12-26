@@ -1,134 +1,5 @@
 \documentclass[11pt]{extarticle}
-
-% Page layout
-\usepackage{geometry}
-\geometry{
-  a4paper,
-  margin={1in,1in},
-}
-\usepackage{setspace}
-
-% Typography
-% https://ctan.math.washington.edu/tex-archive/fonts/etbb/doc/ETbb-doc.pdf
-\usepackage[p]{ETbb}
-\usepackage[scaled=.95,type1]{cabin}
-\usepackage[varqu,varl]{zi4}
-\usepackage[T1]{fontenc}
-\usepackage[libertine,vvarbb]{newtxmath}
-\usepackage{microtype}
-\frenchspacing
-
-% Bibliography
-\usepackage[
-  style=authoryear-ibid,
-  maxcitenames=2,
-  doi=false,
-  isbn=false,
-  % Omit URL except for @online
-  url=false,
-]{biblatex}
-
-\addbibresource{~/library.bib}
-
-% Map @misc to @online
-\DeclareSourcemap{
-  \maps[datatype=bibtex, overwrite=true]{
-    \map{
-      \step[typesource=misc, typetarget=online]
-    }
-  }
-}
-
-\AtEveryBibitem{%
-  \clearlist{language}%
-  \clearfield{month}%
-  \clearfield{note}%
-  \clearfield{eprint}%
-  % Omit "Visited on <date>"
-  \iffieldundef{urlyear}
-    {}
-    {\clearfield{urlyear}}
-}
-
-% Quotations
-\usepackage{csquotes}
-
-% References
-\usepackage{hyperref}
-\usepackage{cleveref}
-
-% Input/include relative paths
-\usepackage{import}
-
-% Fix references
-\usepackage{bookmark}
-
-% Math
-\usepackage{amsmath}
-\usepackage{mathtools}
-\newcommand{\norm}[1]{\lVert #1 \rVert}
-
-% Tables and charts
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{array}
-\usepackage{makecell}
-\usepackage{multirow}
-\usepackage[draft]{graphicx}
-
-\def\imagebox#1#2{\vtop to #1{\null\hbox{#2}\vfill}}
-\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
-\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
-
-\usepackage{tikz}
-\usetikzlibrary{external}
-\tikzexternalize[prefix=figures/]
-
-\usepackage{pgfplots}
-\usepackage{pgfplotstable}
-\pgfplotsset{compat=1.17}
-\usepgfplotslibrary{colorbrewer}
-\usepgfplotslibrary{groupplots}
-
-% Exclusive filter
-\pgfplotsset{
-  discard if/.style 2 args={
-      x filter/.append code={
-          \readlist\mylist{#2}%
-          \foreachitem\z\in\mylist[]{%
-            \ifdim\thisrow{#1} pt=\z pt
-              \def\pgfmathresult{inf}
-            \fi
-          }
-        }
-    },
-}
-
-% Inclusive filter
-\pgfplotsset{
-  discard if not/.style 2 args={
-      x filter/.code={
-          \edef\tempa{\thisrow{#1}}
-          \edef\tempb{#2}
-          \ifx\tempa\tempb
-          \else
-            \def\pgfmathresult{inf}
-          \fi
-        }
-    }
-}
-
-% Comments
-\setlength{\marginparwidth}{1in}
-\usepackage{todonotes}
-\newcounter{todocounter}
-\newcommand{\todonum}[1]{%
-  \stepcounter{todocounter}%
-  \todo[color={red!100!green!33},inline,size=\small]{
-    \thetodocounter: #1
-  }%
-}
+\usepackage{graded-similarity}
 
 \begin{document}
 
@@ -138,14 +9,19 @@
 
 \maketitle
 
-\import*{.}{figure-table.tex}
+\import*{}{figure-table.tex}
 
-\import*{.}{section-introduction.tex}
-\import*{.}{section-task-definition.tex}
-\import*{.}{section-related-work.tex}
-\import*{.}{section-methodology.tex}
-\import*{.}{section-results.tex}
-\import*{.}{section-conclusion.tex}
+\import*{}{section-introduction.tex}
+
+\import*{}{section-task-definition.tex}
+
+\import*{}{section-related-work.tex}
+
+\import*{}{section-methodology.tex}
+
+\import*{}{section-results.tex}
+
+\import*{}{section-conclusion.tex}
 
 \printbibliography
 

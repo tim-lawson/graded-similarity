@@ -3,57 +3,43 @@
   \captionsetup{justification=centering}
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      every row 8 column 2/.append style={
+    \pgfplotstabletypeset[every row 8 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
               \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine_top_1.csv}
+            }}]{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine_top_1.csv}
     \caption{English}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      every row 0 column 2/.append style={
+    \pgfplotstabletypeset[every row 0 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
               \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine_top_1.csv}
+            }}]{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine_top_1.csv}
     \caption{Finnish}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      every row 3 column 2/.append style={
+    \pgfplotstabletypeset[every row 3 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
-              \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine_top_1.csv}
+              \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine_top_1.csv}
     \caption{Croatian}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      skip rows between index={3}{4},
+    \pgfplotstabletypeset[skip rows between index={3}{4},
       every row 0 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
-              \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine_top_1.csv}
+              \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine_top_1.csv}
     \caption{Slovene}
   \end{subfigure}
-  \caption{The window size that maximises the score for the \texttt{static} model
+  \caption{The window size that maximizes the score for the \texttt{static} model
     variants with the additive composition operation.
     The best score for each language is underlined.
   }
@@ -65,57 +51,41 @@
   \captionsetup{justification=centering}
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      every row 4 column 2/.append style={
+    \pgfplotstabletypeset[every row 4 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
-              \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+              \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine_top_1.csv}
     \caption{English}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      every row 3 column 2/.append style={
+    \pgfplotstabletypeset[every row 3 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
-              \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+              \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine_top_1.csv}
     \caption{Finnish}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      every row 0 column 2/.append style={
+    \pgfplotstabletypeset[every row 0 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
-              \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+              \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine_top_1.csv}
     \caption{Croatian}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      skip rows between index={3}{4},
+    \pgfplotstabletypeset[skip rows between index={3}{4},
       every row 1 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
-              \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+              \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine_top_1.csv}
     \caption{Slovene}
   \end{subfigure}
-  \caption{The window size that maximises the score for the \texttt{contextual} model
+  \caption{The window size that maximizes the score for the \texttt{contextual} model
     variants with the additive composition operation.
     The best score for each language is underlined.
   }
@@ -127,57 +97,41 @@
   \captionsetup{justification=centering}
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      every row 4 column 2/.append style={
+    \pgfplotstabletypeset[every row 4 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
-              \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=pooled_language=en_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+              \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/model=pooled_language=en_window=0-10_operation=sum_similarity=cosine_top_1.csv}
     \caption{English}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      every row 3 column 2/.append style={
+    \pgfplotstabletypeset[every row 3 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
-              \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=pooled_language=fi_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+              \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/model=pooled_language=fi_window=0-10_operation=sum_similarity=cosine_top_1.csv}
     \caption{Finnish}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      every row 0 column 2/.append style={
+    \pgfplotstabletypeset[every row 0 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
-              \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=pooled_language=hr_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+              \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/model=pooled_language=hr_window=0-10_operation=sum_similarity=cosine_top_1.csv}
     \caption{Croatian}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      skip rows between index={3}{4},
+    \pgfplotstabletypeset[skip rows between index={3}{4},
       every row 0 column 2/.append style={
           postproc cell content/.append code={
               \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
-              \pgfkeysalso{best/.expand once={\besttemp}}
-            },
-        },
-    ]{../results/model=pooled_language=sl_window=0-10_operation=sum_similarity=cosine_top_1.csv}
+              \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/model=pooled_language=sl_window=0-10_operation=sum_similarity=cosine_top_1.csv}
     \caption{Slovene}
   \end{subfigure}
-  \caption{The window size that maximises the score for the \texttt{pooled} model
+  \caption{The window size that maximizes the score for the \texttt{pooled} model
     variants with the additive composition operation.
     The best score for each language is underlined.
   }

@@ -4,13 +4,13 @@
 Many context-based approaches to word-sense disambiguation have been proposed since the
 advent of count-based models of word meaning.
 In the paper that introduced Latent Semantic Analysis (LSA), for example, the authors
-argued that taking the average of the high-dimensional representation of a word with
-those of its immediate context may be sufficient to determine the word's contextual
-meaning \parencite[229-230]{Landauer1997}.
-Thus, the contextualisation of representations of word meanings is intimately related
+argued that taking the average of the high-dimensional representation of a word and the
+representations of the words in its context could suffice to determine the word's
+contextual meaning \parencite[229-230]{Landauer1997}.
+Thus, the contextualization of representations of word meanings is intimately related
 to their composition to form representations of more complex expressions.
 This relationship is evident, for example, in the work of \textcite{Kintsch2001}, who
-proposed a a procedure to contextualise the representation of a predicate according to
+proposed a procedure to contextualize the representation of a predicate according to
 its argument, and in the adaptation of this demonstration by \textcite{Mitchell2008} to
 evaluate alternative composition operations.
 Vector addition and averaging continue to be `surprisingly effective' means to compose
@@ -21,8 +21,8 @@ A review of distributional semantic models is given by \textcite{Lenci2018}.
 Nevertheless, models that produce contextual embeddings have achieved widespread
 success on benchmark tasks that involve language understanding
 \parencite[22-27]{Bommasani2022}.
-There is, however, cause to criticise the suitability of typical benchmarks for
-characterising the capabilities of language models \parencite[5-6]{Srivastava2023}.
+There is, however, cause to criticize the suitability of typical benchmarks for
+characterizing the capabilities of language models \parencite[5-6]{Srivastava2023}.
 The computational cost of inference with contextual embeddings may also be prohibitive
 or unjustified (\cref{sec:cost-benefit}).
 For instance, \textcite{Arora2020} demonstrated that static and even \emph{random}

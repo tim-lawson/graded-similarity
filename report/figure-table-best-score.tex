@@ -2,43 +2,34 @@
   \centering
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      columns={
+    \pgfplotstabletypeset[columns={
           language,
           model_name,
           window,
-          score
-        },
-    ]{../results/best/best_static.csv}
+          score}]{../results/best/best_static.csv}
     \caption{\texttt{static}}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      columns={
+    \pgfplotstabletypeset[columns={
           language,
           model_name,
           window,
-          score
-        },
-    ]{../results/best/best_contextual.csv}
+          score}]{../results/best/best_contextual.csv}
     \caption{\texttt{contextual}}
   \end{subfigure}
   \par\bigskip\par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
-    \pgfplotstabletypeset[
-      columns={
+    \pgfplotstabletypeset[columns={
           language,
           model_name,
           window,
-          score
-        },
-    ]{../results/best/best_pooled.csv}
+          score}]{../results/best/best_pooled.csv}
     \caption{\texttt{pooled}}
   \end{subfigure}
-  \caption{The best scores obtained by each embedding model for each language.
+  \caption{The best scores obtained by each kind of embedding.
     In all cases, the best score was obtained with the additive composition operation.
   }
   \label{table:best-score}
