@@ -8,8 +8,7 @@
 }
 \usepackage{setspace}
 
-% Typography
-% https://ctan.math.washington.edu/tex-archive/fonts/etbb/doc/ETbb-doc.pdf
+% Typography (see https://ctan.math.washington.edu/tex-archive/fonts/etbb/doc/ETbb-doc.pdf)
 \usepackage[p]{ETbb}
 \usepackage[scaled=.95,type1]{cabin}
 \usepackage[varqu,varl]{zi4}
@@ -28,6 +27,7 @@
   url=false,
 ]{biblatex}
 
+% TODO: replace with repository-specific path
 \addbibresource{~/library.bib}
 
 % Map @misc to @online
@@ -68,7 +68,7 @@
 \usepackage{mathtools}
 \newcommand{\norm}[1]{\lVert #1 \rVert}
 
-% Tables and charts
+% Tables
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{array}
@@ -81,6 +81,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
 
+% Figures
 \usepackage{tikz}
 \usetikzlibrary{external}
 \tikzexternalize[prefix=figures/]
@@ -129,3 +130,14 @@
     \thetodocounter: #1
   }%
 }
+
+% Authors
+\usepackage{authblk}
+
+% Icons
+\usepackage{fontawesome5}
+\makeatletter
+\newcommand{\github}[2]{%
+  \href{#1}{\faGithub\ \texttt{#2}}%
+}
+\makeatother

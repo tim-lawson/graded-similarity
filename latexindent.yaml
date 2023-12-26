@@ -49,5 +49,7 @@ fineTuning:
           \),                             # ),
           |                               #
           \)\.                            # ).
+          |                               #
+          \\footnote                      # \footnote
         )                                 #
       )                                   #

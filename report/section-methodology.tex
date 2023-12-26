@@ -5,11 +5,12 @@
 
 I undertook this task to investigate the relative performance of pre-trained static and
 contextual embeddings for a context-dependent word-similarity task.
-To this end, Transformer models \parencite{Vaswani2017} were a natural choice.
 The baseline models for the task were the multilingual BERT model
 \parencite{Devlin2019} and ELMo models \parencite{Peters2018a} trained on Finnish,
-Croatian, and Slovene datasets \parencite{Ulcar2020a}; and the vast majority of the
-task submissions used Transformers \parencite[36,42-45]{Armendariz2020a}.
+Croatian, and Slovene datasets \parencite{Ulcar2020a} and the vast majority of the task
+submissions used Transformers \parencites{Vaswani2017}[36,42-45]{Armendariz2020a}.
+Furthermore, this approach facilitates a more direct comparison between the kinds of
+embeddings because the models were trained on the same datasets.
 The models that I evaluated were accessed via the HuggingFace \emph{Transformers}
 library \parencite{Wolf2020a} and are listed in \cref{table:language-models}.
 
@@ -60,7 +61,7 @@ library \parencite{Wolf2020a} and are listed in \cref{table:language-models}.
 The primary comparison that I made was between these models' static input and
 contextual output representations.
 Several of the submissions used a combination of a Transformer's hidden-states
-\parencites[e.g.,][276]{Gamallo2020}[61]{CostellaPessutto2020}[145]{Hettiarachchi2020}.
+\parencites[e.g.][276]{Gamallo2020}[61]{CostellaPessutto2020}[145]{Hettiarachchi2020}.
 This choice is supported by the analysis of \textcite{Ethayarajh2019}, who found that
 the upper layers of Transformer models produce more context-dependent representations.
 Hence, I also evaluated an example of this approach—a thorough comparison of the
@@ -147,6 +148,10 @@ right-padded the concatenated embedding with zeros to obtain contextual embeddin
 equal length.
 This approach was also inferior to addition for practically all combinations of
 parameters.
+Notably, the cosine similarity between two vectors is invariant with respect to the
+multiplication of the vectors by a scalar quantity, so the results of composing an
+equal number of representations by addition or the arithmetic mean are equal.
+Hence, I only investigated addition among the two.
 
 \subsection{Window size}
 
