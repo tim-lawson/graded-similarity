@@ -17,6 +17,7 @@ class Args(NamedTuple):
     max_window: int | None
     operation: list[str]
     similarity: list[str]
+    practice: bool = False
 
     def get_windows(self) -> list[int]:
         """Get the context window sizes."""
@@ -44,6 +45,11 @@ class Args(NamedTuple):
             "operation": self.operation,
             "similarity": self.similarity,
         }
+
+    @property
+    def directory(self) -> str:
+        """Directory."""
+        return "results/practice" if self.practice else "results/evaluation"
 
     @property
     def filename(self) -> str:
@@ -125,6 +131,13 @@ def parse_args() -> Args:
         help="similarity measures",
     )
 
+    parser.add_argument(
+        "-p",
+        "--practice",
+        action="store_true",
+        help="practice kit",
+    )
+
     args = parser.parse_args()
 
     return Args(
@@ -135,4 +148,5 @@ def parse_args() -> Args:
         args.max_window,
         args.operation,
         args.similarity,
+        args.practice,
     )

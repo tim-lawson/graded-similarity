@@ -39,5 +39,6 @@ python -m src.subtask1 \
 > --language en fi hr sl \
 > --window 0 1 2 3 \
 > --operation concat none prod sum \
-> --similarity cosine
+> --similarity cosine \
+> --practice
 ```

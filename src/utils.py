@@ -146,7 +146,7 @@ def _get_context_lengths():
 
 if __name__ == "__main__":
     _get_best()
-    # _get_best(True)
-    _get_context_lengths()
+    _get_best(True)
     _get_results()
-    _get_token_examples()
+    # _get_context_lengths()
+    # _get_token_examples()

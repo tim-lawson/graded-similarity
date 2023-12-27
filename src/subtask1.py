@@ -49,7 +49,7 @@ def run_experiment(
     return score, time
 
 
-def run_experiments(practice: bool = False):
+def run_experiments():
     """Run the experiments."""
 
     args = parse_args()
@@ -58,20 +58,19 @@ def run_experiments(practice: bool = False):
     print(args)
     line()
 
-    results_directory = "practice" if practice else "evaluation"
-    makedirs(f"results/{results_directory}", exist_ok=True)
+    makedirs(args.directory, exist_ok=True)
 
     languages = args.language
 
     # There is no `practice kit' for Finnish.
-    if practice:
+    if args.practice:
         languages.remove("fi")
 
     results = []
 
     for language in languages:
-        x = load_x(language, practice).to_numpy()
-        y = load_y(language, practice).to_numpy()[:, 2]
+        x = load_x(language, args.practice).to_numpy()
+        y = load_y(language, args.practice).to_numpy()[:, 2]
         n = len(x)
 
         print(f"language = {language}, n = {n}")
@@ -96,9 +95,9 @@ def run_experiments(practice: bool = False):
             line()
 
         DataFrame(results).to_csv(
-            f"results/{results_directory}/{args.filename}", index=False
+            f"results/{args.directory}/{args.filename}", index=False
         )
 
 
 if __name__ == "__main__":
-    run_experiments(practice=True)
+    run_experiments()
