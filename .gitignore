@@ -35,3 +35,4 @@ data/practice_kit_final/*
 !data/cosimlex_dataset/*.csv
 !data/evaluation_kit_final/data
 !data/practice_kit_final/data
+!data/practice_kit_final/gold

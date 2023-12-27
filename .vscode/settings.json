@@ -8,17 +8,10 @@
   },
   "black-formatter.args": ["--line-length", "88"],
   "files.exclude": {
-    "**/__pycache__": true,
-    "**/.pytest_cache": true
+    "**/.pytest_cache": true,
+    "**/__pycache__": true
   },
   "isort.args": ["--profile", "black"],
-  "latex-workshop.latexindent.args": [
-    "-c",
-    "%DIR%/",
-    "%TMPFILE%",
-    "-l=%WORKSPACE_FOLDER%/latexindent.yaml",
-    "-m"
-  ],
   "latex-workshop.latex.recipe.default": "lastUsed",
   "latex-workshop.latex.recipes": [
     {
@@ -32,8 +25,6 @@
   ],
   "latex-workshop.latex.tools": [
     {
-      "name": "latexmk",
-      "command": "latexmk",
       "args": [
         "-synctex=1",
         "-interaction=nonstopmode",
@@ -43,11 +34,11 @@
         "-outdir=%OUTDIR%",
         "%DOC%"
       ],
-      "env": {}
+      "command": "latexmk",
+      "env": {},
+      "name": "latexmk"
     },
     {
-      "name": "pdflatex",
-      "command": "pdflatex",
       "args": [
         "-synctex=1",
         "-interaction=nonstopmode",
@@ -55,15 +46,23 @@
         "-file-line-error",
         "%DOC%"
       ],
-      "env": {}
+      "command": "pdflatex",
+      "env": {},
+      "name": "pdflatex"
     },
-
     {
-      "name": "bibtex",
-      "command": "bibtex",
       "args": ["%DOCFILE%"],
-      "env": {}
+      "command": "bibtex",
+      "env": {},
+      "name": "bibtex"
     }
+  ],
+  "latex-workshop.latexindent.args": [
+    "-c",
+    "%DIR%/",
+    "%TMPFILE%",
+    "-l=%WORKSPACE_FOLDER%/latexindent.yaml",
+    "-m"
   ],
   "latex-workshop.texcount.args": ["-merge %DOC%"],
   "python.analysis.typeCheckingMode": "basic",
