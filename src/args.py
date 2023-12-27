@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 from typing import NamedTuple
 
 from .data import Language, default_languages
-from .models import Model
+from .models.utils import Model
 
 
 class Args(NamedTuple):
@@ -72,8 +72,8 @@ def parse_args() -> Args:
         "-m",
         "--model",
         nargs="+",
-        default=["static", "contextual"],
-        help="static/contextual embeddings",
+        default=["static", "contextual", "pooled"],
+        help="embeddings",
     )
 
     parser.add_argument(
@@ -89,14 +89,14 @@ def parse_args() -> Args:
         "-min",
         "--min-window",
         type=int,
-        help="minimum context window size",
+        help="minimum context-window size",
     )
 
     parser.add_argument(
         "-max",
         "--max-window",
         type=int,
-        help="maximum context window size",
+        help="maximum context-window size",
     )
 
     parser.add_argument(
@@ -104,7 +104,7 @@ def parse_args() -> Args:
         "--window",
         nargs="+",
         type=int,
-        help="context window sizes",
+        help="context-window sizes",
     )
 
     parser.add_argument(
@@ -112,8 +112,8 @@ def parse_args() -> Args:
         "--operation",
         nargs="+",
         type=str,
-        default=["none", "sum"],
-        help="context window operations",
+        default=["none", "sum", "prod", "concat"],
+        help="context-window operations",
     )
 
     parser.add_argument(

@@ -3,7 +3,7 @@
 from typing import NamedTuple
 
 from .data import Language
-from .models import Model
+from .models.utils import Model
 
 model_names_multilingual = [
     "bert-base-multilingual-cased",
@@ -46,9 +46,9 @@ def get_model_names(language: Language) -> list[str]:
 class Params(NamedTuple):
     """Model parameters."""
 
+    language: str
     model: Model
     model_name: str
-    language: Language
     window: int
     operation: str
     similarity: str

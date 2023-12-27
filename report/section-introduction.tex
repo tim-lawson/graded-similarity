@@ -3,20 +3,19 @@
 
 In his \emph{Foundations of Arithmetic}, Frege promises ``never to ask for the meaning
 of a word in isolation, but only in the context of a proposition''
-\parencite*[xvii]{Frege1980}.
+\parencite*[xvii]{Frege1960}.
 This `context principle' is intuitive: words are frequently polysemous, or assume
 different connotations and emphasis within different expressions
 \parencite[2-3]{Armendariz2020}.
 Historically, however, context-dependence has been a problem for distributional meaning
 representations.
 Founded on the distributional hypothesis \parencite[e.g.,][142-143]{Turney2010}, both
-count-based and predictive models of word meaning\footnote{ This terminological
+count-based and predictive models of word meaning\footnote{This terminological
   distinction is due to \textcite{Baroni2014a}.
 } originally
 produced a single representation for each word in the model's vocabulary.
-One of these \emph{static} representations must, therefore, encode all of a word's
-senses and connotations, which may obstruct its use in modelling context-dependent
-phenomena.
+One of these \emph{static} embeddings must, therefore, encode all of a word's senses
+and connotations, which may obstruct its use in modelling context-dependent phenomena.
 
 Prior to the widespread availability of pre-trained language models, this problem was
 generally addressed by one of two approaches: firstly, by producing a representation
@@ -27,8 +26,8 @@ These approaches have been largely overshadowed by the advent of model architect
 that take sequences as inputs and naturally produce \emph{contextual} representations
 of the items in the sequence, such as Transformers \parencite{Vaswani2017}.
 To my knowledge, however, there has been scant direct comparison of the performance of
-these contextual representations with the application of prior methods of
-contextualization to static representations.
+these contextual embeddings with the application of prior methods of contextualization
+to static embeddings.
 
 SemEval-2020 Task 3, ``Graded Word Similarity in Context'' \parencite{Armendariz2020a},
 presents an opportunity to make such a comparison.
@@ -37,8 +36,8 @@ words in two different contexts.
 I elected to focus on the first sub-task, which is to predict the \emph{change} in
 similarity, rather than the absolute similarity in each context.
 Specifically, I evaluated the results obtained by computing the cosine similarity
-between the static and contextual embeddings of different language models, and their
-composition with the embeddings within a fixed-size context window.\footnote{The code
-  that produced these results is available at
+between the different kinds of embeddings for a variety of pre-trained language models,
+and their composition with the embeddings within a fixed-size context
+window.\footnote{The code that produced these results is available at
   \github{https://github.com/tslwn/graded-similarity}{tslwn/graded-similarity}.
 }

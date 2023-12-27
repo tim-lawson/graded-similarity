@@ -42,7 +42,7 @@
         legend cell align={left},
       ]
       \nextgroupplot[title = English ($n\,{=}\,340$)]
-      \plotscorewindow{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=static_language=en_window=0-50_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
@@ -54,7 +54,7 @@
             bert-large-uncased-whole-word-masking,
           }}
       \nextgroupplot[title = Finnish ($n\,{=}\,24$)]
-      \plotscorewindow{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=static_language=fi_window=0-50_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
@@ -63,22 +63,21 @@
             TurkuNLP/bert-large-finnish-cased-v1,
           }}
       \nextgroupplot[title = Croatian ($n\,{=}\,112$)]
-      \plotscorewindow{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=static_language=hr_window=0-50_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
             classla/bcms-bertic,
           }}
       \nextgroupplot[title = Slovene ($n\,{=}\,111$)]
-      \plotscorewindow{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=static_language=sl_window=0-50_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
           }}
     \end{groupplot}
   \end{tikzpicture}
-  \caption{The score against window size for the \texttt{static} model variants with
-    the additive composition operation.}
+  \caption{The score against window size for static embedding models and additive composition.}
   \label{chart:score-window-static}
 \end{figure}
 
@@ -109,7 +108,7 @@
         legend cell align={left},
       ]
       \nextgroupplot[title = English ($n\,{=}\,340$)]
-      \plotscorewindow{../results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
@@ -121,7 +120,7 @@
             bert-large-uncased-whole-word-masking,
           }}
       \nextgroupplot[title = Finnish ($n\,{=}\,24$)]
-      \plotscorewindow{../results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
@@ -130,22 +129,21 @@
             TurkuNLP/bert-large-finnish-cased-v1,
           }}
       \nextgroupplot[title = Croatian ($n\,{=}\,112$)]
-      \plotscorewindow{../results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
             classla/bcms-bertic,
           }}
       \nextgroupplot[title = Slovene ($n\,{=}\,111$)]
-      \plotscorewindow{../results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
           }}
     \end{groupplot}
   \end{tikzpicture}
-  \caption{The score against window size for the \texttt{contextual} model variants with
-    the additive composition operation.}
+  \caption{The score against window size for contextual embedding models and additive composition.}
   \label{chart:score-window-contextual}
 \end{figure}
 
@@ -176,7 +174,7 @@
         legend cell align={left},
       ]
       \nextgroupplot[title = English ($n\,{=}\,340$)]
-      \plotscorewindow{../results/model=pooled_language=en_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=pooled_language=en_window=0-10_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
@@ -188,7 +186,7 @@
             bert-large-uncased-whole-word-masking,
           }}
       \nextgroupplot[title = Finnish ($n\,{=}\,24$)]
-      \plotscorewindow{../results/model=pooled_language=fi_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=pooled_language=fi_window=0-10_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
@@ -197,21 +195,20 @@
             TurkuNLP/bert-large-finnish-cased-v1,
           }}
       \nextgroupplot[title = Croatian ($n\,{=}\,112$)]
-      \plotscorewindow{../results/model=pooled_language=hr_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=pooled_language=hr_window=0-10_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
             classla/bcms-bertic,
           }}
       \nextgroupplot[title = Slovene ($n\,{=}\,111$)]
-      \plotscorewindow{../results/model=pooled_language=sl_window=0-10_operation=sum_similarity=cosine.csv}{{
+      \plotscorewindow{../results/evaluation/model=pooled_language=sl_window=0-10_operation=sum_similarity=cosine.csv}{{
             bert-base-multilingual-cased,
             bert-base-multilingual-uncased,
             EMBEDDIA/crosloengual-bert,
           }}
     \end{groupplot}
   \end{tikzpicture}
-  \caption{The score against window size for the \texttt{pooled} model variants with
-    the additive composition operation.}
+  \caption{The score against window size for pooled embedding models and additive composition.}
   \label{chart:score-window-pooled}
 \end{figure}

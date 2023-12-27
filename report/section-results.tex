@@ -1,16 +1,42 @@
 \section{Results}
 \label{sec:results}
 
-\import{}{figure-table-best-score.tex}
+\subsection{Hyperparameter search}
+
+In the following sections, I present the results achieved on the evaluation dataset.
+However, by comparing the scores achieved with different kinds of embeddings, window
+sizes, etc., I have effectively performed hyperparameter search on the evaluation
+dataset, which would not have been possible or legitimate as a task submission.
+Therefore, I also explicitly implemented a hyperparameter search procedure on the
+`practice kit' to select a candidate model for each language and computed the scores of
+these models on the evaluation dataset.
+\\
+\todonum{Add best `practice kit' candidates and results on evaluation data.}
 
 \subsection{Cost-benefit analysis of contextual embeddings}
 \label{sec:cost-benefit}
 
+\import{}{figure-table-best-score.tex}
+
+In the main, greater scores were achieved with contextual and pooled embeddings than
+with static embeddings.
+However, static embeddings make up a small fraction of the size of a contextual
+language model, and it is much faster to compute a contextualized representation from
+static embeddings than to run inference on a language model.
+The second of these advantages is shown in \cref{chart:score-time}.
+For a naïve implementation of the procedure described in \cref{sec:methodology}, the
+approximate time taken to compute the change in similarity between two words in
+context, i.e., the total time divided by the number of instances, is notably greater
+for contextual embeddings than for static embeddings.
+The right-most cluster is due to the \texttt{large} model variants.
+\\
+\todonum{Plot the gold-standard values against the predictions for the best model
+  for each language to visualize the Pearson correlation coefficient.}
+
 \import{}{figure-chart-score-time.tex}
 
-\todonum{Write this section.}
-
 \subsection{Language-specificity of window-size effects}
+\label{sec:language-specificity}
 
 Generally, I found that the scores obtained by all three types of embeddings were
 maximized by a non-zero context-window size.
@@ -29,8 +55,21 @@ Wikipedia dataset, the number of sub-word tokens used to represent a word by a
 multilingual BERT model is greater for Finnish ($1.97$) than for English ($1.16$).
 This is attributed to the morphological complexity of Finnish and its comparatively
 small fraction of the multilingual model's vocabulary.
-My results are broadly consistent with those of \citeauthor{Virtanen2019}, i.e., the
-Finnish-specific models generally outperform the multilingual ones.
+Accordingly, I found that Finnish-specific models generally outperformed multilingual
+ones and that the score varied more widely with window size for Finnish than the other
+languages.
 
 % \import{}{figure-table-best-window-size}
 \import{}{figure-chart-score-window.tex}
+
+\subsection{Significance tests}
+
+Finally, to quantify the significance of the differences between the scores obtained
+with different kinds of embeddings, I computed paired $t$-tests of the scores of the
+best models in each class over the same ten random samples of 90\% of the evaluation
+dataset.
+For each pair of model classes, the null hypothesis is that the two sets of scores have
+the same mean, i.e., there is no significant difference between the mean score obtained
+by the two classes.
+\\
+\todonum{Add significance test results.}

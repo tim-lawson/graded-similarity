@@ -19,13 +19,13 @@ optimize a parameter such as the window size prior to submission.
 Additionally, the models that I used were not necessarily available to the authors.
 With these caveats, I achieved several notable results (\cref{table:best-score}):
 \begin{itemize}
-  \item The \texttt{pooled} variant of \texttt{EMBEDDIA/crosloengual-bert} with a window
+  \item The pooled embeddings of \texttt{EMBEDDIA/crosloengual-bert} with a window
         size of three would have placed second among the Croatian submissions, with a
         score of $0.717$.
-  \item The \texttt{contextual} variant of \texttt{TurkuNLP/bert-base-finnish-uncased-v1}
+  \item The contextual embeddings of \texttt{TurkuNLP/bert-base-finnish-uncased-v1}
         with a window size of zero would have placed fourth among the Finnish
         submissions, with a score of $0.679$.
-  \item The \texttt{static} variant of \texttt{TurkuNLP/bert-base-finnish-uncased-v1}
+  \item The static embeddings of \texttt{TurkuNLP/bert-base-finnish-uncased-v1}
         with a window size of zero outperform several of the Finnish submissions,
         including the baseline, with a score of $0.564$.
 \end{itemize}

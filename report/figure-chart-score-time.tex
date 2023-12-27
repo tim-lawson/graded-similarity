@@ -39,28 +39,26 @@
           }
       ]
       \nextgroupplot
-      \plotscoretime{../results/model=static_language=en_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
-      \addlegendentry{\texttt{static}}
-      \plotscoretime{../results/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
-      \addlegendentry{\texttt{contextual}}
-      \plotscoretime{../results/model=pooled_language=en_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-C}
-      \addlegendentry{\texttt{pooled}}
-      \plotscoretime{../results/model=static_language=fi_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
-      \plotscoretime{../results/model=static_language=hr_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
-      \plotscoretime{../results/model=static_language=sl_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
-      \plotscoretime{../results/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
-      \plotscoretime{../results/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
-      \plotscoretime{../results/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
-      \plotscoretime{../results/model=pooled_language=fi_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-C}
-      \plotscoretime{../results/model=pooled_language=hr_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-C}
-      \plotscoretime{../results/model=pooled_language=sl_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-C}
+      \plotscoretime{../results/evaluation/model=static_language=en_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
+      \addlegendentry{static}
+      \plotscoretime{../results/evaluation/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
+      \addlegendentry{contextual}
+      \plotscoretime{../results/evaluation/model=pooled_language=en_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-C}
+      \addlegendentry{pooled}
+      \plotscoretime{../results/evaluation/model=static_language=fi_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
+      \plotscoretime{../results/evaluation/model=static_language=hr_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
+      \plotscoretime{../results/evaluation/model=static_language=sl_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}
+      \plotscoretime{../results/evaluation/model=contextual_language=fi_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
+      \plotscoretime{../results/evaluation/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
+      \plotscoretime{../results/evaluation/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-B}
+      \plotscoretime{../results/evaluation/model=pooled_language=fi_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-C}
+      \plotscoretime{../results/evaluation/model=pooled_language=hr_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-C}
+      \plotscoretime{../results/evaluation/model=pooled_language=sl_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-C}
     \end{groupplot}
   \end{tikzpicture}
-  \caption{The score obtained against the time per instance of different models and
+  \caption{The score obtained against the approximate time per instance, i.e., the
+    total time divided by the number of instances, of the different models and
     languages with the additive composition operation.
-    The \texttt{static} variants take less time per instance and show less variability.
-    The \texttt{large} models among the \texttt{contextual} and \texttt{pooled} variants
-    take the most time per instance.
   }
   \label{chart:score-time}
 \end{figure}

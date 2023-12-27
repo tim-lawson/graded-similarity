@@ -7,10 +7,17 @@ I undertook this task to investigate the relative performance of pre-trained sta
 contextual embeddings for a context-dependent word-similarity task.
 The baseline models for the task were the multilingual BERT model
 \parencite{Devlin2019} and ELMo models \parencite{Peters2018a} trained on Finnish,
-Croatian, and Slovene datasets \parencite{Ulcar2020a} and the vast majority of the task
-submissions used Transformers \parencites{Vaswani2017}[36,42-45]{Armendariz2020a}.
-Furthermore, this approach facilitates a more direct comparison between the kinds of
-embeddings because the models were trained on the same datasets.
+Croatian, and Slovene datasets \parencite{Ulcar2020a},\footnote{I did not directly
+  reproduce the baseline models because the first requires the \texttt{bert-embedding}
+  Python package, which has been deprecated since 2020 and is incompatible with Apple's
+  ARM-based processors \parencite{Lai2023}.
+  However, it is notionally equivalent to the contextual embeddings of the
+  \texttt{bert-base-multilingual-cased} model with a window size of zero.
+} and the vast majority of the task
+submissions were based on Transformers \parencite[36,42-45]{Armendariz2020a}.
+Therefore, I chose to evaluate a variety of pre-trained Transformers.
+Because both static and contextual embeddings can be obtained from a Transformer model,
+this approach facilitated a direct comparison between them.
 The models that I evaluated were accessed via the HuggingFace \emph{Transformers}
 library \parencite{Wolf2020a} and are listed in \cref{table:language-models}.
 
@@ -60,75 +67,67 @@ library \parencite{Wolf2020a} and are listed in \cref{table:language-models}.
 
 The primary comparison that I made was between these models' static input and
 contextual output representations.
-Several of the submissions used a combination of a Transformer's hidden-states
-\parencites[e.g.][276]{Gamallo2020}[61]{CostellaPessutto2020}[145]{Hettiarachchi2020}.
-This choice is supported by the analysis of \textcite{Ethayarajh2019}, who found that
+However, several of the task submissions used a combination of a Transformer's
+hidden-states
+\parencites[e.g.][276]{Gamallo2020}[61]{CostellaPessutto2020}[145]{Hettiarachchi2020};
+hence, I also evaluated an example of this technique.
+This method is supported by the analysis of \textcite{Ethayarajh2019}, who found that
 the upper layers of Transformer models produce more context-dependent representations.
-Hence, I also evaluated an example of this approach—a thorough comparison of the
-performance of its variants is, however, beyond the scope of this paper.
-Hereafter, I refer to the three types of embeddings that I evaluated as:
-\begin{itemize}
-  \item \texttt{static}, the model's input embeddings;
-  \item \texttt{contextual}, the model's output embeddings; and
-  \item \texttt{pooled}, the sum of the model's last four hidden-states.
-\end{itemize}
-
-I note that I did not directly reproduce the baseline model because it requires the
-\texttt{bert-embedding} Python package, which has been deprecated since 2020 and is
-incompatible with Apple's ARM-based processors \parencite{Lai2023}.
-However, the baseline is notionally equivalent to the \texttt{contextual} embeddings of
-the \texttt{bert-base-multilingual-cased} model with a window size of zero.
+A thorough comparison of variants of this technique is, hwoever, beyond the scope of
+this paper.
+\begin{samepage}
+  Hereafter, I refer to the three kinds of embeddings that I evaluated as:
+  \begin{itemize}
+    \item \emph{static}, the model's input embeddings;
+    \item \emph{contextual}, the model's output embeddings; and
+    \item \emph{pooled}, the sum of the model's last four hidden-states.
+  \end{itemize}
+\end{samepage}
 
 \subsection{Composition operations}
 
 The basic procedure that I employed is described in \cref{chart:schematic-procedure}.
 For each pair of target words and each of the two contexts in which they appear, I
-obtained a contextualized representation of a target word by: finding the index of the
-target word's first sub-word token within the tokens of the target word's context;
-finding the tokens within a fixed-size window around the target word's first token;
-obtaining the embeddings of the tokens in the window; and combining the embeddings to
-produce a single representation of the target word.
+obtained a contextualized representation of a target word by:
+\begin{enumerate}
+  \item finding the index of the target word's first sub-word token within the tokens of its context;
+  \item finding the tokens within a fixed-size window around its first token;
+  \item obtaining the embeddings of the tokens in the window; and
+  \item composing the embeddings to produce a single representation.
+\end{enumerate}
 Notably, the use of a sub-word vocabulary by the models in question
 \parencite[e.g.,][4174]{Devlin2019} dictates that a target word may be represented by a
 different number of tokens in each context.
-As a result, the representations of a pair of target words may be different in each
-context, even if they are static and the window size is zero.
+As a result, the similarity between the representations of a pair of target words may
+be different in each context, even if the representations are individual static
+embeddings.
 This is the cause of the non-zero scores obtained by models of this kind, particularly
-for the Finnish language (\cref{chart:score-window-static}).
+for the Finnish language (\cref{sec:language-specificity}).
 
 \begin{figure}
   \centering
-  \newcommand{\period}{\text{.}}
   \newcommand*{\orawidest}{accept}
   \newcommand*{\oratallest}{\#\#}
   \newlength{\orawidth}
   \settowidth{\orawidth}{\orawidest}
   \newcommand*{\ora}[1]{\overrightarrow{#1\vphantom{\oratallest}}}
   \begin{tikzpicture}[
-      node distance = 0.7in,
-      every node/.style = {
-          inner sep = 0,
-          outer sep = 0.1in
-        }
+      every path/.style = {thick, ->},
+      every node/.style = {inner sep = 0, outer sep = 0.05in},
+      node distance = 0.6in
     ]
-    \node [label] (a) {
-      \dots from the Isenj\period{}
-      He \underline{accepts} their offer but knows that \dots }; \node [label, below of=a]
-    (b) {$\left[ \dots\,,\ \text{\#\#nj}\,,\ \period{}\,,\ \text{he}\,,\
-          \text{\underline{accept}}\,,\ \text{\#\#s}\,,\ \text{their}\,,\ \text{offer}\,,\ \dots
-          \right]$}; \node [label, below of=b] (c) {$\left[ \, \text{he}\,,\ \text{accept}\,,\
-          \text{\#\#s} \, \right]$}; \node [label, below of=c] (d) {$\left[ \ \ora{\text{he}}\,,\
-          \ora{\text{accept}}\,,\ \ora{\text{\#\#s}} \ \right]$}; \node [label, below of=d] (e)
-    {$ \ora{\textit{accept}} = \ora{\text{he}} + \ora{\text{accept}} + \ora{\text{\#\#s}}
-      $}; \draw [thick, ->] (a) -- (b) node[midway, right=0.2in] {1.
-      Find first sub-word token}; \draw [thick, ->] (b) -- (c) node[midway, right=0.2in] {2.
-      Find tokens in a fixed-size window}; \draw [thick, ->] (c) -- (d) node[midway,
-      right=0.2in] {3.
-      Obtain representations}; \draw [thick, ->] (d) -- (e) node[midway, right=0.2in] {4.
-      Combine representations};
+    \node [label] (a) {\dots from the Isenj. He \underline{accepts} their offer but knows that \dots };
+    \node [label, below of=a] (b) {$\left[ \dots\,,\ \text{\#\#nj}\,,\ .\,,\ \text{he}\,,\ \text{\underline{accept}}\,,\ \text{\#\#s}\,,\ \text{their}\,,\ \text{offer}\,,\ \dots \right]$};
+    \node [label, below of=b] (c) {$\left[ \, \text{he}\,,\ \text{accept}\,,\ \text{\#\#s} \, \right]$};
+    \node [label, below of=c] (d) {$\left[ \ \ora{\text{he}}\,,\ \ora{\text{accept}}\,,\ \ora{\text{\#\#s}} \ \right]$};
+    \node [label, below of=d] (e) {$ \ora{\textit{accept}} = \ora{\text{he}} + \ora{\text{accept}} + \ora{\text{\#\#s}}$};
+    \draw (a) -- (b) node[midway, right=0.2in] {1. Find first sub-word token};
+    \draw (b) -- (c) node[midway, right=0.2in] {2. Find tokens in a fixed-size window};
+    \draw (c) -- (d) node[midway, right=0.2in] {3. Obtain embeddings};
+    \draw (d) -- (e) node[midway, right=0.2in] {4. Compose embeddings};
   \end{tikzpicture}
-  \caption{A schematic of the procedure used
-    to obtain a contextualized representation of a target word from pre-trained embeddings.
+  \caption{A schematic of the procedure used to
+    obtain a contextualized representation of a target word from pre-trained embeddings.
     In this example, the target word is ``accept'', the window size is one (either side of
     the target word), and the composition operation is addition.
   }
@@ -136,22 +135,24 @@ for the Finnish language (\cref{chart:score-window-static}).
 \end{figure}
 
 Inspired by \textcite{Landauer1997}, \textcite{Kintsch2001}, and
-\textcite{Mitchell2008}, I predominantly investigated the application of element-wise
-addition and multiplication as composition operations.
+\textcite{Mitchell2008}, I predominantly investigated element-wise addition\footnote{
+  The cosine similarity between two vectors is invariant with respect to the
+  multiplication of the vectors by scalars.
+  Therefore, the results of composing the embeddings within a fixed-size context window
+  by addition or the arithmetic mean are equal.
+  Hence, I did not also investigate the arithmetic mean.
+} and
+multiplication as composition operations to contextualize embeddings.
 However, preliminary experiments indicated that multiplication performed poorly across
 all languages, models, and window sizes; hence, it was discarded before the final
 analysis.
-Additionally, I chose to evaluate the concatenation (`stacking') of embeddings.
+Initially, I also investigated the concatenation (`stacking') of embeddings.
 In the case that the number of embeddings was fewer than that expected for the window
-size, i.e., the target word was close to the beginning or the end of its context, I
+size, i.e., the target word was too close to the beginning or end of its context, I
 right-padded the concatenated embedding with zeros to obtain contextual embeddings of
 equal length.
 This approach was also inferior to addition for practically all combinations of
 parameters.
-Notably, the cosine similarity between two vectors is invariant with respect to the
-multiplication of the vectors by a scalar quantity, so the results of composing an
-equal number of representations by addition or the arithmetic mean are equal.
-Hence, I only investigated addition among the two.
 
 \subsection{Window size}
 
@@ -165,6 +166,6 @@ The motivation to choose a smaller maximum window size for contextual-embedding 
 was similarly economical (\cref{sec:cost-benefit}); however, as the window size
 approaches the length of the sequence, one would expect a combination of token
 representations to be superseded by the sequence-level representation of the model,
-e.g., the special \texttt{CLS} token of BERT variants \parencite[4174]{Devlin2019}.
+e.g., the special \texttt{CLS} token of BERT models \parencite[4174]{Devlin2019}.
 These heuristics were largely vindicated by the results of the evaluation, which
 demonstrated that the scores decrease as the window size approaches the maximum.
