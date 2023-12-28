@@ -30,14 +30,24 @@ def run_experiment(
 
     try:
         start = perf_counter()
-        score = MetaModel(
-            params.model,
+        model = MetaModel(
+            params.embedding,
             params.model_name,
             params.window,
             params.operation,
             params.similarity,
-        ).score(x, y)
+        )
+        score = model.score(x, y)
         time = perf_counter() - start
+
+        directory = "results/predictions"
+        makedirs(directory, exist_ok=True)
+        DataFrame(
+            {
+                "predicted": model.predict(x),
+                "actual": y,
+            }
+        ).to_csv(f"{directory}/{params.filename}", index=False)
 
     # pylint: disable=broad-exception-caught
     except Exception as exception:
@@ -69,6 +79,10 @@ def run_experiments():
     results = []
 
     for language in languages:
+        model_names = args.model_name
+        if model_names == []:
+            model_names = get_model_names(language)
+
         x = load_x(language, args.practice).to_numpy()
         y = load_y(language, args.practice).to_numpy()[:, 2]
         n = len(x)
@@ -77,8 +91,8 @@ def run_experiments():
         line()
 
         for params in product(
-            args.model,
-            get_model_names(language),
+            args.embedding,
+            model_names,
             args.get_windows(),
             args.operation,
             args.similarity,

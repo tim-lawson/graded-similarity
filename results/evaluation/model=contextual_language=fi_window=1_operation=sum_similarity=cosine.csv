@@ -1,0 +1,2 @@
+embedding,model_name,language,window,operation,similarity,score,time
+contextual,TurkuNLP/bert-large-finnish-cased-v1,fi,1,sum,cosine,0.6790942533365688,14.818849875009619

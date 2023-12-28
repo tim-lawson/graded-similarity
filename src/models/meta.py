@@ -4,7 +4,7 @@ from sklearn.base import BaseEstimator
 
 from .contextual import PooledContextualBertModel, SimpleContextualBertModel
 from .static import StaticBertModel
-from .utils import Model
+from .utils import Embedding
 
 
 class MetaModel(BaseEstimator):
@@ -12,7 +12,7 @@ class MetaModel(BaseEstimator):
 
     def __init__(
         self,
-        model: Model = "static",
+        model: Embedding = "static",
         model_name: str = "bert-base-multilingual-cased",
         context_window_size: int = 0,
         context_window_operation: str = "none",

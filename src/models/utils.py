@@ -8,9 +8,9 @@ ArrayStr = ndarray[Any, dtype[str_]]
 
 ArrayFloat = ndarray[Any, dtype[float_]]
 
-Model = Literal["static", "contextual", "pooled"]
+Embedding = Literal["static", "contextual", "pooled"]
 
-models: list[Model] = ["static", "contextual", "pooled"]
+embeddings: list[Embedding] = ["static", "contextual", "pooled"]
 
 
 def padflat(embeddings: ndarray, window: int, dim: int) -> ndarray:

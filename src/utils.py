@@ -11,7 +11,7 @@ from .data import Language, default_languages, load_x
 from .models.static import StaticBertModel
 
 columns = [
-    "model",
+    "embedding",
     "model_name",
     "language",
     "window",
@@ -82,14 +82,16 @@ def _get_best(practice: bool = False, operations: list[str] | None = None):
         by=["language"]
     ).to_csv(f"results/best/{results_directory}_best_overall.csv", index=False)
 
-    for model in ["static", "contextual", "pooled"]:
+    for embedding in ["static", "contextual", "pooled"]:
         (
-            dataframe[dataframe["model"] == model]
+            dataframe[dataframe["embedding"] == embedding]
             .groupby(["language"])
             .head(1)
             .reset_index(drop=True)
             .sort_values(by=["language"])
-            .to_csv(f"results/best/{results_directory}_best_{model}.csv", index=False)
+            .to_csv(
+                f"results/best/{results_directory}_best_{embedding}.csv", index=False
+            )
         )
 
 
@@ -98,12 +100,12 @@ def _get_both(operations: list[str] | None = None):
 
     dataframe = _get_results(False).merge(
         right=_get_results(True),
-        on=["model", "model_name", "language", "window", "operation", "similarity"],
+        on=["embedding", "model_name", "language", "window", "operation", "similarity"],
         how="outer",
     )
 
     dataframe.columns = [
-        "model",
+        "embedding",
         "model_name",
         "language",
         "window",
@@ -121,14 +123,14 @@ def _get_both(operations: list[str] | None = None):
 
     dataframe = dataframe.sort_values(by=["scorepractice"], ascending=False)
 
-    for model in ["static", "contextual", "pooled"]:
+    for embedding in ["static", "contextual", "pooled"]:
         (
-            dataframe[dataframe["model"] == model]
+            dataframe[dataframe["embedding"] == embedding]
             .groupby(["language"])
             .head(1)
             .reset_index(drop=True)
             .sort_values(by=["language"])
-            .to_csv(f"results/best/both_best_{model}.csv", index=False)
+            .to_csv(f"results/best/both_best_{embedding}.csv", index=False)
         )
 
 

@@ -14,13 +14,13 @@ from sklearn.model_selection import (
 
 from .data import Language, default_languages, load_x, load_y
 from .models.meta import MetaModel
-from .models.utils import Model, models
+from .models.utils import Embedding, embeddings
 from .params import get_model_names
 
 
 def search(
     language: Language,
-    model: Model = "static",
+    embedding: Embedding = "static",
     cv: int
     | BaseCrossValidator
     | BaseShuffleSplit
@@ -36,9 +36,9 @@ def search(
     search_cv = RandomizedSearchCV(
         MetaModel(),
         param_distributions={
-            "model": [model],
+            "embedding": [embedding],
             "model_name": get_model_names(language),
-            "context_window_size": list(range(50 if model == "static" else 10)),
+            "context_window_size": list(range(50 if embedding == "static" else 10)),
             "context_window_operation": ["sum", "prod", "concat"],
             "similarity_measure": ["cosine"],
         },
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     results_dataframe = DataFrame(
         columns=[
             "language",
-            "model",
+            "embedding",
             "model_name",
             "context_window_size",
             "context_window_operation",
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     split_test_scores_dataframe = DataFrame(
         columns=[
             "language",
-            "model",
+            "embedding",
             "model_name",
             "context_window_size",
             "context_window_operation",
@@ -98,10 +98,10 @@ if __name__ == "__main__":
         ]
     )
 
-    for language, model in product(default_languages, models):
-        params, results, split_test_scores = search(language, model)
+    for language, embedding in product(default_languages, embeddings):
+        params, results, split_test_scores = search(language, embedding)
 
-        print(f"{language} {model} {results['best_score']:.3f}")
+        print(f"{language} {embedding} {results['best_score']:.3f}")
 
         results_dataframe = concat(
             [
@@ -112,7 +112,7 @@ if __name__ == "__main__":
                             **params,
                             **results,
                             "language": language,
-                            "model": model,
+                            "embedding": embedding,
                         }
                     ]
                 ),
@@ -126,7 +126,7 @@ if __name__ == "__main__":
                     {
                         **params,
                         "language": language,
-                        "model": model,
+                        "embedding": embedding,
                         "split": list(range(len(split_test_scores))),
                         "test_score": split_test_scores,
                     }

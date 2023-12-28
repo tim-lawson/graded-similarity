@@ -1,0 +1,2 @@
+embedding,model_name,language,window,operation,similarity,score,time
+contextual,bert-base-multilingual-cased,sl,3,sum,cosine,0.5724967838097683,26.96035745900008

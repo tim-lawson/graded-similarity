@@ -3,7 +3,7 @@
 from typing import NamedTuple
 
 from .data import Language
-from .models.utils import Model
+from .models.utils import Embedding
 
 model_names_multilingual = [
     "bert-base-multilingual-cased",
@@ -47,7 +47,7 @@ class Params(NamedTuple):
     """Model parameters."""
 
     language: str
-    model: Model
+    embedding: Embedding
     model_name: str
     window: int
     operation: str
@@ -55,7 +55,7 @@ class Params(NamedTuple):
 
     def __str__(self) -> str:
         return (
-            f"model = {self.model}\n"
+            f"embedding = {self.embedding}\n"
             f"model_name = {self.model_name}\n"
             f"language = {self.language}\n"
             f"window = {self.window}\n"
@@ -66,10 +66,23 @@ class Params(NamedTuple):
     def to_dict(self) -> dict[str, str]:
         """Convert to a dictionary."""
         return {
-            "model": self.model,
+            "embedding": self.embedding,
             "model_name": self.model_name,
             "language": self.language,
             "window": str(self.window),
             "operation": self.operation,
             "similarity": self.similarity,
         }
+
+    @property
+    def filename(self) -> str:
+        """Filename."""
+        return (
+            f"embedding={self.embedding}"
+            f"_model_name={self.model_name.replace('/', '-')}"
+            f"_language={self.language}"
+            f"_window={self.window}"
+            f"_operation={self.operation}"
+            f"_similarity={self.similarity}"
+            ".csv"
+        )

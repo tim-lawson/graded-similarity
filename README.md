@@ -35,7 +35,8 @@ To run the experiments for subtask 1, either run the `subtask1` VS Code task in
 
 ```bash
 python -m src.subtask1 \
-> --model static contextual pooled \
+> --embedding static contextual pooled \
+> --model-name bert-base-multilingual-cased \
 > --language en fi hr sl \
 > --window 0 1 2 3 \
 > --operation concat none prod sum \

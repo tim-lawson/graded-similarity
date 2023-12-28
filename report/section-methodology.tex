@@ -69,16 +69,16 @@ library \parencite{Wolf2020a} and are listed in \cref{table:language-models}.
   \label{table:language-models}
 \end{table}
 
-The primary comparison that I made was between these models' static input and
-contextual output representations.
+The primary comparison that I made was between the static input and contextual output
+representations of these models.
 Several of the task submissions used a combination of a Transformer's hidden-states
 \parencites[e.g.][276]{Gamallo2020}[61]{CostellaPessutto2020}[145]{Hettiarachchi2020}.
-This method is supported by the analysis of \textcite{Ethayarajh2019}, who found that
+This choice is supported by the analysis of \textcite{Ethayarajh2019}, who found that
 the upper layers of Transformer models produce more context-dependent representations.
-Hence, I also evaluated an example of this method -- a thorough comparison of its
-variants is, however, beyond the scope of this paper.
+Hence, I also evaluated an example of pooling hidden-states -- a thorough comparison of
+its variants is, however, beyond the scope of this paper.
 \begin{samepage}
-  Hereafter, I refer to the three kinds of embeddings that I evaluated as:
+  Hereafter, I refer to the kinds of embeddings that I evaluated as:
   \begin{itemize}
     \item \emph{static}, the model's input embeddings;
     \item \emph{contextual}, the model's output embeddings; and
@@ -145,13 +145,13 @@ multiplication of the vectors by scalars, so the results of composing the embedd
 within a fixed-size context window by addition or the arithmetic mean are equal.
 Hence, I did not also investigate the arithmetic mean.
 Preliminary experiments indicated that multiplication performed poorly across all
-languages, models, and window sizes; hence, it was discarded before the final analysis
-on the evaluation dataset.
+languages, models, and window sizes, so it was discarded before the final analysis on
+the evaluation dataset.
 Initially, I also investigated the concatenation (`stacking') of embeddings.
-In the case that the number of embeddings was fewer than that expected for the window
+In the case that the number of embeddings was fewer than that expected from the window
 size, i.e., the target word was too close to the beginning or end of its context, I
-right-padded the concatenated embedding with zeros to obtain contextual embeddings of
-equal length.
+right-padded the concatenated embeddings with zeros to obtain representations of equal
+length.
 This approach was also generally inferior to addition, as discussed in
 \cref{sec:hyperparameter-search}.
 
@@ -159,14 +159,16 @@ This approach was also generally inferior to addition, as discussed in
 
 Due to the computational expense of exhaustively searching the possible window sizes, I
 applied heuristics to constrain the search space.
-A naïve estimation of the average number of words in each context, i.e., segmenting on
-whitespace, gave a result of between $40$ and $60$ for the different languages.
+A naïve estimation of the average number of words in each context of the evaluation
+dataset, i.e., segmenting on whitespace, gave between $40$ and $60$ for the different
+languages.
 Therefore, for the static-embedding models, I chose $50$ as an upper bound on the
 window size on either side of the target word.
 The motivation to choose a smaller maximum window size for contextual-embedding models
-was similarly economical (\cref{sec:cost-benefit}); however, as the window size
-approaches the length of the sequence, one would expect a combination of token
-representations to be superseded by the sequence-level representation of the model,
-e.g., the special \texttt{CLS} token of BERT models \parencite[4174]{Devlin2019}.
+was economical, due to their greater computational expense (\cref{sec:cost-benefit}).
+However, as the window size approaches the length of the sequence, I expected a
+combination of token representations to be superseded by the sequence-level
+representation of the model, e.g., the special \texttt{CLS} token of BERT models
+\parencite[4174]{Devlin2019}.
 These heuristics were largely vindicated by the results on the evaluation dataset,
 which showed that the scores decrease as the window size approaches the maximum.

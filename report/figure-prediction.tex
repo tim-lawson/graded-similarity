@@ -1,0 +1,57 @@
+\newcommand{\plotpredictedactual}[2]{
+  \addplot[
+    only marks,
+    mark size = 0.8pt,
+    color = #2,
+  ] table [
+      col sep=comma,
+      x = predicted,
+      y = actual,
+    ]{#1};
+}
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \begin{groupplot}[
+        group style = {
+            group size = 2 by 2,
+            ylabels at = edge left,
+            xlabels at = edge bottom,
+            vertical sep = 0.7in,
+            horizontal sep = 0.5in,
+          },
+        width = 3in,
+        height = 2in,
+        xlabel = Predicted,
+        ylabel = Actual,
+        cycle list/Paired,
+        legend pos = south east,
+        legend style = {
+            draw = none,
+            font = \small,
+          },
+        legend cell align={left},
+      ]
+      \nextgroupplot[title = English ($n\,{=}\,340$)]
+      \plotpredictedactual{../results/predictions/embedding=contextual_model_name=bert-base-uncased_language=en_window=1_operation=sum_similarity=cosine.csv}{Paired-A}
+      \node[anchor = north west] at (rel axis cs: 0.05, 0.95) {$r = 0.660$};
+      \nextgroupplot[title = Finnish ($n\,{=}\,24$)]
+      \plotpredictedactual{../results/predictions/embedding=contextual_model_name=TurkuNLP-bert-large-finnish-cased-v1_language=fi_window=1_operation=sum_similarity=cosine.csv}{Paired-B}
+      \node[anchor = north west] at (rel axis cs: 0.05, 0.95) {$r = 0.679$};
+      \nextgroupplot[title = Croatian ($n\,{=}\,112$)]
+      \plotpredictedactual{../results/predictions/embedding=pooled_model_name=EMBEDDIA-crosloengual-bert_language=hr_window=3_operation=sum_similarity=cosine.csv}{Paired-C}
+      \node[anchor = north west] at (rel axis cs: 0.05, 0.95) {$r = 0.717$};
+      \nextgroupplot[title = Slovene ($n\,{=}\,111$)]
+      \plotpredictedactual{../results/predictions/embedding=contextual_model_name=bert-base-multilingual-cased_language=sl_window=3_operation=sum_similarity=cosine.csv}{Paired-D}
+      \node[anchor = north west] at (rel axis cs: 0.05, 0.95) {$r = 0.572$};
+    \end{groupplot}
+  \end{tikzpicture}
+  \caption{The predicted and actual human judgments of the change in similarity of the best
+    models for each language on the evaluation dataset.
+    The best models are highlighted in \cref{table:evaluation-best-score}.
+    The zero-mean Pearson correlation coefficient, i.e., the score, is given in the
+    top-left corner of each plot (\cref{sec:task-definition}).
+  }
+  \label{chart:predicted}
+\end{figure}

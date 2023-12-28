@@ -5,14 +5,13 @@
 \label{sec:hyperparameter-search}
 
 In \cref{sec:cost-benefit,sec:language-specificity,sec:significance}, I present the
-results of different models on the evaluation dataset.
-However, by comparing them, I have effectively performed hyperparameter search on the
-evaluation dataset, which would not have been possible or legitimate as a task
-submission.
+results of different models on the \emph{evaluation} dataset.
+However, by comparing them, I have effectively performed hyperparameter search, which
+would not have been possible or legitimate as a task submission.
 Therefore, I also carried out this procedure on the `practice kit' dataset
 (\cref{sec:task-definition}) to select a candidate model for each language and kind of
 embedding.
-A `practice kit' was not provided for Finnish, so it was excluded from the analysis.
+This data was not provided for Finnish, so it was excluded from the analysis.
 As discussed in \cref{sec:composition-operations}, multiplication and concatenation
 performed poorly in comparison to addition.
 This is shown by the variability of the score with respect to the window size in
@@ -28,27 +27,25 @@ given in \cref{table:practice-best-score}.
 \subsection{Cost-benefit analysis of contextual embeddings}
 \label{sec:cost-benefit}
 
+\import{}{figure-prediction.tex}
+
 In the main, greater scores were achieved with contextual and pooled embeddings than
 with static embeddings (\cref{table:practice-best-score,table:evaluation-best-score}).
 However, static embeddings make up a small fraction of the size of a contextual
 language model.
-For example, BERT's vocabulary size is approximately $30000$.
-The dimensions of the \texttt{bert-base} and \texttt{bert-large} variants'
-hidden-states are $768$ and $1024$, and their total parameters are $110$M and $340$M
+For example, BERT's vocabulary size is approximately $30000$, the dimensions of the
+\texttt{bert-base} and \texttt{bert-large} variants' hidden-states are $768$ and
+$1024$, and their total parameters are $110$M and $340$M respectively
 \parencite[4173-4174]{Devlin2019}.
 Static embeddings thus make up approximately $23$M and $31$M or $21$\% and $9$\% of the
 total parameters.
 It is also much faster to compute a contextualized representation from static
 embeddings than to run inference on a language model.
 For a naïve implementation of the procedure described in \cref{sec:methodology}, the
-approximate time taken to compute the change in similarity between two words in
-context, i.e., the total time divided by the number of instances, is notably greater
-for contextual embeddings than for static embeddings.
+approximate time taken to compute the change in similarity between two words in context
+is notably greater for contextual embeddings than static embeddings.
 This is shown in \cref{chart:score-time}, where the right-most cluster is due to the
 \texttt{large} model variants.
-\\
-\todonum{Plot the gold-standard values against the predictions for the best model
-  for each language to visualize the Pearson correlation coefficient.}
 
 \import{}{figure-score-time.tex}
 
@@ -84,11 +81,9 @@ languages.
 \label{sec:significance}
 
 Finally, to quantify the significance of the differences between the scores obtained
-with different kinds of embeddings, I computed paired $t$-tests of the scores of the
-best models in each class over the same ten random samples of 90\% of the evaluation
-dataset.
+with different kinds of embeddings, I conducted paired $t$-tests of the scores of the
+best models in each class over ten random samples of 90\% of the evaluation dataset.
 For each pair of model classes, the null hypothesis is that the two sets of scores have
-the same mean, i.e., there is no significant difference between the mean score obtained
-by the two classes.
+the same mean, i.e., there is no significant difference between the mean scores.
 \\
 \todonum{Add significance test results.}

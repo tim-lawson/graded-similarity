@@ -4,13 +4,14 @@ from argparse import ArgumentParser
 from typing import NamedTuple
 
 from .data import Language, default_languages
-from .models.utils import Model
+from .models.utils import Embedding
 
 
 class Args(NamedTuple):
     """Command-line arguments."""
 
-    model: list[Model]
+    embedding: list[Embedding]
+    model_name: list[str]
     language: list[Language]
     window: list[int] | None
     min_window: int | None
@@ -29,7 +30,8 @@ class Args(NamedTuple):
 
     def __str__(self) -> str:
         return (
-            f"model = {','.join(self.model)}\n"
+            f"embedding = {','.join(self.embedding)}\n"
+            f"model_name = {','.join(self.model_name)}\n"
             f"language = {','.join(self.language)}\n"
             f"window = {','.join(map(str, self.get_windows()))}\n"
             f"operation = {','.join(self.operation)}\n"
@@ -39,7 +41,8 @@ class Args(NamedTuple):
     def to_dict(self):
         """Convert to a dictionary."""
         return {
-            "model": self.model,
+            "embedding": self.embedding,
+            "model_name": self.model_name,
             "language": self.language,
             "window": list(map(str, self.get_windows())),
             "operation": self.operation,
@@ -60,7 +63,8 @@ class Args(NamedTuple):
             else f"_window={'+'.join(map(str, self.get_windows()))}"
         )
         return (
-            f"model={'+'.join(self.model)}"
+            # TODO: replace `model` by `embedding`, add `model_name`, rename CSVs
+            f"model={'+'.join(self.embedding)}"
             f"_language={'+'.join(self.language)}"
             f"{window}"
             f"_operation={'+'.join(self.operation)}"
@@ -75,11 +79,19 @@ def parse_args() -> Args:
     parser = ArgumentParser()
 
     parser.add_argument(
-        "-m",
-        "--model",
+        "-e",
+        "--embedding",
         nargs="+",
         default=["static", "contextual", "pooled"],
         help="embeddings",
+    )
+
+    parser.add_argument(
+        "-m",
+        "--model-name",
+        nargs="+",
+        default=[],
+        help="model names",
     )
 
     parser.add_argument(
@@ -135,13 +147,14 @@ def parse_args() -> Args:
         "-p",
         "--practice",
         action="store_true",
-        help="practice kit",
+        help="'practice kit'",
     )
 
     args = parser.parse_args()
 
     return Args(
-        args.model,
+        args.embedding,
+        args.model_name,
         args.language,
         args.window,
         args.min_window,

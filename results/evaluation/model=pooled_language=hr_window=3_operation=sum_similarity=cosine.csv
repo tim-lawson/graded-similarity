@@ -1,0 +1,2 @@
+embedding,model_name,language,window,operation,similarity,score,time
+pooled,EMBEDDIA/crosloengual-bert,hr,3,sum,cosine,0.7171015652559589,24.147617207985604
