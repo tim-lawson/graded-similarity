@@ -90,8 +90,14 @@ best models (\cref{table:evaluation-best-score}) over ten random samples of 90\%
 evaluation dataset.
 For each pair of models, the null hypothesis is that the two sets of scores have the
 same mean, i.e., there is no significant difference between the mean scores.
-In all cases, the null hypothesis was rejected at the $0.05$ significance level, i.e.,
-pooled embeddings significantly outperformed contextual embeddings, which significantly
-outperformed static embeddings.
+
+In all cases, the null hypothesis was rejected at the $p = 0.05$ significance level.
+Contextual and pooled embeddings significantly outperformed static embeddings for each
+language, but whether contextual or pooled embeddings were preferred depended on the
+language (\cref{table:significance}).
 Hence, the results substantiate the assertion that contextual embeddings are more
 effective than static embeddings for this task (\cref{sec:cost-benefit}).
+Notably, the mean scores for Finnish differed less from each other than the other
+languages.
+
+\import{}{table-significance.tex}

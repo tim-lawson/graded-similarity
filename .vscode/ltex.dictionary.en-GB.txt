@@ -15,6 +15,7 @@ bert-large-uncased-whole-word-masking
 classla
 CoSimLex
 crosloengual-bert
+cv
 ELMo
 EMBEDDIA
 fi
@@ -24,6 +25,8 @@ json
 Miniconda
 pgfplots
 postproc
+pvalue
+sci
 scoreevaluation
 scorepractice
 SemEval

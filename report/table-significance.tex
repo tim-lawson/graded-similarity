@@ -1,0 +1,32 @@
+\begin{table}
+  \centering
+  \pgfplotstabletypeset[columns={
+        language,
+        embedding1,
+        embedding2,
+        statistic,
+        pvalue},
+    columns/embedding1/.style={
+        column name=Embeddings 1,
+        string type},
+    columns/embedding2/.style={
+        column name=Embeddings 2,
+        string type},
+    columns/statistic/.style={
+        column name={$t$-statistic},
+        column type={R{0.65in}},
+        relative*=1},
+    columns/pvalue/.style={
+        column name={$p$-value},
+        column type={R{0.75in}},
+        sci zerofill},
+    every nth row={3}{before row=\midrule}]{../results/cv/cv_test_results.csv}
+  \caption{The results of paired $t$-tests of the scores obtained by the best models for
+    each language and kind of embedding over ten random samples of 90\% of the evaluation
+    dataset.
+    The best models are highlighted in \cref{table:evaluation-best-score}.
+    A positive $t$-statistic indicates that the mean score of the `Embeddings 1' model is
+    significantly greater than that of the `Embeddings 2' model.
+  }
+  \label{table:significance}
+\end{table}
