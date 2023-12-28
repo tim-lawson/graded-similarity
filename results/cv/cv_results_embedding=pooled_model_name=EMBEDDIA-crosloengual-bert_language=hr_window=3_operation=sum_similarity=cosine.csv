@@ -1,0 +1,2 @@
+language,embedding,model_name,context_window_size,context_window_operation,similarity_measure,best_score,mean_fit_time,std_fit_time,mean_score_time,std_score_time
+hr,sum,3,pooled,EMBEDDIA/crosloengual-bert,cosine,0.7147872337365728,1.1086965560913087,0.06449729327779034,26.559559369087218,0.9942685053175062

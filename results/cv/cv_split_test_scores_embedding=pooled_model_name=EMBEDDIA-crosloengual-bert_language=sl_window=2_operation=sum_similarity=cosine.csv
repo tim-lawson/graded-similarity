@@ -1,0 +1,11 @@
+language,embedding,model_name,context_window_size,context_window_operation,similarity_measure,split,test_score
+sum,2,sl,pooled,EMBEDDIA/crosloengual-bert,cosine,0,0.5890025334257333
+sum,2,sl,pooled,EMBEDDIA/crosloengual-bert,cosine,1,0.5599086983163912
+sum,2,sl,pooled,EMBEDDIA/crosloengual-bert,cosine,2,0.5501993679462497
+sum,2,sl,pooled,EMBEDDIA/crosloengual-bert,cosine,3,0.5315391594428004
+sum,2,sl,pooled,EMBEDDIA/crosloengual-bert,cosine,4,0.5087766539487254
+sum,2,sl,pooled,EMBEDDIA/crosloengual-bert,cosine,5,0.5588694937329945
+sum,2,sl,pooled,EMBEDDIA/crosloengual-bert,cosine,6,0.5608640528076487
+sum,2,sl,pooled,EMBEDDIA/crosloengual-bert,cosine,7,0.5649478643907132
+sum,2,sl,pooled,EMBEDDIA/crosloengual-bert,cosine,8,0.5209823870860506
+sum,2,sl,pooled,EMBEDDIA/crosloengual-bert,cosine,9,0.5272120220421372

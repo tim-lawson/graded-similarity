@@ -1,0 +1,2 @@
+language,embedding,model_name,context_window_size,context_window_operation,similarity_measure,best_score,mean_fit_time,std_fit_time,mean_score_time,std_score_time
+sl,sum,3,contextual,bert-base-multilingual-cased,cosine,0.5891827957512044,1.5736521005630493,0.17040795856516425,28.864790534973146,1.193796051205584

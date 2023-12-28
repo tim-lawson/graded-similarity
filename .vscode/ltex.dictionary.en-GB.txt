@@ -1,11 +1,13 @@
 @cell
 Armendariz
 bcms-bertic
+bert-base
 bert-base-cased
 bert-base-multilingual-cased
 bert-base-multilingual-uncased
 bert-base-uncased
 bert-embedding
+bert-large
 bert-large-cased
 bert-large-cased-whole-word-masking
 bert-large-uncased
@@ -32,5 +34,3 @@ tslwn
 TurkuNLP
 uncentered
 zerofill
-bert-base
-bert-large

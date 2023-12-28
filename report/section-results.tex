@@ -5,20 +5,24 @@
 \label{sec:hyperparameter-search}
 
 In \cref{sec:cost-benefit,sec:language-specificity,sec:significance}, I present the
-results of different models on the \emph{evaluation} dataset.
-However, by comparing them, I have effectively performed hyperparameter search, which
-would not have been possible or legitimate as a task submission.
+results for different models on the \emph{evaluation} dataset.
+However, it would not have been possible or legitimate as a task submission to optimize
+hyperparameters on the evaluation dataset.
 Therefore, I also carried out this procedure on the `practice kit' dataset
 (\cref{sec:task-definition}) to select a candidate model for each language and kind of
 embedding.
 This data was not provided for Finnish, so it was excluded from the analysis.
-As discussed in \cref{sec:composition-operations}, multiplication and concatenation
-performed poorly in comparison to addition.
-This is shown by the variability of the score with respect to the window size in
-\cref{chart:score-window-static-practice,chart:score-window-contextual-practice,chart:score-window-pooled-practice}.
-Hence, I excluded the other composition operations to select candidate models.
-The candidate models and their scores on the `practice kit' and evaluation datasets are
-given in \cref{table:practice-best-score}.
+In comparison to addition, the scores for the other composition operations varied more
+widely with respect to the window size
+(\cref{chart:score-window-static-practice,chart:score-window-contextual-practice,chart:score-window-pooled-practice}).
+Hence, I excluded them before selecting candidate models.
+The candidate models and their scores on the two datasets are listed in
+\cref{table:practice-best-score}.
+As expected, the scores on the `practice kit' dataset of fewer instances are generally
+higher than those on the evaluation dataset.
+In some cases, the scores on the evaluation dataset are close to the maxima in
+\cref{table:evaluation-best-score}.
+Generally, the benefit of additional `training' data is evident.
 
 \import{}{figure-score-practice.tex}
 
@@ -37,25 +41,25 @@ For example, BERT's vocabulary size is approximately $30000$, the dimensions of 
 \texttt{bert-base} and \texttt{bert-large} variants' hidden-states are $768$ and
 $1024$, and their total parameters are $110$M and $340$M respectively
 \parencite[4173-4174]{Devlin2019}.
-Static embeddings thus make up approximately $23$M and $31$M or $21$\% and $9$\% of the
-total parameters.
+Static embeddings thus make up approximately $21$\% and $9$\% of the total parameters.
 It is also much faster to compute a contextualized representation from static
 embeddings than to run inference on a language model.
 For a naïve implementation of the procedure described in \cref{sec:methodology}, the
 approximate time taken to compute the change in similarity between two words in context
-is notably greater for contextual embeddings than static embeddings.
-This is shown in \cref{chart:score-time}, where the right-most cluster is due to the
-\texttt{large} model variants.
+is shown in \cref{chart:score-time}.
+It is notably greater for contextual embeddings.
+The right-most cluster is due to the \texttt{large} model variants.
 
 \import{}{figure-score-time.tex}
 
-\subsection{Language-specificity of window-size effects}
+\subsection{Language-specificity of window size}
 \label{sec:language-specificity}
 
 \import{}{table-evaluation-best-score.tex}
 
 Generally, I found that the scores obtained by all three types of embeddings were
-maximized by a non-zero context-window size.
+maximized by a non-zero context-window size
+(\cref{table:practice-best-score,table:evaluation-best-score}).
 The influence of the window size is intuitive in the case of static embeddings.
 Without a context window, the representations of a target word only differ between
 expressions if the word is represented by different sub-word tokens in the different
@@ -63,16 +67,16 @@ expressions.
 A similar argument applies to contextual embeddings, in that a target word may be
 represented by multiple sub-word tokens.
 For the composition operation of addition, the scores against window size for each
-language and model are given in
+language, kind of embedding, and model are shown in
 \cref{chart:score-window-static,chart:score-window-contextual,chart:score-window-pooled}.
 
-\textcite[3]{Virtanen2019} noted that, for a random sample of 1\% of the relevant
+\textcite[3]{Virtanen2019} have noted that, for a random sample of 1\% of the relevant
 Wikipedia dataset, the number of sub-word tokens used to represent a word by a
 multilingual BERT model is greater for Finnish ($1.97$) than for English ($1.16$).
 This is attributed to the morphological complexity of Finnish and its comparatively
 small fraction of the multilingual model's vocabulary.
 Accordingly, I found that Finnish-specific models generally outperformed multilingual
-ones and that the score varied more widely with window size for Finnish than the other
+ones and that scores varied more widely with window size for Finnish than the other
 languages.
 
 \import{}{figure-score-window.tex}
@@ -82,8 +86,12 @@ languages.
 
 Finally, to quantify the significance of the differences between the scores obtained
 with different kinds of embeddings, I conducted paired $t$-tests of the scores of the
-best models in each class over ten random samples of 90\% of the evaluation dataset.
-For each pair of model classes, the null hypothesis is that the two sets of scores have
-the same mean, i.e., there is no significant difference between the mean scores.
-\\
-\todonum{Add significance test results.}
+best models (\cref{table:evaluation-best-score}) over ten random samples of 90\% of the
+evaluation dataset.
+For each pair of models, the null hypothesis is that the two sets of scores have the
+same mean, i.e., there is no significant difference between the mean scores.
+In all cases, the null hypothesis was rejected at the $0.05$ significance level, i.e.,
+pooled embeddings significantly outperformed contextual embeddings, which significantly
+outperformed static embeddings.
+Hence, the results substantiate the assertion that contextual embeddings are more
+effective than static embeddings for this task (\cref{sec:cost-benefit}).

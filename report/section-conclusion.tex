@@ -7,15 +7,15 @@ The purpose of this investigation was to compare the performance of static and
 contextual embeddings, and their composition within a fixed-size context window, on the
 task of predicting the change in the human judgment of similarity of a pair of words in
 two different contexts.
-I found that contextual embeddings generally outperformed static embeddings but at a
-significant computational cost (\cref{sec:cost-benefit}).
+I found that contextual embeddings significantly outperformed static embeddings but at
+a computational cost (\cref{sec:cost-benefit}).
 Composition benefited both static and contextual embeddings of sub-word tokens, with a
 language-dependent optimal window size (\cref{sec:language-specificity}).
 
 These results must be interpreted in context: the original submission authors did not
 have access to the evaluation dataset prior to submitting their results, only the
-`practice kit' of very few instances, so had limited opportunity to optimize parameters
-such as the window size prior to submission (\cref{sec:hyperparameter-search}).
+`practice kit' of very few instances, so had limited opportunity to optimize
+hyperparameters like the window size (\cref{sec:hyperparameter-search}).
 The models that I used were also not necessarily available to the authors
 (\cref{sec:embedding-models}).
 With these caveats, I achieved several notable results (\cref{table:evaluation-best-score}):
@@ -24,7 +24,7 @@ With these caveats, I achieved several notable results (\cref{table:evaluation-b
         size of three would have placed second among the Croatian submissions, with a
         score of $0.717$.
   \item The contextual embeddings of \texttt{TurkuNLP/bert-base-finnish-uncased-v1}
-        with a window size of zero would have placed fourth among the Finnish
+        with a window size of one would have placed fourth among the Finnish
         submissions, with a score of $0.679$.
   \item The static embeddings of \texttt{TurkuNLP/bert-base-finnish-uncased-v1}
         with a window size of zero outperform several of the Finnish submissions,

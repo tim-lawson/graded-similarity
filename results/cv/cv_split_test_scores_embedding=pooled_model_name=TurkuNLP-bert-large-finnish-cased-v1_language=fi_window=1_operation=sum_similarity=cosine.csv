@@ -1,0 +1,11 @@
+language,embedding,model_name,context_window_size,context_window_operation,similarity_measure,split,test_score
+sum,1,fi,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,0,0.6649937878145444
+sum,1,fi,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,1,0.6527463437506794
+sum,1,fi,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,2,0.672657045347535
+sum,1,fi,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,3,0.6541285939623556
+sum,1,fi,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,4,0.6357299934334262
+sum,1,fi,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,5,0.682940717679308
+sum,1,fi,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,6,0.672777677569753
+sum,1,fi,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,7,0.645733706856472
+sum,1,fi,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,8,0.6739449955863028
+sum,1,fi,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,9,0.7239719779791579

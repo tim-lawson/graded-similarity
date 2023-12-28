@@ -1,0 +1,2 @@
+language,embedding,model_name,context_window_size,context_window_operation,similarity_measure,best_score,mean_fit_time,std_fit_time,mean_score_time,std_score_time
+fi,sum,1,pooled,TurkuNLP/bert-large-finnish-cased-v1,cosine,0.6679624839979534,2.4461272716522218,0.28808366033819005,13.507699847221375,0.2753829914356051

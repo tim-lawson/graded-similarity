@@ -1,0 +1,11 @@
+language,embedding,model_name,context_window_size,context_window_operation,similarity_measure,split,test_score
+sum,1,en,contextual,bert-base-uncased,cosine,0,0.6666545687421385
+sum,1,en,contextual,bert-base-uncased,cosine,1,0.6678237586807433
+sum,1,en,contextual,bert-base-uncased,cosine,2,0.6537329269004628
+sum,1,en,contextual,bert-base-uncased,cosine,3,0.658045453991735
+sum,1,en,contextual,bert-base-uncased,cosine,4,0.6789736923927148
+sum,1,en,contextual,bert-base-uncased,cosine,5,0.662003946529394
+sum,1,en,contextual,bert-base-uncased,cosine,6,0.6608675210354764
+sum,1,en,contextual,bert-base-uncased,cosine,7,0.6644066089733967
+sum,1,en,contextual,bert-base-uncased,cosine,8,0.66684668061039
+sum,1,en,contextual,bert-base-uncased,cosine,9,0.6718588804378693

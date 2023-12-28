@@ -1,0 +1,11 @@
+language,embedding,model_name,context_window_size,context_window_operation,similarity_measure,split,test_score
+sum,16,en,static,bert-large-uncased-whole-word-masking,cosine,0,0.4953374008034832
+sum,16,en,static,bert-large-uncased-whole-word-masking,cosine,1,0.48101295278386336
+sum,16,en,static,bert-large-uncased-whole-word-masking,cosine,2,0.4733780879990541
+sum,16,en,static,bert-large-uncased-whole-word-masking,cosine,3,0.4779025241558118
+sum,16,en,static,bert-large-uncased-whole-word-masking,cosine,4,0.47732082656670216
+sum,16,en,static,bert-large-uncased-whole-word-masking,cosine,5,0.46842668405636134
+sum,16,en,static,bert-large-uncased-whole-word-masking,cosine,6,0.45875775324016743
+sum,16,en,static,bert-large-uncased-whole-word-masking,cosine,7,0.4747718795152651
+sum,16,en,static,bert-large-uncased-whole-word-masking,cosine,8,0.48567565130055235
+sum,16,en,static,bert-large-uncased-whole-word-masking,cosine,9,0.47577449876628086

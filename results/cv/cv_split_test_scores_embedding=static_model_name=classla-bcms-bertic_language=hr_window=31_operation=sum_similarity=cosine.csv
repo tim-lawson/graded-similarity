@@ -1,0 +1,11 @@
+language,embedding,model_name,context_window_size,context_window_operation,similarity_measure,split,test_score
+sum,31,hr,static,classla/bcms-bertic,cosine,0,0.5597036227169397
+sum,31,hr,static,classla/bcms-bertic,cosine,1,0.5688675456806834
+sum,31,hr,static,classla/bcms-bertic,cosine,2,0.5942420392889333
+sum,31,hr,static,classla/bcms-bertic,cosine,3,0.559468730567248
+sum,31,hr,static,classla/bcms-bertic,cosine,4,0.5579882107730199
+sum,31,hr,static,classla/bcms-bertic,cosine,5,0.5696124714596844
+sum,31,hr,static,classla/bcms-bertic,cosine,6,0.5974821358294558
+sum,31,hr,static,classla/bcms-bertic,cosine,7,0.5846101161928433
+sum,31,hr,static,classla/bcms-bertic,cosine,8,0.5803139410525693
+sum,31,hr,static,classla/bcms-bertic,cosine,9,0.5905788643764035

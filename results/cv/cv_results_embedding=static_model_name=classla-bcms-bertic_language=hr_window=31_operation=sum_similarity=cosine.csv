@@ -1,0 +1,2 @@
+language,embedding,model_name,context_window_size,context_window_operation,similarity_measure,best_score,mean_fit_time,std_fit_time,mean_score_time,std_score_time
+hr,sum,31,static,classla/bcms-bertic,cosine,0.5762867677937781,1.00779287815094,0.09265751046430531,1.2902166843414307,0.04862706972760395
