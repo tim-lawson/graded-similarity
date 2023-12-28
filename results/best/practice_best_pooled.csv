@@ -1,1 +1,4 @@
 model,model_name,language,window,operation,similarity,score,time
+pooled,bert-large-uncased,en,1,sum,cosine,0.836107481427207,7.041796458011959
+pooled,classla/bcms-bertic,hr,6,sum,cosine,0.9515504814847198,2.1157321670034435
+pooled,EMBEDDIA/crosloengual-bert,sl,1,sum,cosine,0.9450976952858792,2.310393416992156

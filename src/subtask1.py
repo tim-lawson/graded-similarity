@@ -63,7 +63,7 @@ def run_experiments():
     languages = args.language
 
     # There is no `practice kit' for Finnish.
-    if args.practice:
+    if args.practice and "fi" in languages:
         languages.remove("fi")
 
     results = []
@@ -94,9 +94,7 @@ def run_experiments():
             print(f"time = {n} x {(time / n):.6f} = {time:.3f} s")
             line()
 
-        DataFrame(results).to_csv(
-            f"results/{args.directory}/{args.filename}", index=False
-        )
+        DataFrame(results).to_csv(f"{args.directory}/{args.filename}", index=False)
 
 
 if __name__ == "__main__":

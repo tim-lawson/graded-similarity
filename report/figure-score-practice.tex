@@ -1,0 +1,168 @@
+\newcommand{\plotscorepractice}[2]{
+  \foreach \modelname in #2
+    {
+      \addplot+[
+        sharp plot,
+        mark = none,
+        line width = 0.8pt,
+        discard if not = {model_name}{\modelname},
+      ] table [
+          col sep=comma,
+          x = window,
+          y = score,
+        ]{#1};
+    }
+}
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \begin{groupplot}[
+        group style={
+            group size=3 by 3,
+            xlabels at=edge bottom,
+            ylabels at=edge left,
+            vertical sep=0.2in,
+            horizontal sep=0.2in,
+          },
+        width=2.25in,
+        height=1.6in,
+        xlabel=Window size,
+        ylabel=Score,
+        ymin=-0.5,
+        ymax=1,
+        xtick={0,10,...,50},
+        ytick={-0.5,0,0.5,1.0},
+        xticklabel=\empty,
+        yticklabel=\empty,
+        cycle list/Paired,
+    ]
+      \nextgroupplot[title=Addition, ylabel={English ($n\,{=}\,10$)}, yticklabels={-0.5,0,0.5,1.0}]
+      \plotscorepractice{../results/practice/model=static_language=en_window=0-50_operation=sum_similarity=cosine.csv}{\modelnameen}
+      \nextgroupplot[title=Multiplication]
+      \plotscorepractice{../results/practice/model=static_language=en_window=0-50_operation=prod_similarity=cosine.csv}{\modelnameen}
+      \nextgroupplot[title=Concatenation]
+      \plotscorepractice{../results/practice/model=static_language=en_window=0-50_operation=concat_similarity=cosine.csv}{\modelnameen}
+      \nextgroupplot[ylabel={Croatian ($n\,{=}\,5$)}, yticklabels={-0.5,0,0.5,1.0}]
+      \plotscorepractice{../results/practice/model=static_language=hr_window=0-50_operation=sum_similarity=cosine.csv}{\modelnamehr}
+      \nextgroupplot
+      \plotscorepractice{../results/practice/model=static_language=hr_window=0-50_operation=prod_similarity=cosine.csv}{\modelnamehr}
+      \nextgroupplot
+      \plotscorepractice{../results/practice/model=static_language=hr_window=0-50_operation=concat_similarity=cosine.csv}{\modelnamehr}
+      \nextgroupplot[ylabel={Slovene ($n\,{=}\,5$)}, xticklabels={0,10,...,50}, yticklabels={-0.5,0,0.5,1.0}]
+      \plotscorepractice{../results/practice/model=static_language=sl_window=0-50_operation=sum_similarity=cosine.csv}{\modelnamesl}
+      \nextgroupplot[xticklabels={0,10,...,50}]
+      \plotscorepractice{../results/practice/model=static_language=sl_window=0-50_operation=prod_similarity=cosine.csv}{\modelnamesl}
+      \nextgroupplot[xticklabels={0,10,...,50}]
+      \plotscorepractice{../results/practice/model=static_language=sl_window=0-50_operation=concat_similarity=cosine.csv}{\modelnamesl}
+    \end{groupplot}
+  \end{tikzpicture}
+  \caption{The score on the `practice kit' dataset against window size for \emph{static}
+    embedding models.
+    The model-name legends are omitted for brevity but match
+    \cref{chart:score-window-static}.
+  }
+  \label{chart:score-window-static-practice}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \begin{groupplot}[
+        group style={
+            group size=3 by 3,
+            xlabels at=edge bottom,
+            ylabels at=edge left,
+            vertical sep=0.2in,
+            horizontal sep=0.2in,
+          },
+          width=2.25in,
+          height=1.6in,
+          xlabel=Window size,
+          ylabel=Score,
+          ymin=-0.5,
+          ymax=1,
+          xtick={0,2,4,6,8,10},
+          ytick={-0.5,0,0.5,1.0},
+          xticklabel=\empty,
+          yticklabel=\empty,
+          cycle list/Paired,
+    ]
+      \nextgroupplot[title=Addition, ylabel={English ($n\,{=}\,10$)}, yticklabels={-0.5,0,0.5,1.0}]
+      \plotscorepractice{../results/practice/model=contextual_language=en_window=0-10_operation=sum_similarity=cosine.csv}{\modelnameen}
+      \nextgroupplot[title=Multiplication]
+      \plotscorepractice{../results/practice/model=contextual_language=en_window=0-10_operation=prod_similarity=cosine.csv}{\modelnameen}
+      \nextgroupplot[title=Concatenation]
+      \plotscorepractice{../results/practice/model=contextual_language=en_window=0-10_operation=concat_similarity=cosine.csv}{\modelnameen}
+      \nextgroupplot[ylabel={Croatian ($n\,{=}\,5$)}, yticklabels={-0.5,0,0.5,1.0}]
+      \plotscorepractice{../results/practice/model=contextual_language=hr_window=0-10_operation=sum_similarity=cosine.csv}{\modelnamehr}
+      \nextgroupplot
+      \plotscorepractice{../results/practice/model=contextual_language=hr_window=0-10_operation=prod_similarity=cosine.csv}{\modelnamehr}
+      \nextgroupplot
+      \plotscorepractice{../results/practice/model=contextual_language=hr_window=0-10_operation=concat_similarity=cosine.csv}{\modelnamehr}
+      \nextgroupplot[ylabel={Slovene ($n\,{=}\,5$)}, xticklabels={0,2,4,6,8,10}, yticklabels={-0.5,0,0.5,1.0}]
+      \plotscorepractice{../results/practice/model=contextual_language=sl_window=0-10_operation=sum_similarity=cosine.csv}{\modelnamesl}
+      \nextgroupplot[xticklabels={0,2,4,6,8,10}]
+      \plotscorepractice{../results/practice/model=contextual_language=sl_window=0-10_operation=prod_similarity=cosine.csv}{\modelnamesl}
+      \nextgroupplot[xticklabels={0,2,4,6,8,10}]
+      \plotscorepractice{../results/practice/model=contextual_language=sl_window=0-10_operation=concat_similarity=cosine.csv}{\modelnamesl}
+    \end{groupplot}
+  \end{tikzpicture}
+  \caption{The score on the `practice kit' dataset against window size for
+    \emph{contextual} embedding models.
+    The model-name legends are omitted for brevity but match
+    \cref{chart:score-window-contextual}.
+  }
+  \label{chart:score-window-contextual-practice}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+    \begin{groupplot}[
+      group style={
+          group size=3 by 3,
+          xlabels at=edge bottom,
+          ylabels at=edge left,
+          vertical sep=0.2in,
+          horizontal sep=0.2in,
+        },
+      width=2.25in,
+      height=1.6in,
+      xlabel=Window size,
+      ylabel=Score,
+      ymin=-0.5,
+      ymax=1,
+      xtick={0,2,4,6,8,10},
+      ytick={-0.5,0,0.5,1.0},
+      xticklabel=\empty,
+      yticklabel=\empty,
+      cycle list/Paired,
+    ]
+      \nextgroupplot[title=Addition, ylabel={English ($n\,{=}\,10$)}, yticklabels={-0.5,0,0.5,1.0}]
+      \plotscorepractice{../results/practice/model=pooled_language=en_window=0-10_operation=sum_similarity=cosine.csv}{\modelnameen}
+      \nextgroupplot[title=Multiplication]
+      \plotscorepractice{../results/practice/model=pooled_language=en_window=0-10_operation=prod_similarity=cosine.csv}{\modelnameen}
+      \nextgroupplot[title=Concatenation]
+      \plotscorepractice{../results/practice/model=pooled_language=en_window=0-10_operation=concat_similarity=cosine.csv}{\modelnameen}
+      \nextgroupplot[ylabel={Croatian ($n\,{=}\,5$)}, yticklabels={-0.5,0,0.5,1.0}]
+      \plotscorepractice{../results/practice/model=pooled_language=hr_window=0-10_operation=sum_similarity=cosine.csv}{\modelnamehr}
+      \nextgroupplot
+      \plotscorepractice{../results/practice/model=pooled_language=hr_window=0-10_operation=prod_similarity=cosine.csv}{\modelnamehr}
+      \nextgroupplot
+      \plotscorepractice{../results/practice/model=pooled_language=hr_window=0-10_operation=concat_similarity=cosine.csv}{\modelnamehr}
+      \nextgroupplot[ylabel={Slovene ($n\,{=}\,5$)}, xticklabels={0,2,4,6,8,10}, yticklabels={-0.5,0,0.5,1.0}]
+      \plotscorepractice{../results/practice/model=pooled_language=sl_window=0-10_operation=sum_similarity=cosine.csv}{\modelnamesl}
+      \nextgroupplot[xticklabels={0,2,4,6,8,10}]
+      \plotscorepractice{../results/practice/model=pooled_language=sl_window=0-10_operation=prod_similarity=cosine.csv}{\modelnamesl}
+      \nextgroupplot[xticklabels={0,2,4,6,8,10}]
+      \plotscorepractice{../results/practice/model=pooled_language=sl_window=0-10_operation=concat_similarity=cosine.csv}{\modelnamesl}
+    \end{groupplot}
+  \end{tikzpicture}
+  \caption{The score on the `practice kit' dataset against window size for \emph{pooled}
+    embedding models.
+    The model-name legends are omitted for brevity but match
+    \cref{chart:score-window-pooled}.
+  }
+  \label{chart:score-window-pooled-practice}
+\end{figure}

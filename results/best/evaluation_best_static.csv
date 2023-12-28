@@ -1,5 +1,5 @@
 model,model_name,language,window,operation,similarity,score,time
-static,bert-large-uncased-whole-word-masking,en,16,sum,cosine,0.4706722566883303,0.0081654029411765
-static,EMBEDDIA/crosloengual-bert,fi,10,concat,cosine,0.6334540474242795,0.0522413177077396
+static,bert-large-uncased-whole-word-masking,en,16,sum,cosine,0.4706722566883303,2.776237000000038
+static,EMBEDDIA/crosloengual-bert,fi,21,sum,cosine,0.5879743302141519,1.1579041659997529
 static,classla/bcms-bertic,hr,31,sum,cosine,0.5665456078353069,1.3602485000001252
 static,EMBEDDIA/crosloengual-bert,sl,11,sum,cosine,0.3827981942304912,1.4295042920002743

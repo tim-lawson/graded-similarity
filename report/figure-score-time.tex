@@ -30,6 +30,7 @@
             font = \small,
           },
         legend cell align={left},
+        ytick={-0.5,0,0.5,1.0},
         x tick label style={
             /pgf/number format/.cd,
             fixed,
@@ -56,9 +57,9 @@
       \plotscoretime{../results/evaluation/model=pooled_language=sl_window=0-10_operation=sum_similarity=cosine_time.csv}{Paired-C}
     \end{groupplot}
   \end{tikzpicture}
-  \caption{The score obtained against the approximate time per instance, i.e., the
-    total time divided by the number of instances, of the different models and
-    languages with the additive composition operation.
+  \caption{The scores on the evaluation dataset against the approximate time per
+    instance, i.e., the total time divided by the number of instances, with the
+    composition operation of addition.
   }
   \label{chart:score-time}
 \end{figure}

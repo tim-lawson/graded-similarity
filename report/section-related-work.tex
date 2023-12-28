@@ -3,8 +3,8 @@
 
 \subsection{Composition and contextualization}
 
-Many context-based approaches to word-sense disambiguation have been proposed since the
-advent of count-based models of word meaning.
+Many context-based approaches to composition and contextualization have been proposed
+since the advent of count-based models of word meaning.
 With reference to Latent Semantic Analysis \parencite{Deerwester1990}, for example,
 \citeauthor{Landauer1997} argued that taking the average of the high-dimensional
 representation of a word and the representations of the words in its context may
@@ -28,20 +28,20 @@ Contextual language models have achieved widespread success on benchmark tasks
 There is, however, cause to criticize the suitability of typical benchmarks for
 characterizing the capabilities of language models \parencite[5-6]{Srivastava2023}.
 Furthermore, the social and environmental costs of deploying a large model may not be
-justifiable; and the computational resources it requires may be prohibitive to an
+justifiable, and the necessary computational resources may be prohibitive to an
 organization or in a resource-constrained environment
 \parencite[142-145,154]{Bommasani2022}.
 In the case of systems based on contextual embeddings, for instance,
 \textcite{Arora2020} have shown that static and even \emph{random} embeddings can
 achieve similar performance, given sufficient data and linguistically simple tasks.
-Furthermore, \textcites[5244-5246]{Gupta2019}[4760-4762]{Bommasani2020} have compared
-different kinds of embeddings for a variety of word-similarity tasks and found that
-static embeddings can be obtained from contextual models that outperform their
-contextual counterparts while reducing the cost of inference.
+Relatedly, \textcites[5244-5246]{Gupta2019}[4760-4762]{Bommasani2020} have compared
+different kinds of embeddings for word-similarity tasks and found that static
+embeddings can be obtained from contextual models that outperform their contextual
+counterparts while reducing the cost of inference.
 Surveys of contextual and static embeddings are given by
-\textcites{Liu2020}{Torregrossa2021}; further analyses of contextual language models
-are provided by \textcites{Reif2019}{Brunner2019}, for example.
-I briefly discuss the costs and benefits of contextual models in
+\textcites{Liu2020}{Torregrossa2021}, and further analyses of contextual language
+models by \textcites{Reif2019}{Brunner2019}, for example.
+The costs and benefits of contextual models in this context are discussed in
 \cref{sec:cost-benefit}.
 
 \subsection{Word similarity}

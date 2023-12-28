@@ -1,0 +1,4 @@
+model,model_name,language,window,operation,similarity,scoreevaluation,timeevaluation,scorepractice,timepractice
+contextual,EMBEDDIA/crosloengual-bert,en,2,sum,cosine,0.6023424331491857,93.20945870800278,0.8380849668311872,4.203749291002168
+contextual,bert-base-multilingual-cased,hr,8,sum,cosine,0.5907587187710043,31.733363957999245,0.7904116734007078,2.943326792010339
+contextual,bert-base-multilingual-cased,sl,2,sum,cosine,0.5637673948492904,28.465796124997723,0.8289623848279831,2.8037817500007804

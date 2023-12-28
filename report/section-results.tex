@@ -2,41 +2,60 @@
 \label{sec:results}
 
 \subsection{Hyperparameter search}
+\label{sec:hyperparameter-search}
 
-In the following sections, I present the results achieved on the evaluation dataset.
-However, by comparing the scores achieved with different kinds of embeddings, window
-sizes, etc., I have effectively performed hyperparameter search on the evaluation
-dataset, which would not have been possible or legitimate as a task submission.
-Therefore, I also explicitly implemented a hyperparameter search procedure on the
-`practice kit' to select a candidate model for each language and computed the scores of
-these models on the evaluation dataset.
-\\
-\todonum{Add best `practice kit' candidates and results on evaluation data.}
+In \cref{sec:cost-benefit,sec:language-specificity,sec:significance}, I present the
+results of different models on the evaluation dataset.
+However, by comparing them, I have effectively performed hyperparameter search on the
+evaluation dataset, which would not have been possible or legitimate as a task
+submission.
+Therefore, I also carried out this procedure on the `practice kit' dataset
+(\cref{sec:task-definition}) to select a candidate model for each language and kind of
+embedding.
+A `practice kit' was not provided for Finnish, so it was excluded from the analysis.
+As discussed in \cref{sec:composition-operations}, multiplication and concatenation
+performed poorly in comparison to addition.
+This is shown by the variability of the score with respect to the window size in
+\cref{chart:score-window-static-practice,chart:score-window-contextual-practice,chart:score-window-pooled-practice}.
+Hence, I excluded the other composition operations to select candidate models.
+The candidate models and their scores on the `practice kit' and evaluation datasets are
+given in \cref{table:practice-best-score}.
+
+\import{}{figure-score-practice.tex}
+
+\import{}{table-practice-best-score.tex}
 
 \subsection{Cost-benefit analysis of contextual embeddings}
 \label{sec:cost-benefit}
 
-\import{}{figure-table-best-score.tex}
-
 In the main, greater scores were achieved with contextual and pooled embeddings than
-with static embeddings.
+with static embeddings (\cref{table:practice-best-score,table:evaluation-best-score}).
 However, static embeddings make up a small fraction of the size of a contextual
-language model, and it is much faster to compute a contextualized representation from
-static embeddings than to run inference on a language model.
-The second of these advantages is shown in \cref{chart:score-time}.
+language model.
+For example, BERT's vocabulary size is approximately $30000$.
+The dimensions of the \texttt{bert-base} and \texttt{bert-large} variants'
+hidden-states are $768$ and $1024$, and their total parameters are $110$M and $340$M
+\parencite[4173-4174]{Devlin2019}.
+Static embeddings thus make up approximately $23$M and $31$M or $21$\% and $9$\% of the
+total parameters.
+It is also much faster to compute a contextualized representation from static
+embeddings than to run inference on a language model.
 For a naïve implementation of the procedure described in \cref{sec:methodology}, the
 approximate time taken to compute the change in similarity between two words in
 context, i.e., the total time divided by the number of instances, is notably greater
 for contextual embeddings than for static embeddings.
-The right-most cluster is due to the \texttt{large} model variants.
+This is shown in \cref{chart:score-time}, where the right-most cluster is due to the
+\texttt{large} model variants.
 \\
 \todonum{Plot the gold-standard values against the predictions for the best model
   for each language to visualize the Pearson correlation coefficient.}
 
-\import{}{figure-chart-score-time.tex}
+\import{}{figure-score-time.tex}
 
 \subsection{Language-specificity of window-size effects}
 \label{sec:language-specificity}
+
+\import{}{table-evaluation-best-score.tex}
 
 Generally, I found that the scores obtained by all three types of embeddings were
 maximized by a non-zero context-window size.
@@ -46,7 +65,7 @@ expressions if the word is represented by different sub-word tokens in the diffe
 expressions.
 A similar argument applies to contextual embeddings, in that a target word may be
 represented by multiple sub-word tokens.
-For the additive composition operation, the scores against window size for each
+For the composition operation of addition, the scores against window size for each
 language and model are given in
 \cref{chart:score-window-static,chart:score-window-contextual,chart:score-window-pooled}.
 
@@ -59,10 +78,10 @@ Accordingly, I found that Finnish-specific models generally outperformed multili
 ones and that the score varied more widely with window size for Finnish than the other
 languages.
 
-% \import{}{figure-table-best-window-size}
-\import{}{figure-chart-score-window.tex}
+\import{}{figure-score-window.tex}
 
 \subsection{Significance tests}
+\label{sec:significance}
 
 Finally, to quantify the significance of the differences between the scores obtained
 with different kinds of embeddings, I computed paired $t$-tests of the scores of the

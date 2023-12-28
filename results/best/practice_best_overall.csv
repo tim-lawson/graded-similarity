@@ -1,4 +1,4 @@
 model,model_name,language,window,operation,similarity,score,time
-static,bert-large-uncased-whole-word-masking,en,8,prod,cosine,0.8694311700456513,1.536189666003338
-static,EMBEDDIA/crosloengual-bert,hr,17,concat,cosine,0.9007813228690544,1.0890856670012
+contextual,EMBEDDIA/crosloengual-bert,en,2,sum,cosine,0.8380849668311872,4.203749291002168
+pooled,classla/bcms-bertic,hr,6,sum,cosine,0.9515504814847198,2.1157321670034435
 static,EMBEDDIA/crosloengual-bert,sl,15,sum,cosine,0.9562162613732644,1.1656592919898685

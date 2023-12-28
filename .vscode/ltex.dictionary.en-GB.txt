@@ -1,5 +1,6 @@
 @cell
 Armendariz
+bcms-bertic
 bert-base-cased
 bert-base-multilingual-cased
 bert-base-multilingual-uncased
@@ -9,6 +10,7 @@ bert-large-cased
 bert-large-cased-whole-word-masking
 bert-large-uncased
 bert-large-uncased-whole-word-masking
+classla
 CoSimLex
 crosloengual-bert
 ELMo
@@ -20,6 +22,8 @@ json
 Miniconda
 pgfplots
 postproc
+scoreevaluation
+scorepractice
 SemEval
 sep
 sl
@@ -28,3 +32,5 @@ tslwn
 TurkuNLP
 uncentered
 zerofill
+bert-base
+bert-large

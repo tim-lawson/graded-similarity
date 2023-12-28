@@ -19,7 +19,7 @@
 
 % Bibliography
 \usepackage[
-  style=authoryear-ibid,
+  style=authoryear,
   maxcitenames=2,
   doi=false,
   isbn=false,
@@ -69,12 +69,13 @@
 \newcommand{\norm}[1]{\lVert #1 \rVert}
 
 % Tables
-\usepackage{caption}
-\usepackage{subcaption}
 \usepackage{array}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage[draft]{graphicx}
 \usepackage{makecell}
 \usepackage{multirow}
-\usepackage[draft]{graphicx}
+\usepackage{subcaption}
 
 \def\imagebox#1#2{\vtop to #1{\null\hbox{#2}\vfill}}
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
@@ -86,6 +87,7 @@
 \usetikzlibrary{external}
 \tikzexternalize[prefix=figures/]
 
+\usepackage{pgffor}
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
 \pgfplotsset{compat=1.17}

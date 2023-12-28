@@ -15,7 +15,7 @@
       string type},
   columns/model_name/.style={
       column name=Model name,
-      column type={L{2.7in}},
+      column type={L{2.75in}},
       string type,
       postproc cell content/.append style={
           @cell content={\texttt{##1}}}},
@@ -45,6 +45,41 @@
       fixed,
       fixed zerofill,
       precision=3},
-  every head row/.style={after row=\hline},
+  every head row/.style={before row=\toprule, after row=\midrule},
+  every last row/.style={after row=\bottomrule},
   best/.style={@cell content=\underline{#1}},
+}
+
+\def\modelnameen{
+  bert-base-multilingual-cased,
+  bert-base-multilingual-uncased,
+  EMBEDDIA/crosloengual-bert,
+  bert-base-cased,
+  bert-base-uncased,
+  bert-large-cased,
+  bert-large-uncased,
+  bert-large-cased-whole-word-masking,
+  bert-large-uncased-whole-word-masking,
+}
+
+\def\modelnamefi{
+  bert-base-multilingual-cased,
+  bert-base-multilingual-uncased,
+  EMBEDDIA/crosloengual-bert,
+  TurkuNLP/bert-base-finnish-cased-v1,
+  TurkuNLP/bert-base-finnish-uncased-v1,
+  TurkuNLP/bert-large-finnish-cased-v1,
+}
+
+\def\modelnamehr{
+  bert-base-multilingual-cased,
+  bert-base-multilingual-uncased,
+  EMBEDDIA/crosloengual-bert,
+  classla/bcms-bertic,
+}
+
+\def\modelnamesl{
+  bert-base-multilingual-cased,
+  bert-base-multilingual-uncased,
+  EMBEDDIA/crosloengual-bert,
 }

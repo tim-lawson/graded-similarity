@@ -2,6 +2,7 @@
 \label{sec:methodology}
 
 \subsection{Embedding models}
+\label{sec:embedding-models}
 
 I undertook this task to investigate the relative performance of pre-trained static and
 contextual embeddings for a context-dependent word-similarity task.
@@ -14,19 +15,20 @@ Croatian, and Slovene datasets \parencite{Ulcar2020a},\footnote{I did not direct
   However, it is notionally equivalent to the contextual embeddings of the
   \texttt{bert-base-multilingual-cased} model with a window size of zero.
 } and the vast majority of the task
-submissions were based on Transformers \parencite[36,42-45]{Armendariz2020a}.
-Therefore, I chose to evaluate a variety of pre-trained Transformers.
+submissions were based on Transformers \parencite[36,42-45]{Armendariz2020a}, so I
+chose to evaluate a variety of pre-trained Transformer models.
 Because both static and contextual embeddings can be obtained from a Transformer model,
 this approach facilitated a direct comparison between them.
 The models that I evaluated were accessed via the HuggingFace \emph{Transformers}
 library \parencite{Wolf2020a} and are listed in \cref{table:language-models}.
 
-\begin{figure}
+\begin{table}
   \centering
   \begin{tabular}{lcccc}
+    \toprule
     Model name                                                        & English    & Finnish    & Croatian   & Slovene
     \\
-    \hline
+    \midrule
     \texttt{EMBEDDIA/crosloengual-bert}\textsuperscript{1}            & \checkmark & \checkmark &
     \checkmark                                                        & \checkmark
     \\
@@ -55,6 +57,8 @@ library \parencite{Wolf2020a} and are listed in \cref{table:language-models}.
     \texttt{bert-large-uncased-whole-word-masking}                    & \checkmark &            &            &
     \\
     \texttt{classla-bcms-bertic}\textsuperscript{3}                   &            &            & \checkmark &
+    \\
+    \bottomrule
   \end{tabular}
   \caption{The pre-trained models from the HuggingFace \emph{Transformers} library
     \parencite{Wolf2020a} that I evaluated for each language.
@@ -63,7 +67,7 @@ library \parencite{Wolf2020a} and are listed in \cref{table:language-models}.
     and \textcite{Devlin2019} otherwise.
   }
   \label{table:language-models}
-\end{figure}
+\end{table}
 
 The primary comparison that I made was between these models' static input and
 contextual output representations.
@@ -83,6 +87,7 @@ variants is, however, beyond the scope of this paper.
 \end{samepage}
 
 \subsection{Composition operations}
+\label{sec:composition-operations}
 
 The basic procedure that I employed is described in \cref{chart:schematic-procedure}.
 For each pair of target words and each of the two contexts in which they appear, I
@@ -133,26 +138,24 @@ for the Finnish language (\cref{sec:language-specificity}).
 \end{figure}
 
 Inspired by \textcite{Landauer1997}, \textcite{Kintsch2001}, and
-\textcite{Mitchell2008}, I predominantly investigated element-wise addition\footnote{
-  The cosine similarity between two vectors is invariant with respect to the
-  multiplication of the vectors by scalars.
-  Therefore, the results of composing the embeddings within a fixed-size context window
-  by addition or the arithmetic mean are equal.
-  Hence, I did not also investigate the arithmetic mean.
-} and
+\textcite{Mitchell2008}, I primarily investigated element-wise addition and
 multiplication as composition operations to contextualize embeddings.
-However, preliminary experiments indicated that multiplication performed poorly across
-all languages, models, and window sizes; hence, it was discarded before the final
-analysis.
+The cosine similarity between two vectors is invariant with respect to the
+multiplication of the vectors by scalars, so the results of composing the embeddings
+within a fixed-size context window by addition or the arithmetic mean are equal.
+Hence, I did not also investigate the arithmetic mean.
+Preliminary experiments indicated that multiplication performed poorly across all
+languages, models, and window sizes; hence, it was discarded before the final analysis
+on the evaluation dataset.
 Initially, I also investigated the concatenation (`stacking') of embeddings.
 In the case that the number of embeddings was fewer than that expected for the window
 size, i.e., the target word was too close to the beginning or end of its context, I
 right-padded the concatenated embedding with zeros to obtain contextual embeddings of
 equal length.
-This approach was also inferior to addition for practically all combinations of
-parameters.
+This approach was also generally inferior to addition, as discussed in
+\cref{sec:hyperparameter-search}.
 
-\subsection{Window size}
+\subsection{Window size} \label{sec:window-size}
 
 Due to the computational expense of exhaustively searching the possible window sizes, I
 applied heuristics to constrain the search space.
@@ -165,5 +168,5 @@ was similarly economical (\cref{sec:cost-benefit}); however, as the window size
 approaches the length of the sequence, one would expect a combination of token
 representations to be superseded by the sequence-level representation of the model,
 e.g., the special \texttt{CLS} token of BERT models \parencite[4174]{Devlin2019}.
-These heuristics were largely vindicated by the results of the evaluation, which
-demonstrated that the scores decrease as the window size approaches the maximum.
+These heuristics were largely vindicated by the results on the evaluation dataset,
+which showed that the scores decrease as the window size approaches the maximum.

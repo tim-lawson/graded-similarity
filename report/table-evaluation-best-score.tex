@@ -1,4 +1,13 @@
-\begin{figure}
+\pgfplotstableset{
+  columns/model_name/.style={
+      column name=Model name,
+      column type={L{3in}},
+      string type,
+      postproc cell content/.append style={
+          @cell content={\texttt{##1}}}},
+}
+
+\begin{table}
   \centering
   \begin{subfigure}[b]{\textwidth}
     \centering
@@ -7,9 +16,9 @@
           model_name,
           window,
           score}]{../results/best/evaluation_best_static.csv}
-    \caption{static}
+    \caption{Static}
   \end{subfigure}
-  \par\bigskip\par\bigskip
+  \par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
     \pgfplotstabletypeset[columns={
@@ -17,9 +26,9 @@
           model_name,
           window,
           score}]{../results/best/evaluation_best_contextual.csv}
-    \caption{contextual}
+    \caption{Contextual}
   \end{subfigure}
-  \par\bigskip\par\bigskip
+  \par\bigskip
   \begin{subfigure}[b]{\textwidth}
     \centering
     \pgfplotstabletypeset[columns={
@@ -27,10 +36,10 @@
           model_name,
           window,
           score}]{../results/best/evaluation_best_pooled.csv}
-    \caption{pooled}
+    \caption{Pooled}
   \end{subfigure}
-  \caption{The best scores obtained by each kind of embedding.
-    In all cases, the best score was obtained with the additive composition operation.
+  \caption{The best scores on the evaluation dataset for each kind of embedding.
+    In all cases, the best score was obtained with the composition operation of addition.
   }
-  \label{table:best-score}
-\end{figure}
+  \label{table:evaluation-best-score}
+\end{table}
