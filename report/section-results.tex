@@ -42,7 +42,7 @@ language model.
 For example, BERT's vocabulary size is approximately $30000$, the dimensions of the
 \texttt{bert-base} and \texttt{bert-large} variants' hidden-states are $768$ and
 $1024$, and their total parameters are $110$M and $340$M respectively
-\parencite[4173-4174]{Devlin2019}.
+\parencites[4173-4174]{Devlin2019}.
 Static embeddings thus make up approximately $21$\% and $9$\% of the total parameters.
 It is also much faster to compute a contextualized representation from static
 embeddings than to run inference on a language model.
@@ -54,21 +54,21 @@ The right-most cluster is due to the \texttt{large} model variants.
 
 \input{table-evaluation-best-score.tex}
 
-To quantify the significance of the differences between the scores obtained with
-different kinds of embeddings, I conducted paired $t$-tests and the Nemenyi test
-\parencites{Nemenyi1963}{Demsar2006} on the scores of the best models over ten random
-samples of 90\% of the evaluation dataset (\cref{table:evaluation-best-score}).
+I quantified the significance of the differences between the scores obtained with
+different kinds of embeddings by paired $t$-tests and the Nemenyi test
+\parencites{Demsar2006} on the scores of the best models over ten random samples of
+90\% of the evaluation dataset (\cref{table:evaluation-best-score}).
 For each pair of models, the null hypothesis was that the differences between the mean
 scores were due to chance.
 For each language, either contextual or pooled embeddings significantly outperformed
 static embeddings, but did not differ significantly from each other
 (\cref{table:significance}).
-Hence, the results substantiate the assertion that contextual embeddings are more
-effective than static embeddings for this task.
+Hence, the results support the conclusion that contextual embeddings are more effective
+than static embeddings for this task.
 
 \input{table-significance.tex}
 
-\subsection{Language-specificity of window size}
+\subsection{Language-specificity of window-size dependence}
 \label{sec:language-specificity}
 
 Generally, I found that the scores obtained by all three types of embeddings were
@@ -76,21 +76,21 @@ maximized by a non-zero context-window size
 (\cref{table:practice-best-score,table:evaluation-best-score}).
 The influence of the window size is intuitive in the case of static embeddings.
 Without a context window, the representations of a target word only differ between
-expressions if the word is represented by different sub-word tokens in the different
-expressions.
+contexts if the word is represented by different sub-word tokens in the different
+contexts.
 A similar argument applies to contextual embeddings, in that a target word may be
-represented by multiple sub-word tokens.
+represented by multiple sub-word tokens that differ between contexts.
 For the composition operation of addition, the scores against window size for each
 language, kind of embedding, and model are shown in
 \cref{chart:score-window-static,chart:score-window-contextual,chart:score-window-pooled}.
 
 \input{figure-score-window.tex}
 
-\textcite[3]{Virtanen2019} have noted that, for a random sample of 1\% of the relevant
+\textcites[3]{Virtanen2019} have noted that, for a random sample of 1\% of the relevant
 Wikipedia dataset, the number of sub-word tokens that represent a word
 is greater for Finnish ($1.97$) than for English ($1.16$) with the multilingual BERT model.
 This is attributed to the morphological complexity of Finnish and its comparatively
 small fraction of the model's vocabulary.
 Accordingly, I found that Finnish-specific models generally outperformed multilingual
-ones and that scores varied more widely with window size for Finnish than the other
+ones and that the scores varied more widely with window size for Finnish than the other
 languages.
