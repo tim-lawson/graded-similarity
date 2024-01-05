@@ -143,3 +143,10 @@
   \href{#1}{\faGithub\ \texttt{#2}}%
 }
 \makeatother
+
+% Word count
+\newcommand{\wordcount}{\input{|"texcount -brief -merge -sum -total graded-similarity.tex"}}
+
+% Headers and footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
