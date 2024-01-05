@@ -16,7 +16,7 @@ These results must be interpreted in context: the original submission authors di
 have access to the evaluation dataset prior to submitting their results, only the
 `practice kit' of very few instances, so had limited opportunity to optimize
 hyperparameters like the window size (\cref{sec:hyperparameter-search}).
-The models that I used were also not necessarily available to the authors
+The models that I used were also not necessarily available at the time
 (\cref{sec:embedding-models}).
 With these caveats, I achieved several notable results (\cref{table:evaluation-best-score}):
 \begin{itemize}
@@ -27,3 +27,15 @@ With these caveats, I achieved several notable results (\cref{table:evaluation-b
         with a window size of one would have placed fourth among the Finnish
         submissions, with a score of $0.679$.
 \end{itemize}
+
+Word similarity is primarily an intrinsic evaluation task \parencite[1281]{Lenci2022},
+as opposed to an extrinsic task directly applicable in a natural language processing
+system.
+However, the computation of context-dependent similarity is an important aspect of
+information retrieval, for instance.
+The methods described in this paper could be used to improve the performance of
+information retrieval systems that are based on static or contextual embeddings by,
+e.g., determining contextually-appropriate synonyms of the keywords in a search query.
+The word-similarity task itself could also form part of an assessment of the costs and
+benefits of using static or contextual embeddings in a particular application, based on
+its resource constraints.
