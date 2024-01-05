@@ -1,6 +1,7 @@
 # LaTeX
 **/*.aux
 **/*.auxlock
+**/*-blx.bib
 **/*.bbl
 **/*.bcf
 **/*.blg

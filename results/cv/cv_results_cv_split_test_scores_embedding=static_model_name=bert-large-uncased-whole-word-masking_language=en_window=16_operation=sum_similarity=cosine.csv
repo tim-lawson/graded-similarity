@@ -1,2 +1,0 @@
-language,similarity_measure,model_name,model,context_window_size,context_window_operation,best_score,mean_fit_time,std_fit_time,mean_score_time,std_score_time
-en,cosine,bert-large-uncased-whole-word-masking,static,16,sum,0.4768358259187543,1.9537924766540526,0.827627567122129,2.70247802734375,0.0350477020024656

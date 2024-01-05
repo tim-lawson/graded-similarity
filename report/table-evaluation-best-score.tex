@@ -1,3 +1,5 @@
+\input{table.tex}
+
 \pgfplotstableset{
   columns/model_name/.style={
       column name=Model name,
@@ -27,7 +29,7 @@
           score}]{../results/best/evaluation_best_static.csv}
     \caption{Static}
   \end{subfigure}
-  \par\bigskip
+  \subfigurespace
   \begin{subfigure}[b]{\textwidth}
     \centering
     \pgfplotstabletypeset[columns={
@@ -49,7 +51,7 @@
               \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/best/evaluation_best_contextual.csv}
     \caption{Contextual}
   \end{subfigure}
-  \par\bigskip
+  \subfigurespace
   \begin{subfigure}[b]{\textwidth}
     \centering
     \pgfplotstabletypeset[columns={
@@ -63,9 +65,9 @@
               \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/best/evaluation_best_pooled.csv}
     \caption{Pooled}
   \end{subfigure}
-  \caption{The best scores on the \emph{evaluation} dataset for each kind of embedding.
-    The best overall score for each language is underlined -- in all cases, it was obtained
-    with the composition operation of addition.
+  \caption{The best scores on the evaluation dataset for each kind of embedding -- in
+    all cases, it was obtained with the composition operation of addition.
+    The best overall score for each language is underlined.
     The predicted and actual human judgments of the change in similarity for the best
     overall models are shown in \cref{chart:predicted}.
   }

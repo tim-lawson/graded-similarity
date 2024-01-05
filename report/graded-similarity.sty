@@ -25,6 +25,7 @@
   isbn=false,
   % Omit URL except for @online
   url=false,
+  backend=bibtex,
 ]{biblatex}
 
 % TODO: replace with repository-specific path
@@ -56,9 +57,6 @@
 % References
 \usepackage{hyperref}
 \usepackage{cleveref}
-
-% Input/include relative paths
-\usepackage{import}
 
 % Fix references
 \usepackage{bookmark}
@@ -93,6 +91,8 @@
 \pgfplotsset{compat=1.17}
 \usepgfplotslibrary{colorbrewer}
 \usepgfplotslibrary{groupplots}
+
+\newcommand{\subfigurespace}{\par\bigskip\medskip}
 
 % Exclusive filter
 \pgfplotsset{

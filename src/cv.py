@@ -1,13 +1,12 @@
 """
-A script to run specific subtask 1 experiments and test for statistically significant
-differences in the mean scores.
+A script to run specific subtask 1 experiments.
 """
 
 # pylint: disable=redefined-outer-name
 
 from os import makedirs
 
-from pandas import DataFrame, concat
+from pandas import DataFrame
 from sklearn.model_selection import (
     BaseCrossValidator,
     BaseShuffleSplit,
@@ -15,47 +14,52 @@ from sklearn.model_selection import (
     ShuffleSplit,
 )
 
-from .data import Language, load_x, load_y
+from .data import load_x, load_y
 from .models.meta import MetaModel
-from .models.utils import Embedding
-from .params import Params, get_model_names
-from .stats import mean_score, test
+from .params import Params
+from .params_best import (
+    en_contextual,
+    en_pooled,
+    en_static,
+    fi_contextual,
+    fi_pooled,
+    fi_static,
+    hr_contextual,
+    hr_pooled,
+    hr_static,
+    sl_contextual,
+    sl_pooled,
+    sl_static,
+)
 
 CV = int | BaseCrossValidator | BaseShuffleSplit | None
 
 
-def _search_cv(
-    language: Language,
-    embedding: Embedding,
-    model_name: str | None = None,
-    window: int | None = None,
-    operation: str | None = None,
-    similarity: str | None = None,
+def param_grid_params(params: Params):
+    """Parameter grid from Params."""
+
+    return {
+        "model": [params.embedding],
+        "model_name": [params.model_name],
+        "context_window_size": [params.window],
+        "context_window_operation": [params.operation],
+        "similarity_measure": [params.similarity],
+    }
+
+
+def search_cv(
+    params: Params,
     practice: bool = False,
     cv: CV = ShuffleSplit(n_splits=10, test_size=0.9, random_state=42),
 ):
-    x = load_x(language, practice).to_numpy()
-    y = load_y(language, practice).to_numpy()[:, 2]
+    """Hyperparameter search over cross-validation folds."""
 
-    model_names = [model_name] if model_name is not None else get_model_names(language)
-
-    max_window = 50 if embedding == "static" else 10
-
-    windows = [window] if window is not None else list(range(max_window))
-
-    operations = [operation] if operation is not None else ["sum", "prod", "concat"]
-
-    similarities = [similarity] if similarity is not None else ["cosine"]
+    x = load_x(params.language, practice).to_numpy()
+    y = load_y(params.language, practice).to_numpy()[:, 2]
 
     search_cv = GridSearchCV(
         MetaModel(),
-        param_grid={
-            "model": [embedding],
-            "model_name": model_names,
-            "context_window_size": windows,
-            "context_window_operation": operations,
-            "similarity_measure": similarities,
-        },
+        param_grid=param_grid_params(params),
         cv=cv,
         verbose=4,
     ).fit(x, y)
@@ -80,36 +84,13 @@ def _search_cv(
     return search_cv.best_params_, results, split_test_scores
 
 
-def _get_filename(
-    language: Language,
-    embedding: Embedding,
-    model_name: str,
-    window: int,
-    operation: str,
-    similarity: str = "cosine",
-):
-    return Params(
-        language, embedding, model_name, window, operation, similarity
-    ).filename
+def save_cv_result(params: Params):
+    """Save cross-validation results."""
 
-
-def _save_cv_result(
-    language: Language,
-    embedding: Embedding,
-    model_name: str,
-    window: int,
-    operation: str,
-):
-    params, results, split_test_scores = _search_cv(
-        language,
-        embedding,
-        model_name,
-        window,
-        operation,
-    )
+    best_params, results, split_test_scores = search_cv(params)
 
     results_dataframe = DataFrame.from_records(
-        [{"language": language, **params, **results}]
+        [{"language": params.language, **best_params, **results}]
     )
 
     results_dataframe.columns = [
@@ -128,8 +109,8 @@ def _save_cv_result(
 
     split_test_scores_dataframe = DataFrame.from_records(
         {
-            "language": language,
-            **params,
+            "language": params.language,
+            **best_params,
             "split": list(range(len(split_test_scores))),
             "test_score": split_test_scores,
         }
@@ -146,15 +127,9 @@ def _save_cv_result(
         "test_score",
     ]
 
-    filename = _get_filename(
-        language,
-        embedding,
-        model_name,
-        window,
-        operation,
-    )
-
     makedirs("results/cv", exist_ok=True)
+
+    filename = params.filename
 
     results_dataframe.to_csv(f"results/cv/cv_results_{filename}", index=False)
 
@@ -163,21 +138,9 @@ def _save_cv_result(
     )
 
 
-en_static = ("en", "static", "bert-large-uncased-whole-word-masking", 16, "sum")
-en_contextual = ("en", "contextual", "bert-base-uncased", 1, "sum")
-en_pooled = ("en", "pooled", "bert-base-uncased", 1, "sum")
-fi_static = ("fi", "static", "EMBEDDIA/crosloengual-bert", 21, "sum")
-fi_contextual = ("fi", "contextual", "TurkuNLP/bert-large-finnish-cased-v1", 1, "sum")
-fi_pooled = ("fi", "pooled", "TurkuNLP/bert-large-finnish-cased-v1", 1, "sum")
-hr_static = ("hr", "static", "classla/bcms-bertic", 31, "sum")
-hr_contextual = ("hr", "contextual", "EMBEDDIA/crosloengual-bert", 3, "sum")
-hr_pooled = ("hr", "pooled", "EMBEDDIA/crosloengual-bert", 3, "sum")
-sl_static = ("sl", "static", "EMBEDDIA/crosloengual-bert", 11, "sum")
-sl_contextual = ("sl", "contextual", "bert-base-multilingual-cased", 3, "sum")
-sl_pooled = ("sl", "pooled", "EMBEDDIA/crosloengual-bert", 2, "sum")
+def save_cv_results():
+    """Save cross-validation results."""
 
-
-def _save_cv_results():
     for params in [
         en_static,
         en_contextual,
@@ -192,87 +155,8 @@ def _save_cv_results():
         sl_contextual,
         sl_pooled,
     ]:
-        _save_cv_result(*params)
-
-
-def _save_test_results():
-    test_results = DataFrame(
-        {
-            "language": [],
-            "embedding1": [],
-            "model_name1": [],
-            "window1": [],
-            "operation1": [],
-            "mean1": [],
-            "variance1": [],
-            "embedding2": [],
-            "model_name2": [],
-            "window2": [],
-            "operation2": [],
-            "mean2": [],
-            "variance2": [],
-            "statistic": [],
-            "pvalue": [],
-            "significant": [],
-        }
-    )
-
-    for model1, model2 in [
-        (en_contextual, en_static),
-        (en_pooled, en_static),
-        (en_pooled, en_contextual),
-        (fi_contextual, fi_static),
-        (fi_pooled, fi_static),
-        (fi_pooled, fi_contextual),
-        (hr_contextual, hr_static),
-        (hr_pooled, hr_static),
-        (hr_pooled, hr_contextual),
-        (sl_contextual, sl_static),
-        (sl_pooled, sl_static),
-        (sl_pooled, sl_contextual),
-    ]:
-        filename1 = f"results/cv/cv_split_test_scores_{_get_filename(*model1)}"
-        filename2 = f"results/cv/cv_split_test_scores_{_get_filename(*model2)}"
-
-        mean1, variance1 = mean_score(filename1)
-        mean2, variance2 = mean_score(filename2)
-
-        statistic, pvalue = test(filename1, filename2)
-
-        test_results = concat(
-            [
-                test_results,
-                DataFrame.from_records(
-                    [
-                        {
-                            "language": model1[0],
-                            "embedding1": model1[1],
-                            "model_name1": model1[2],
-                            "window1": model1[3],
-                            "operation1": model1[4],
-                            "mean1": mean1,
-                            "variance1": variance1,
-                            "embedding2": model2[1],
-                            "model_name2": model2[2],
-                            "window2": model2[3],
-                            "operation2": model2[4],
-                            "mean2": mean2,
-                            "variance2": variance2,
-                            "statistic": statistic,
-                            "pvalue": pvalue,
-                            "significant": pvalue < 0.05,
-                        }
-                    ]
-                ),
-            ],
-            ignore_index=True,
-        )
-
-    test_results["significant"] = test_results["significant"].astype(bool)
-
-    test_results.to_csv("results/cv/cv_test_results.csv", index=False)
+        save_cv_result(params)
 
 
 if __name__ == "__main__":
-    _save_cv_results()
-    _save_test_results()
+    save_cv_results()

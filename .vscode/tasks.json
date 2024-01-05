@@ -37,6 +37,18 @@
       "type": "shell"
     },
     {
+      "args": ["-m", "src.stats_best"],
+      "command": "${command:python.interpreterPath}",
+      "group": {
+        "kind": "none"
+      },
+      "label": "subtask1 stats",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "type": "shell"
+    },
+    {
       "args": ["-m", "src.utils"],
       "command": "${command:python.interpreterPath}",
       "group": {

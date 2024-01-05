@@ -23,6 +23,8 @@ HuggingFace
 int
 json
 Miniconda
+nemenyi
+Nemenyi
 pgfplots
 postproc
 pvalue
@@ -34,6 +36,8 @@ sep
 sl
 tex
 tslwn
+tstatistic
 TurkuNLP
 uncentered
 zerofill
+lr

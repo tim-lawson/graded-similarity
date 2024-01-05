@@ -51,7 +51,7 @@ class Params(NamedTuple):
     model_name: str
     window: int
     operation: str
-    similarity: str
+    similarity: str = "cosine"
 
     def __str__(self) -> str:
         return (

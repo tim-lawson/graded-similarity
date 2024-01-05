@@ -19,7 +19,7 @@ default_languages: list[Language] = [
 ]
 
 
-def load_x(language: Language, practice: bool = False):
+def load_x(language: str, practice: bool = False):
     """Load the evaluation data."""
 
     prefix = "practice" if practice else "evaluation"
@@ -32,14 +32,14 @@ def load_x(language: Language, practice: bool = False):
     return x
 
 
-def load_y(language: Language, practice: bool = False):
+def load_y(language: str, practice: bool = False):
     """Load the gold-standard values."""
 
     prefix = "practice_kit_final/" if practice else ""
     return read_csv(f"./data/{prefix}gold/gold_{language}.tsv", sep="\t")
 
 
-def load(language: Language):
+def load(language: str):
     """Load the data."""
 
     x = load_x(language)

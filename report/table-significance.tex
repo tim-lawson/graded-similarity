@@ -1,32 +1,85 @@
-\begin{table}
+\pgfplotstableset{columns={
+      embedding1,
+      score1,
+      embedding2,
+      score2,
+      tstatistic,
+      pvalue,
+      significant},
+  columns/embedding1/.style={
+      column name=Embeddings,
+      string type},
+  columns/score1/.style={
+      column name={Score},
+      column type={r},
+      fixed,
+      fixed zerofill,
+      precision=3},
+  columns/embedding2/.style={
+      column name=Embeddings,
+      string type},
+  columns/score2/.style={
+      column name={Score},
+      column type={r},
+      fixed,
+      fixed zerofill,
+      precision=3},
+  columns/tstatistic/.style={
+      column name={$t$-statistic},
+      column type={R{0.65in}},
+      relative*=1},
+  columns/pvalue/.style={
+      column name={$p$-value},
+      column type={R{0.75in}},
+      sci zerofill},
+  columns/significant/.style={
+      column name={$p$ < 0.05},
+      column type={c},
+      assign cell content/.code={
+          \ifnum\pdfstrcmp{##1}{True}=0
+            \pgfkeyssetvalue{/pgfplots/table/@cell content}{\checkmark}
+          \else
+            \pgfkeyssetvalue{/pgfplots/table/@cell content}{}
+          \fi
+        }
+    },
+  every head row/.append style={before row={
+          \toprule
+          \multicolumn{2}{c}{Model 1} & \multicolumn{2}{c}{Model 2} & & & \\
+          \cmidrule(lr){1-2} \cmidrule(lr){3-4}
+        }}}
+
+\begin{table}[h!]
   \centering
-  \pgfplotstabletypeset[columns={
-        language,
-        embedding1,
-        embedding2,
-        statistic,
-        pvalue},
-    columns/embedding1/.style={
-        column name=Embeddings 1,
-        string type},
-    columns/embedding2/.style={
-        column name=Embeddings 2,
-        string type},
-    columns/statistic/.style={
-        column name={$t$-statistic},
-        column type={R{0.65in}},
-        relative*=1},
-    columns/pvalue/.style={
-        column name={$p$-value},
-        column type={R{0.75in}},
-        sci zerofill},
-    every nth row={3}{before row=\midrule}]{../results/cv/cv_test_results.csv}
-  \caption{The results of paired $t$-tests of the scores obtained by the best models for
-    each language and kind of embedding over ten random samples of 90\% of the evaluation
-    dataset.
+  \begin{subfigure}{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_en.csv}
+    \caption{English ($n = 340$)}
+  \end{subfigure}
+  \subfigurespace
+  \begin{subfigure}{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_fi.csv}
+    \caption{Finnish ($n = 24$)}
+  \end{subfigure}
+  \subfigurespace
+  \begin{subfigure}{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_hr.csv}
+    \caption{Croatian ($n = 112$)}
+  \end{subfigure}
+  \subfigurespace
+  \begin{subfigure}{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_sl.csv}
+    \caption{Slovene ($n = 111$)}
+  \end{subfigure}
+  \caption{The $t$-statistics from paired $t$-tests, and $p$-values from the Nemenyi
+    test, on the scores obtained by the best models for each language and kind of
+    embedding over ten random samples of 90\% of the evaluation dataset.
     The best models are highlighted in \cref{table:evaluation-best-score}.
-    A positive $t$-statistic indicates that the mean score of the `Embeddings 1' model is
-    significantly greater than that of the `Embeddings 2' model.
+    A positive $t$-statistic indicates that the mean score of `Model 1' is greater than
+    that of `Model 2'.
   }
   \label{table:significance}
 \end{table}

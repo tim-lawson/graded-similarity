@@ -10,14 +10,14 @@ from .models.utils import Embedding
 class Args(NamedTuple):
     """Command-line arguments."""
 
-    embedding: list[Embedding]
-    model_name: list[str]
-    language: list[Language]
-    window: list[int] | None
-    min_window: int | None
-    max_window: int | None
-    operation: list[str]
-    similarity: list[str]
+    embedding: list[Embedding] = ["static", "contextual", "pooled"]
+    model_name: list[str] = []
+    language: list[Language] = default_languages
+    window: list[int] | None = None
+    min_window: int | None = None
+    max_window: int | None = None
+    operation: list[str] = ["none", "sum", "prod", "concat"]
+    similarity: list[str] = ["cosine"]
     practice: bool = False
 
     def get_windows(self) -> list[int]:
