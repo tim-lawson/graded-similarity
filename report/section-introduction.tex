@@ -7,20 +7,20 @@ of a word in isolation, but only in the context of a proposition''
 This `context principle' is intuitive: words are frequently polysemous, or assume
 different connotations and emphasis within different expressions
 \parencites[2-3]{Armendariz2020}.
-Historically, however, context-dependence has been a problem for distributional meaning
-representations.
-Founded on the distributional hypothesis \parencites[e.g.,][142-143]{Turney2010}, both
-count-based and predictive models of word meaning\footnote{This terminological
-  distinction is due to \textcites{Baroni2014a}.
+Historically, however, context-dependence has posed a challenge to distributional
+semantic models.
+Founded on the distributional hypothesis \parencites[e.g.][142-143]{Turney2010}, both
+count-based and predictive models\footnote{This terminological distinction is due to
+  \textcites{Baroni2014a}.
 } originally
-produced a single representation for each word in the model's vocabulary.
-One of these \emph{static} embeddings must, therefore, encode all of a word's senses
-and connotations, which may obstruct its use in modelling context-dependent phenomena.
+produced a single representation for each token in the model's vocabulary.
+A \emph{static} embedding of this nature must, therefore, encode all of a word's senses
+and connotations, which cannot trivially model context-dependence.
 
 Prior to the widespread availability of pre-trained language models, this problem was
 generally addressed by one of two approaches: firstly, by producing a representation
-for each sense of a target word and disambiguating between them in the given context
-(word-sense disambiguation); or secondly, by composing the representation of the target
+for each sense of a target word and discriminating between them in the given context
+(word-sense discrimination); or secondly, by composing the representation of the target
 word with the representations of the words in its context (contextualization).
 These approaches have been largely overshadowed by the advent of model architectures
 that take sequences as inputs and naturally produce \emph{contextual} representations

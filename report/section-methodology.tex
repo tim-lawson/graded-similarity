@@ -99,8 +99,8 @@ obtained a contextualized representation of a target word by:
   \item composing the embeddings to produce a single representation.
 \end{enumerate}
 Notably, the use of a sub-word vocabulary by the models in question
-\parencites[e.g.,][4174]{Devlin2019} dictates that a target word may be represented by
-a different number of tokens in each context.
+\parencites[e.g.][4174]{Devlin2019} dictates that a target word may be represented by a
+different number of tokens in each context.
 As a result, the similarity between the representations of a pair of target words may
 be different in each context, even if the representations are individual static
 embeddings.
@@ -117,7 +117,7 @@ for the Finnish language (\cref{sec:language-specificity}).
   \begin{tikzpicture}[
       every path/.style = {thick, ->},
       every node/.style = {inner sep = 0, outer sep = 0.05in},
-      node distance = 0.6in
+      node distance = 0.8in
     ]
     \node [label] (a) {\dots from the Isenj. He \underline{accepts} their offer but knows that \dots };
     \node [label, below of=a] (b) {$\left[ \dots\,,\ \text{\#\#nj}\,,\ .\,,\ \text{he}\,,\ \text{\underline{accept}}\,,\ \text{\#\#s}\,,\ \text{their}\,,\ \text{offer}\,,\ \dots \right]$};
@@ -140,6 +140,10 @@ for the Finnish language (\cref{sec:language-specificity}).
 Inspired by \textcites{Landauer1997}, \textcites{Kintsch2001}, and
 \textcites{Mitchell2008}, I primarily investigated element-wise addition and
 multiplication as composition operations to contextualize embeddings.
+The cosine similarity between two vectors is invariant with respect to the
+multiplication of the vectors by scalars, so the results of composing the embeddings
+within a fixed-size context window by addition or the arithmetic mean are equal.
+Hence, I did not investigate the latter.
 Preliminary experiments indicated that multiplication performed poorly across all
 languages, models, and window sizes, so it was discarded before the final analysis on
 the evaluation dataset.
@@ -150,10 +154,6 @@ right-padded the concatenated embeddings with zeros to obtain representations of
 length.
 This approach was also generally inferior to addition, as discussed in
 \cref{sec:hyperparameter-search}.
-The cosine similarity between two vectors is invariant with respect to the
-multiplication of the vectors by scalars, so the results of composing the embeddings
-within a fixed-size context window by addition or the arithmetic mean are equal.
-Hence, I did not also investigate the arithmetic mean.
 
 \subsection{Window size} \label{sec:window-size}
 
