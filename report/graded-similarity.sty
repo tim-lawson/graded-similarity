@@ -8,7 +8,8 @@
 }
 \usepackage{setspace}
 
-% Typography (see https://ctan.math.washington.edu/tex-archive/fonts/etbb/doc/ETbb-doc.pdf)
+% Typography
+% https://ctan.math.washington.edu/tex-archive/fonts/etbb/doc/ETbb-doc.pdf
 \usepackage[p]{ETbb}
 \usepackage[scaled=.95,type1]{cabin}
 \usepackage[varqu,varl]{zi4}
@@ -48,9 +49,6 @@
   {}
   {\clearfield{urlyear}}
 }
-
-% Quotations
-\usepackage{csquotes}
 
 % References
 \usepackage{hyperref}
@@ -118,17 +116,6 @@
           \fi
         }
     }
-}
-
-% Comments
-\setlength{\marginparwidth}{1in}
-\usepackage{todonotes}
-\newcounter{todocounter}
-\newcommand{\todonum}[1]{%
-  \stepcounter{todocounter}%
-  \todo[color={red!100!green!33},inline,size=\small]{
-    \thetodocounter: #1
-  }%
 }
 
 % Authors
