@@ -1,0 +1,50 @@
+\subsection{Language-specificity of window-size dependence}
+\label{sec:language-specificity}
+
+Generally, I found that the scores obtained by all three types of embeddings were
+maximized by a non-zero context-window size
+\parencref{table:practice-best-score,table:best-score-evaluation}.
+The influence of the window size is intuitive in the case of static embeddings.
+Without a context window, the representations of a target word only differ between
+contexts if the word is represented by different sub-word tokens in the different
+contexts.
+A similar argument applies to contextual embeddings, in that a target word may be
+represented by multiple sub-word tokens that differ between contexts.
+For the composition operation of addition, the scores against window size for each
+language, kind of embedding, and model are shown in
+\cref{figure:score-window-evaluation-static,figure:score-window-evaluation-contextual,figure:score-window-evaluation-pooled}.
+
+\input{sections/section-results-language-specificity/figure-score-window-evaluation}
+
+\begin{figure}
+  \centering
+  \include{sections/section-results-language-specificity/figure-score-window-evaluation-static}
+  \caption{The scores on the evaluation dataset against window size for \emph{static}
+    embedding models with the composition operation of addition.}
+  \label{figure:score-window-evaluation-static}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \include{sections/section-results-language-specificity/figure-score-window-evaluation-contextual}
+  \caption{The scores on the evaluation dataset against window size for
+    \emph{contextual} embedding models with the composition operation of addition.}
+  \label{figure:score-window-evaluation-contextual}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \include{sections/section-results-language-specificity/figure-score-window-evaluation-pooled}
+  \caption{The scores on the evaluation dataset against window size for \emph{pooled}
+    embedding models with the composition operation of addition.}
+  \label{figure:score-window-evaluation-pooled}
+\end{figure}
+
+\textcites[3]{Virtanen2019} have noted that, for a random sample of 1\% of the relevant
+Wikipedia dataset, the number of sub-word tokens that represent a word
+is greater for Finnish ($1.97$) than for English ($1.16$) with the multilingual BERT model.
+This is attributed to the morphological complexity of Finnish and its comparatively
+small fraction of the model's vocabulary.
+Accordingly, I found that Finnish-specific models generally outperformed multilingual
+ones and that the scores varied more widely with window size for Finnish than the other
+languages.

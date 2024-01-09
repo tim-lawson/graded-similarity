@@ -48,38 +48,3 @@
           \multicolumn{2}{c}{Model 1} & \multicolumn{2}{c}{Model 2} & & & \\
           \cmidrule(lr){1-2} \cmidrule(lr){3-4}
         }}}
-
-\begin{table}[h!]
-  \centering
-  \begin{subfigure}{\textwidth}
-    \centering
-    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_en.csv}
-    \caption{English ($n = 340$)}
-  \end{subfigure}
-  \subfigurespace
-  \begin{subfigure}{\textwidth}
-    \centering
-    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_fi.csv}
-    \caption{Finnish ($n = 24$)}
-  \end{subfigure}
-  \subfigurespace
-  \begin{subfigure}{\textwidth}
-    \centering
-    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_hr.csv}
-    \caption{Croatian ($n = 112$)}
-  \end{subfigure}
-  \subfigurespace
-  \begin{subfigure}{\textwidth}
-    \centering
-    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_sl.csv}
-    \caption{Slovene ($n = 111$)}
-  \end{subfigure}
-  \caption{The $t$-statistics from paired $t$-tests, and $p$-values from the Nemenyi
-    test, on the scores obtained by the best models for each language and kind of
-    embedding over ten random samples of 90\% of the evaluation dataset.
-    The best models are highlighted in \cref{table:evaluation-best-score}.
-    A positive $t$-statistic indicates that the mean score of `Model 1' is greater than
-    that of `Model 2'.
-  }
-  \label{table:significance}
-\end{table}

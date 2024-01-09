@@ -1,0 +1,15 @@
+\newcommand{\plotscorepractice}[2]{
+  \foreach \modelname in #2
+    {
+      \addplot+[
+        sharp plot,
+        mark = none,
+        line width = 0.8pt,
+        discard if not = {model_name}{\modelname},
+      ] table [
+          col sep=comma,
+          x = window,
+          y = score,
+        ]{#1};
+    }
+}

@@ -24,42 +24,7 @@ library \parencites{Wolf2020a} and are listed in \cref{table:language-models}.
 
 \begin{table}
   \centering
-  \begin{tabular}{lcccc}
-    \toprule
-    Model name                                                        & English    & Finnish    & Croatian   & Slovene
-    \\
-    \midrule
-    \texttt{EMBEDDIA/crosloengual-bert}\textsuperscript{1}            & \checkmark & \checkmark &
-    \checkmark                                                        & \checkmark
-    \\
-    \texttt{TurkuNLP/bert-base-finnish-cased-v1}\textsuperscript{2}   &            & \checkmark &            &
-    \\
-    \texttt{TurkuNLP/bert-base-finnish-uncased-v1}\textsuperscript{2} &            & \checkmark &            &
-    \\
-    \texttt{TurkuNLP/bert-large-finnish-cased-v1}\textsuperscript{2}  &            & \checkmark &            &
-    \\
-    \texttt{bert-base-cased}                                          & \checkmark &            &            &
-    \\
-    \texttt{bert-base-multilingual-cased}                             &
-    \checkmark                                                        & \checkmark & \checkmark & \checkmark
-    \\
-    \texttt{bert-base-multilingual-uncased}                           & \checkmark & \checkmark & \checkmark &
-    \checkmark
-    \\
-    \texttt{bert-base-uncased}                                        & \checkmark &            &            &
-    \\
-    \texttt{bert-large-cased}                                         & \checkmark &            &            &
-    \\
-    \texttt{bert-large-cased-whole-word-masking}                      & \checkmark &            &            &
-    \\
-    \texttt{bert-large-uncased}                                       & \checkmark &            &            &
-    \\
-    \texttt{bert-large-uncased-whole-word-masking}                    & \checkmark &            &            &
-    \\
-    \texttt{classla-bcms-bertic}\textsuperscript{3}                   &            &            & \checkmark &
-    \\
-    \bottomrule
-  \end{tabular}
+  \input{sections/section-methodology/table-language-models}
   \caption{The pre-trained models from the HuggingFace \emph{Transformers} library
     \parencites{Wolf2020a} that I evaluated for each language.
     The corresponding references are \textsuperscript{1}\textcites{Ulcar2020},
@@ -89,7 +54,7 @@ However, a thorough comparison of its variants is beyond the scope of this paper
 \subsection{Composition operations}
 \label{sec:composition-operations}
 
-The basic procedure that I employed is described in \cref{chart:schematic-procedure}.
+The basic procedure that I employed is described in \cref{figure:schematic-procedure}.
 For each pair of target words and each of the two contexts in which they appear, I
 obtained a contextualized representation of a target word by:
 \begin{enumerate}
@@ -109,32 +74,13 @@ for the Finnish language (\cref{sec:language-specificity}).
 
 \begin{figure}
   \centering
-  \newcommand*{\orawidest}{accept}
-  \newcommand*{\oratallest}{\#\#}
-  \newlength{\orawidth}
-  \settowidth{\orawidth}{\orawidest}
-  \newcommand*{\ora}[1]{\overrightarrow{#1\vphantom{\oratallest}}}
-  \begin{tikzpicture}[
-      every path/.style = {thick, ->},
-      every node/.style = {inner sep = 0, outer sep = 0.05in},
-      node distance = 0.8in
-    ]
-    \node [label] (a) {\dots from the Isenj. He \underline{accepts} their offer but knows that \dots };
-    \node [label, below of=a] (b) {$\left[ \dots\,,\ \text{\#\#nj}\,,\ .\,,\ \text{he}\,,\ \text{\underline{accept}}\,,\ \text{\#\#s}\,,\ \text{their}\,,\ \text{offer}\,,\ \dots \right]$};
-    \node [label, below of=b] (c) {$\left[ \, \text{he}\,,\ \text{accept}\,,\ \text{\#\#s} \, \right]$};
-    \node [label, below of=c] (d) {$\left[ \ \ora{\text{he}}\,,\ \ora{\text{accept}}\,,\ \ora{\text{\#\#s}} \ \right]$};
-    \node [label, below of=d] (e) {$ \ora{\textit{accept}} = \ora{\text{he}} + \ora{\text{accept}} + \ora{\text{\#\#s}}$};
-    \draw (a) -- (b) node[midway, right=0.2in] {1. Find first sub-word token};
-    \draw (b) -- (c) node[midway, right=0.2in] {2. Find tokens in a fixed-size window};
-    \draw (c) -- (d) node[midway, right=0.2in] {3. Obtain embeddings};
-    \draw (d) -- (e) node[midway, right=0.2in] {4. Compose embeddings};
-  \end{tikzpicture}
+  \input{sections/section-methodology/figure-schematic-procedure}
   \caption{A schematic of the procedure used to
     obtain a contextualized representation of a target word from pre-trained embeddings.
     In this example, the target word is ``accept'', the window size is one (either side of
     the target word), and the composition operation is addition.
   }
-  \label{chart:schematic-procedure}
+  \label{figure:schematic-procedure}
 \end{figure}
 
 Inspired by \textcites{Landauer1997}, \textcites{Kintsch2001}, and
@@ -155,7 +101,8 @@ length.
 This approach was also generally inferior to addition, as discussed in
 \cref{sec:hyperparameter-search}.
 
-\subsection{Window size} \label{sec:window-size}
+\subsection{Window size}
+\label{sec:window-size}
 
 Due to the computational expense of exhaustively searching the possible window sizes, I
 applied heuristics to constrain the search space.

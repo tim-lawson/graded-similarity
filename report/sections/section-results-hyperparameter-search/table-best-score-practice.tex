@@ -1,0 +1,20 @@
+\pgfplotstableset{
+  columns/model_name/.style={
+      column name=Model name,
+      column type={L{2.25in}},
+      string type,
+      postproc cell content/.append style={
+          @cell content={\texttt{##1}}}},
+  columns/scorepractice/.style={
+      column name={Practice},
+      column type={R{0.5in}},
+      fixed,
+      fixed zerofill,
+      precision=3},
+  columns/scoreevaluation/.style={
+      column name={Evaluation},
+      column type={R{0.7in}},
+      fixed,
+      fixed zerofill,
+      precision=3},
+}

@@ -1,0 +1,17 @@
+\pgfplotstabletypeset[columns={
+      language,
+      model_name,
+      window,
+      score},
+  every row 0 column 3/.append style={
+      postproc cell content/.append code={
+          \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
+          \pgfkeysalso{best/.expand once={\besttemp}}}},
+  every row 1 column 3/.append style={
+      postproc cell content/.append code={
+          \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
+          \pgfkeysalso{best/.expand once={\besttemp}}}},
+  every row 3 column 3/.append style={
+      postproc cell content/.append code={
+          \pgfkeysgetvalue{/pgfplots/table/@cell content}{\besttemp}
+          \pgfkeysalso{best/.expand once={\besttemp}}}}]{../results/best/evaluation_best_contextual.csv}

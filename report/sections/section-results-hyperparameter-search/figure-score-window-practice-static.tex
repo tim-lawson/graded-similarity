@@ -1,0 +1,42 @@
+\begin{tikzpicture}
+  \begin{groupplot}[
+      group style={
+          group size=3 by 3,
+          xlabels at=edge bottom,
+          ylabels at=edge left,
+          vertical sep=0.2in,
+          horizontal sep=0.2in,
+        },
+      scale only axis,
+      width=1.5in,
+      height=1in,
+      xlabel=Window size,
+      ylabel=Score,
+      ymin=-0.5,
+      ymax=1,
+      xtick={0,10,...,50},
+      ytick={-0.5,0,0.5,1.0},
+      xticklabel=\empty,
+      yticklabel=\empty,
+      cycle list/Paired,
+  ]
+    \nextgroupplot[title=Addition, ylabel={English ($n\,{=}\,10$)}, yticklabels={-0.5,0,0.5,1.0}]
+    \plotscorepractice{../results/practice/model=static_language=en_window=0-50_operation=sum_similarity=cosine.csv}{\modelnameen}
+    \nextgroupplot[title=Multiplication]
+    \plotscorepractice{../results/practice/model=static_language=en_window=0-50_operation=prod_similarity=cosine.csv}{\modelnameen}
+    \nextgroupplot[title=Concatenation]
+    \plotscorepractice{../results/practice/model=static_language=en_window=0-50_operation=concat_similarity=cosine.csv}{\modelnameen}
+    \nextgroupplot[ylabel={Croatian ($n\,{=}\,5$)}, yticklabels={-0.5,0,0.5,1.0}]
+    \plotscorepractice{../results/practice/model=static_language=hr_window=0-50_operation=sum_similarity=cosine.csv}{\modelnamehr}
+    \nextgroupplot
+    \plotscorepractice{../results/practice/model=static_language=hr_window=0-50_operation=prod_similarity=cosine.csv}{\modelnamehr}
+    \nextgroupplot
+    \plotscorepractice{../results/practice/model=static_language=hr_window=0-50_operation=concat_similarity=cosine.csv}{\modelnamehr}
+    \nextgroupplot[ylabel={Slovene ($n\,{=}\,5$)}, xticklabels={0,10,...,50}, yticklabels={-0.5,0,0.5,1.0}]
+    \plotscorepractice{../results/practice/model=static_language=sl_window=0-50_operation=sum_similarity=cosine.csv}{\modelnamesl}
+    \nextgroupplot[xticklabels={0,10,...,50}]
+    \plotscorepractice{../results/practice/model=static_language=sl_window=0-50_operation=prod_similarity=cosine.csv}{\modelnamesl}
+    \nextgroupplot[xticklabels={0,10,...,50}]
+    \plotscorepractice{../results/practice/model=static_language=sl_window=0-50_operation=concat_similarity=cosine.csv}{\modelnamesl}
+  \end{groupplot}
+\end{tikzpicture}

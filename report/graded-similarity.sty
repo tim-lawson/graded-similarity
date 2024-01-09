@@ -52,13 +52,12 @@
 }
 
 % References
+\usepackage{bookmark}
 \usepackage{hyperref}
 \usepackage{cleveref}
+\newcommand{\parencref}[1]{(\cref{#1})}
 
-% Fix references
-\usepackage{bookmark}
-
-% Math
+% Theorem environments
 \usepackage{amsmath}
 \usepackage{mathtools}
 \newcommand{\norm}[1]{\lVert #1 \rVert}
@@ -80,7 +79,7 @@
 % Figures
 \usepackage{tikz}
 \usetikzlibrary{external}
-\tikzexternalize[prefix=figures/]
+\tikzexternalize[prefix=cache/]
 
 \usepackage{pgffor}
 \usepackage{pgfplots}
@@ -129,9 +128,6 @@
   \href{#1}{\faGithub\ \texttt{#2}}%
 }
 \makeatother
-
-% Word count
-\newcommand{\wordcount}{\input{|"texcount -brief -merge -sum -total graded-similarity.tex"}}
 
 % Headers and footers
 \usepackage{fancyhdr}

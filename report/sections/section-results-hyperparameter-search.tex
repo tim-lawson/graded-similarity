@@ -1,0 +1,87 @@
+\subsection{Hyperparameter search}
+\label{sec:hyperparameter-search}
+
+\input{sections/section-results-hyperparameter-search/figure-score-window-practice}
+
+\begin{figure}
+  \centering
+  \input{sections/section-results-hyperparameter-search/figure-score-window-practice-static}
+  \caption{The score on the `practice kit' dataset against window size for \emph{static}
+    embedding models.
+    The model-name legends are omitted for brevity but match
+    \cref{figure:score-window-evaluation-static}.
+  }
+  \label{figure:score-window-practice-static}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \input{sections/section-results-hyperparameter-search/figure-score-window-practice-contextual}
+  \caption{The score on the `practice kit' dataset against window size for
+    \emph{contextual} embedding models.
+    The model-name legends are omitted for brevity but match
+    \cref{figure:score-window-evaluation-contextual}.
+  }
+  \label{figure:score-window-practice-contextual}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \input{sections/section-results-hyperparameter-search/figure-score-window-practice-pooled}
+  \caption{The score on the `practice kit' dataset against window size for \emph{pooled}
+    embedding models.
+    The model-name legends are omitted for brevity but match
+    \cref{figure:score-window-evaluation-pooled}.
+  }
+  \label{figure:score-window-practice-pooled}
+\end{figure}
+
+In \cref{sec:cost-benefit,sec:language-specificity}, I present the results for
+different models on the \emph{evaluation} dataset.
+However, it would not have been possible or legitimate as a task submission to optimize
+hyperparameters on the evaluation dataset.
+Therefore, I also optimized them on the `practice kit' dataset
+\parencref{sec:task-definition} to select a candidate model for each language and kind
+of embedding.
+This data was not provided for Finnish, so it was excluded from the analysis.
+In comparison to addition, the scores for the other composition operations varied more
+widely with respect to the window size
+\parencref{figure:score-window-practice-static,figure:score-window-practice-contextual,figure:score-window-practice-pooled}.
+Hence, I excluded them before selecting candidate models.
+The models and their scores on the two datasets are listed in
+\cref{table:practice-best-score}.
+As expected, the scores on the `practice kit' dataset of fewer instances are generally
+higher than those on the evaluation dataset.
+In some cases, the scores on the evaluation dataset are close to the maxima in
+\cref{table:best-score-evaluation}.
+Generally, the benefit of additional `training' data is evident.
+
+\input{sections/section-results-hyperparameter-search/table-best-score-practice}
+
+\begin{table}
+  \centering
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \input{sections/section-results-hyperparameter-search/table-best-score-practice-static}
+    \caption{Static}
+  \end{subfigure}
+  \subfigurespace
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \input{sections/section-results-hyperparameter-search/table-best-score-practice-contextual}
+    \caption{Contextual}
+  \end{subfigure}
+  \subfigurespace
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \input{sections/section-results-hyperparameter-search/table-best-score-practice-pooled}
+    \caption{Pooled}
+  \end{subfigure}
+  \caption{The best scores on the `practice kit' dataset for each kind of
+    embedding, and the corresponding scores on the evaluation dataset.
+    The results were limited to the composition operation of addition due to the
+    variability of the scores with multiplication and concatenation
+    \parencref{figure:score-window-practice-static,figure:score-window-practice-contextual,figure:score-window-practice-pooled}.
+  }
+  \label{table:practice-best-score}
+\end{table}

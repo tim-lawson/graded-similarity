@@ -1,0 +1,118 @@
+\subsection{Cost-benefit analysis of contextual embeddings}
+\label{sec:cost-benefit}
+
+\begin{figure}
+  \centering
+  \input{sections/section-results-cost-benefit/figure-predicted-actual}
+  \caption{The predicted and actual human judgments of the change in similarity of the best
+    models for each language on the evaluation dataset.
+    The best models are highlighted in \cref{table:best-score-evaluation}.
+    The zero-mean Pearson correlation coefficient (\cref{sec:task-definition}), i.e., the
+    score, is given in the top-left corner of each plot.
+  }
+  \label{figure:predicted-actual}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \input{sections/section-results-cost-benefit/figure-score-time-evaluation}
+  \caption{The scores on the evaluation dataset against the approximate time per
+    instance, i.e., the total time divided by the number of instances, with the
+    composition operation of addition.
+  }
+  \label{figure:score-time-evaluation}
+\end{figure}
+
+In the main, greater scores were achieved with contextual and pooled embeddings than
+with static embeddings (\cref{table:practice-best-score,table:best-score-evaluation}).
+However, static embeddings make up a small fraction of the size of a contextual
+language model.
+For example, BERT's vocabulary size is approximately $30000$, the dimensions of the
+\texttt{bert-base} and \texttt{bert-large} variants' hidden-states are $768$ and
+$1024$, and their total parameters are $110$M and $340$M respectively
+\parencites[4173-4174]{Devlin2019}.
+Static embeddings thus make up approximately $21$\% and $9$\% of the total parameters.
+It is also much faster to compute a contextualized representation from static
+embeddings than to run inference on a language model.
+For a naïve implementation of the procedure described in \cref{sec:methodology}, the
+approximate time taken to compute the change in similarity between two words in context
+is shown in \cref{figure:score-time-evaluation}.
+It is notably greater for contextual embeddings, and the right-most cluster is due to
+the \texttt{large} model variants.
+
+\begin{table}
+  \centering
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \input{sections/section-results-cost-benefit/table-best-score-evaluation-static}
+    \caption{Static}
+  \end{subfigure}
+  \subfigurespace
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \input{sections/section-results-cost-benefit/table-best-score-evaluation-contextual}
+    \caption{Contextual}
+  \end{subfigure}
+  \subfigurespace
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \input{sections/section-results-cost-benefit/table-best-score-evaluation-pooled}
+    \caption{Pooled}
+  \end{subfigure}
+  \caption{The best scores on the evaluation dataset for each kind of embedding -- in
+    all cases, it was obtained with the composition operation of addition.
+    The best overall score for each language is underlined.
+    The predicted and actual human judgments of the change in similarity for the models
+    with the best overall scores are shown in \cref{figure:predicted-actual}.
+  }
+  \label{table:best-score-evaluation}
+\end{table}
+
+I quantified the significance of the differences between the scores obtained with
+different kinds of embeddings by paired $t$-tests and the Nemenyi test
+\parencites{Demsar2006} on the scores of the best models over ten random samples of
+90\% of the evaluation dataset (\cref{table:best-score-evaluation}).
+For each pair of models, the null hypothesis was that the differences between the mean
+scores were due to chance.
+For each language, either contextual or pooled embeddings significantly outperformed
+static embeddings, but did not differ significantly from each other
+(\cref{table:significance}).
+Hence, the results support the conclusion that contextual embeddings are more effective
+than static embeddings for this task.
+
+\input{sections/section-results-cost-benefit/table-significance}
+
+\begin{table}[h!]
+  \centering
+  \begin{subfigure}{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_en.csv}
+    \caption{English ($n = 340$)}
+  \end{subfigure}
+  \subfigurespace
+  \begin{subfigure}{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_fi.csv}
+    \caption{Finnish ($n = 24$)}
+  \end{subfigure}
+  \subfigurespace
+  \begin{subfigure}{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_hr.csv}
+    \caption{Croatian ($n = 112$)}
+  \end{subfigure}
+  \subfigurespace
+  \begin{subfigure}{\textwidth}
+    \centering
+    \pgfplotstabletypeset{../results/cv/cv_test_results_nemenyi_sl.csv}
+    \caption{Slovene ($n = 111$)}
+  \end{subfigure}
+  \caption{The $t$-statistics from paired $t$-tests, and $p$-values from the Nemenyi
+    test, on the scores obtained by the best models for each language and kind of
+    embedding over ten random samples of 90\% of the evaluation dataset.
+    The best models are highlighted in \cref{table:best-score-evaluation}.
+    A positive $t$-statistic indicates that the mean score of `Model 1' is greater than
+    that of `Model 2'.
+  }
+  \label{table:significance}
+\end{table}

@@ -33,7 +33,7 @@ fineTuning:
             |                             #
             (?:[iI]\.[eE])                # i.e
             |                             #
-            (?:[cC]\.[fF])                # cf
+            (?:[cC][fF]\.)                # cf.
             |                             #
             (?:[p])                       # p
             |                             #
