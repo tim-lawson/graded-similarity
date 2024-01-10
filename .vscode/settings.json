@@ -88,6 +88,23 @@
     "-m"
   ],
   "latex-workshop.texcount.args": ["-merge %DOC%"],
+  "ltex.latex.commands": {
+    "\\cite{}": "dummy",
+    "\\cite[]{}": "dummy",
+    "\\cref{}": "ignore",
+    "\\documentclass[]{}": "ignore",
+    "\\label{}": "ignore",
+    "\\nameref{}": "ignore",
+    "\\newcommand{}": "ignore",
+    "\\newlength{}": "ignore",
+    "\\parencref{}": "ignore",
+    "\\pgfplotsset{}": "ignore",
+    "\\pgfplotstableset{}": "ignore",
+    "\\pgfplotstabletypeset[]{}": "ignore",
+    "\\pgfplotstabletypeset[]": "ignore",
+    "\\ref{}": "ignore",
+    "\\settowidth{}": "ignore"
+  },
   "python.analysis.typeCheckingMode": "basic",
   "python.defaultInterpreterPath": "${env:HOME}/miniconda3/envs/graded",
   "python.terminal.activateEnvironment": true

@@ -1,34 +1,34 @@
 \begin{tikzpicture}
   \begin{groupplot}[
-      group style = {
-          group size = 2 by 2,
-          ylabels at = edge left,
-          vertical sep = 2.75in,
-          horizontal sep = 0.75in,
+      cycle list/Paired,
+      group style={
+          group size=2 by 2,
+          horizontal sep=0.75in,
+          vertical sep=2.75in,
+          ylabels at=edge left
+        },
+      height=2.25in,
+      legend cell align={left},
+      legend style={
+          anchor=north,
+          at={(0.5,-0.2)},
+          draw=none,
+          font=\small,
         },
       scale only axis,
-      width = 2.25in,
-      height = 2.25in,
-      xlabel = Window size,
-      ylabel = Score,
-      xtick = {0,1,...,10},
-      ytick = {-0.2,-0.1,...,1.0},
-      cycle list/Paired,
-      legend style = {
-          draw = none,
-          font = \small,
-          anchor = north,
-          at = {(0.5,-0.2)},
-        },
-      legend cell align={left},
+      width=2.25in,
+      xlabel=Window size,
+      xtick={0,1,...,10},
+      ylabel=Score,
+      ytick={-0.2,-0.1,...,1.0}
     ]
-    \nextgroupplot[title = {English ($n\,{=}\,340$)}]
+    \nextgroupplot[title={English ($n\,{=}\,340$)}]
     \plotscorewindow{../results/evaluation/model=pooled_language=en_window=0-10_operation=sum_similarity=cosine.csv}{\modelnameen}
-    \nextgroupplot[title = {Finnish ($n\,{=}\,24$)}]
+    \nextgroupplot[title={Finnish ($n\,{=}\,24$)}]
     \plotscorewindow{../results/evaluation/model=pooled_language=fi_window=0-10_operation=sum_similarity=cosine.csv}{\modelnamefi}
-    \nextgroupplot[title = {Croatian ($n\,{=}\,112$)}]
+    \nextgroupplot[title={Croatian ($n\,{=}\,112$)}]
     \plotscorewindow{../results/evaluation/model=pooled_language=hr_window=0-10_operation=sum_similarity=cosine.csv}{\modelnamehr}
-    \nextgroupplot[title = {Slovene ($n\,{=}\,111$)}]
+    \nextgroupplot[title={Slovene ($n\,{=}\,111$)}]
     \plotscorewindow{../results/evaluation/model=pooled_language=sl_window=0-10_operation=sum_similarity=cosine.csv}{\modelnamesl}
   \end{groupplot}
 \end{tikzpicture}

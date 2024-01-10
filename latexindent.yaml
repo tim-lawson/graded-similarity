@@ -15,8 +15,6 @@ modifyLineBreaks:
   preserveBlankLines: 1
   textWrapOptions:
     columns: 88
-verbatimEnvironments:
-  tikzpicture: 1
 fineTuning:
   modifyLineBreaks:
     betterFullStop: |-

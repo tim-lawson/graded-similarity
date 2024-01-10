@@ -1,25 +1,25 @@
 \begin{tikzpicture}
   \begin{groupplot}[
-    group style={
-        group size=3 by 3,
-        xlabels at=edge bottom,
-        ylabels at=edge left,
-        vertical sep=0.2in,
-        horizontal sep=0.2in,
-      },
-    scale only axis,
-    width=1.5in,
-    height=1in,
-    xlabel=Window size,
-    ylabel=Score,
-    ymin=-0.5,
-    ymax=1,
-    xtick={0,2,4,6,8,10},
-    ytick={-0.5,0,0.5,1.0},
-    xticklabel=\empty,
-    yticklabel=\empty,
-    cycle list/Paired,
-  ]
+      cycle list/Paired,
+      group style={
+          group size=3 by 3,
+          horizontal sep=0.2in,
+          vertical sep=0.2in,
+          xlabels at=edge bottom,
+          ylabels at=edge left
+        },
+      height=1in,
+      scale only axis,
+      width=1.5in,
+      xlabel=Window size,
+      xtick={0,2,4,6,8,10},
+      xticklabel=\empty,
+      ylabel=Score,
+      ymax=1,
+      ymin=-0.5,
+      ytick={-0.5,0,0.5,1.0},
+      yticklabel=\empty
+    ]
     \nextgroupplot[title=Addition, ylabel={English ($n\,{=}\,10$)}, yticklabels={-0.5,0,0.5,1.0}]
     \plotscorepractice{../results/practice/model=pooled_language=en_window=0-10_operation=sum_similarity=cosine.csv}{\modelnameen}
     \nextgroupplot[title=Multiplication]

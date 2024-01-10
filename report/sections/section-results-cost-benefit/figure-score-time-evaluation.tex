@@ -1,41 +1,41 @@
 \newcommand{\plotscoretime}[2]{
   \addplot[
-    only marks,
-    mark size = 0.8pt,
-    color = #2,
+    color=#2,
+    mark size=0.8pt,
+    only marks
   ] table [
       col sep=comma,
-      x = time,
-      y = score,
+      x=time,
+      y=score
     ]{#1};
 }
 
 \begin{tikzpicture}
   \begin{groupplot}[
-      group style = {
-          group size = 1 by 1,
-          ylabels at = edge left,
-          xlabels at = edge bottom,
+      cycle list/Paired,
+      group style={
+          group size=1 by 1,
+          xlabels at=edge bottom,
+          ylabels at=edge left
+        },
+      height=2in,
+      legend cell align={left},
+      legend pos=south east,
+      legend style={
+          draw=none,
+          font=\small
         },
       scale only axis,
-      width = 5.5in,
-      height = 2in,
-      xlabel = Time per instance (s),
-      ylabel = Score,
-      cycle list/Paired,
-      legend pos = south east,
-      legend style = {
-          draw = none,
-          font = \small,
-        },
-      legend cell align={left},
+      width=5.5in,
       x tick label style={
           /pgf/number format/.cd,
           fixed,
           fixed zerofill,
           precision=2,
           /tikz/.cd
-        }
+        },
+      xlabel=Time per instance (s),
+      ylabel=Score
     ]
     \nextgroupplot
     \plotscoretime{../results/evaluation/model=static_language=en_window=0-50_operation=sum_similarity=cosine_time.csv}{Paired-A}

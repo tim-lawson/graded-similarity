@@ -5,46 +5,55 @@
       score2,
       tstatistic,
       pvalue,
-      significant},
+      significant
+    },
   columns/embedding1/.style={
       column name=Embeddings,
-      string type},
+      string type
+    },
   columns/score1/.style={
       column name={Mean score},
       column type={r},
-      fixed,
       fixed zerofill,
-      precision=3},
+      fixed,
+      precision=3
+    },
   columns/embedding2/.style={
       column name=Embeddings,
-      string type},
+      string type
+    },
   columns/score2/.style={
       column name={Mean score},
       column type={r},
       fixed,
       fixed zerofill,
-      precision=3},
+      precision=3
+    },
   columns/tstatistic/.style={
       column name={$t$-statistic},
       column type={R{0.65in}},
-      relative*=1},
+      relative*=1
+    },
   columns/pvalue/.style={
       column name={$p$-value},
       column type={R{0.75in}},
-      sci zerofill},
+      sci zerofill
+    },
   columns/significant/.style={
-      column name={$p$ < 0.05},
-      column type={c},
       assign cell content/.code={
           \ifnum\pdfstrcmp{##1}{True}=0
             \pgfkeyssetvalue{/pgfplots/table/@cell content}{\checkmark}
           \else
             \pgfkeyssetvalue{/pgfplots/table/@cell content}{}
           \fi
-        }
+        },
+      column name={$p$ < 0.05},
+      column type={c}
     },
   every head row/.append style={before row={
           \toprule
           \multicolumn{2}{c}{Model 1} & \multicolumn{2}{c}{Model 2} & & & \\
           \cmidrule(lr){1-2} \cmidrule(lr){3-4}
-        }}}
+        }
+    }
+}

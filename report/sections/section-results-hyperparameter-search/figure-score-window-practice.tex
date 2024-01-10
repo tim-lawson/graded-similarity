@@ -2,14 +2,14 @@
   \foreach \modelname in #2
     {
       \addplot+[
-        sharp plot,
-        mark = none,
-        line width = 0.8pt,
-        discard if not = {model_name}{\modelname},
+        discard if not={model_name}{\modelname},
+        line width=0.8pt,
+        mark=none,
+        sharp plot
       ] table [
           col sep=comma,
-          x = window,
-          y = score,
+          x=window,
+          y=score
         ]{#1};
     }
 }
