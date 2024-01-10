@@ -102,6 +102,7 @@
     "\\pgfplotstableset{}": "ignore",
     "\\pgfplotstabletypeset[]{}": "ignore",
     "\\pgfplotstabletypeset[]": "ignore",
+    "\\pgfplotstabletypeset{}": "ignore",
     "\\ref{}": "ignore",
     "\\settowidth{}": "ignore"
   },
