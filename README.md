@@ -6,6 +6,7 @@ at the University of Bristol.
 The task I chose to investigate is
 [SemEval-2020 Task 3: Graded Word Similarity in Context](https://aclanthology.org/2020.semeval-1.3/)
 (Armendariz et al., SemEval 2020).
+
 The data, which is reproduced in this repository, is [available here](https://competitions.codalab.org/competitions/20905).
 
 ## Instructions
